@@ -1,0 +1,17 @@
+/* Navbar CSS */
+
+.NavbarCss {
+  background: hsla(0, 20%, 52%, 0.51) !important;
+  border-bottom: 3px solid var(--primary-color);
+}
+
+/* Navbar CSS */
+/* Footer CSS */
+.mainFooter {
+  background-color: hsla(0, 0%, 100%, 0.5098039215686274);
+  border-top: 3px solid var(--primary-color);
+  padding: 20px;
+  text-align: center;
+}
+
+/* Footer CSS */
