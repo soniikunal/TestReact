@@ -11,6 +11,7 @@ import SlideNavbar from '../Components/MUI/SlideNavbar.jsx'
 import NavLayout from '../Components/MUI/NavLayout.jsx'
 
 import Home from "../views/Tests/Test.jsx";
+import Login from "../views/Authentication/Login.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <NavLayout AppComponent ={<Home/>} />,
+  },
+  {
+    path: "/login",
+    element: <NavLayout AppComponent ={<Login/>} />,
   },
 ]);
 
