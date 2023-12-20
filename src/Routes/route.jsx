@@ -7,22 +7,22 @@ import {
   Link,
 } from "react-router-dom";
 
+import SlideNavbar from '../Components/MUI/SlideNavbar.jsx'
+import NavLayout from '../Components/MUI/NavLayout.jsx'
+
+import Home from "../views/Tests/Test.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div>
-        <h1>Hello World</h1>
-        <Link to="about">About Us</Link>
-      </div>
+      <SlideNavbar AppComponent ={<Home/>} />
     ),
   },
   {
-    path: "about",
-    element: <div>About</div>,
+    path: "/about",
+    element: <NavLayout AppComponent ={<Home/>} />,
   },
 ]);
 
-createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
+export default router
