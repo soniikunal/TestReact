@@ -75,7 +75,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft({ AppComponent }) {
+export default function Navbar({ AppComponent }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
