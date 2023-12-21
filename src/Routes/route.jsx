@@ -12,21 +12,31 @@ import NavLayout from '../Components/MUI/NavLayout.jsx'
 
 import Home from "../views/Tests/Test.jsx";
 import Login from "../views/Authentication/Login.jsx";
+import Register from "../views/Authentication/Register.jsx";
+import AddQuestion from "../views/AddQuestion.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <SlideNavbar AppComponent ={<Home/>} />
+      <SlideNavbar AppComponent={<Home />} />
     ),
   },
   {
     path: "/about",
-    element: <NavLayout AppComponent ={<Home/>} />,
+    element: <NavLayout AppComponent={<Home />} />,
   },
   {
     path: "/login",
-    element: <NavLayout AppComponent ={<Login/>} />,
+    element: <NavLayout AppComponent={<Login />} />,
+  },
+  {
+    path: "/register",
+    element: <NavLayout AppComponent={<Register />} />,
+  },
+  {
+    path: "/addQuestion",
+    element: <NavLayout AppComponent={<AddQuestion />} />,
   },
 ]);
 
