@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
   --primary-color: #0e6db6;
 }
+a {
+  color: black;
+  text-decoration: none;
+}
 /* 
 a {
   font-weight: 500;

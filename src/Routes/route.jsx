@@ -14,6 +14,7 @@ import Home from "../views/Tests/Test.jsx";
 import Login from "../views/Authentication/Login.jsx";
 import Register from "../views/Authentication/Register.jsx";
 import AddQuestion from "../views/AddQuestion.jsx";
+import Category from "../views/Category.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/addQuestion",
     element: <NavLayout AppComponent={<AddQuestion />} />,
+  },
+  {
+    path: "/category",
+    element: <NavLayout AppComponent={<Category />} />,
   },
 ]);
 
