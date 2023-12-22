@@ -10,18 +10,18 @@ export const GetCategories = async () => {
   }
 };
 
-export const AddCategory = async (categoryData) => {
+export const AddCategory = async (name) => {
   try {
-    const response = await axios.post(`${baseURL}/addCategory`, categoryData);
+    const response = await axios.post(`${baseURL}/addCategory`, {name});
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-export const UpdateCategory = async (categoryId, categoryData) => {
+export const UpdateCategory = async (categoryId, name) => {
   try {
-    const response = await axios.put(`${baseURL}/updateCategory/${categoryId}`, categoryData);
+    const response = await axios.put(`${baseURL}/updateCategory/${categoryId}`, {name});
     return response.data;
   } catch (error) {
     throw error;

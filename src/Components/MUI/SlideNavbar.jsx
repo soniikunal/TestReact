@@ -87,6 +87,24 @@ export default function Navbar({ AppComponent }) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const DrawerElements = [
+        {
+            displayName: 'Admin',
+            link: '/admin'
+        },
+        {
+            displayName: 'Login',
+            link: '/login'
+        },
+        {
+            displayName: 'Register',
+            link: '/register'
+        },
+        {
+            displayName: 'Admin',
+            link: '/admin'
+        },
+    ]
 
     return (
         <>
@@ -128,32 +146,22 @@ export default function Navbar({ AppComponent }) {
                     </DrawerHeader>
                     <Divider />
                     <List>
-                        <Link to="/addQuestion">
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <NoteAdd />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'addquestion'} />
-                                </ListItemButton>
-                            </ListItem>
-                        </Link>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? <Inbox /> : <MailIcon />}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-
-                                </ListItemButton>
-                            </ListItem>
+                        {DrawerElements.map((e) => (
+                            <Link key={e.link} to={e.link}>
+                                <ListItem disablePadding>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            <NoteAdd />
+                                        </ListItemIcon>
+                                        <ListItemText primary={e.displayName} />
+                                    </ListItemButton>
+                                </ListItem>
+                            </Link>
                         ))}
                     </List>
                     <Divider />
                     <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                        {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
                             <ListItem key={text} disablePadding>
                                 <ListItemButton>
                                     <ListItemIcon>
@@ -162,7 +170,7 @@ export default function Navbar({ AppComponent }) {
                                     <ListItemText primary={text} />
                                 </ListItemButton>
                             </ListItem>
-                        ))}
+                        ))} */}
                     </List>
                 </Drawer>
                 <Main open={open}>

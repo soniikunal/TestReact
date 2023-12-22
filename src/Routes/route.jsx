@@ -13,8 +13,9 @@ import NavLayout from '../Components/MUI/NavLayout.jsx'
 import Home from "../views/Tests/Test.jsx";
 import Login from "../views/Authentication/Login.jsx";
 import Register from "../views/Authentication/Register.jsx";
-import AddQuestion from "../views/AddQuestion.jsx";
-import Category from "../views/Category.jsx";
+import AddQuestion from "../Components/common/AddQuestionModal.jsx";
+import Category from "../Components/common/Category.jsx";
+import ComponentParent from "../views/ComponentParent.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,12 +37,8 @@ const router = createBrowserRouter([
     element: <NavLayout AppComponent={<Register />} />,
   },
   {
-    path: "/addQuestion",
-    element: <NavLayout AppComponent={<AddQuestion />} />,
-  },
-  {
-    path: "/category",
-    element: <NavLayout AppComponent={<Category />} />,
+    path: "/admin",
+    element: <SlideNavbar AppComponent={<ComponentParent/>} />,
   },
 ]);
 

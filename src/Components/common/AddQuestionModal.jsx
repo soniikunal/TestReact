@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container } from '@mui/material'
 import { Sheet, FormControl, FormLabel, Modal, ModalClose, AspectRatio, Typography, Input, FormHelperText, Select, Option, RadioGroup, Radio, Divider, Box, SvgIcon, Button, styled, ModalOverflow, IconButton } from '@mui/joy';
 import { Close } from '@mui/icons-material';
-import { AddQuestion } from '../config/apiConfig.js'
+import { AddQuestion } from '../../config/apiConfig.js'
 // import { DataGrid } from '@mui/x-data-grid';
 // import { useDemoData } from '@mui/x-data-grid-generator';
 
@@ -68,7 +68,6 @@ const AddQuestionModal = () => {
     }
 
     const handleOptionChange = (index, value) => {
-        debugger
         const newOptions = [...options];
         newOptions[index] = value;
         setOptions(newOptions);
@@ -81,7 +80,6 @@ const AddQuestionModal = () => {
     };
 
     const handleAddQuestion = async () => {
-        debugger
         const data = {
             question,
             category,
@@ -100,10 +98,9 @@ const AddQuestionModal = () => {
 
     return (
         <>
-            <Container>
                 {/* <DataGrid {...data} /> */}
                 <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
-                    Open modal
+                    Add Questions
                 </Button>
                 <Modal
                     aria-labelledby="modal-title"
@@ -233,8 +230,6 @@ const AddQuestionModal = () => {
                         </Sheet>
                     </ModalOverflow>
                 </Modal>
-
-            </Container >
         </>
     )
 }
