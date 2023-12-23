@@ -1,11 +1,6 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import SlideNavbar from '../Components/MUI/SlideNavbar.jsx'
 import NavLayout from '../Components/MUI/NavLayout.jsx'
@@ -17,8 +12,17 @@ import AddQuestion from "../Components/common/AddQuestionModal.jsx";
 import Category from "../Components/common/Category.jsx";
 import ComponentParent from "../views/ComponentParent.jsx";
 // import TypingTest from "../views/TypingTest.jsx";
+// import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <NavLayout AppComponent={<Register />} /> ,
+  },
+  {
+    path: "/register",
+    element: <NavLayout AppComponent={<Register />} />,
+  },
   {
     path: "/",
     element: (
@@ -30,20 +34,16 @@ const router = createBrowserRouter([
     element: <NavLayout AppComponent={<Home />} />,
   },
   {
-    path: "/login",
-    element: <NavLayout AppComponent={<Login />} />,
-  },
-  {
-    path: "/register",
-    element: <NavLayout AppComponent={<Register />} />,
-  },
-  {
     path: "/admin",
-    element: <SlideNavbar AppComponent={<ComponentParent/>} />,
+    element: <SlideNavbar AppComponent={<ComponentParent />} />,
   },
   // {
   //   path: "/typing-test",
   //   element: <SlideNavbar AppComponent={<TypingTest/>} />,
+  // },
+  // {
+  //   path: "/login",
+  //   element: <ProtectedRoute AppComponent={<NavLayout AppComponent={<Register />} />} />,
   // },
 ]);
 
