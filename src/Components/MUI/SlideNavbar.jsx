@@ -101,8 +101,8 @@ export default function Navbar({ AppComponent }) {
             link: '/register'
         },
         {
-            displayName: 'Admin',
-            link: '/admin'
+            displayName: 'TypingTest',
+            link: '/typing-test'
         },
     ]
 
