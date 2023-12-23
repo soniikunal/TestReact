@@ -16,7 +16,7 @@ import Register from "../views/Authentication/Register.jsx";
 import AddQuestion from "../Components/common/AddQuestionModal.jsx";
 import Category from "../Components/common/Category.jsx";
 import ComponentParent from "../views/ComponentParent.jsx";
-import TypingTest from "../views/TypingTest.jsx";
+// import TypingTest from "../views/TypingTest.jsx";
 
 const router = createBrowserRouter([
   {
@@ -41,10 +41,10 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <SlideNavbar AppComponent={<ComponentParent/>} />,
   },
-  {
-    path: "/typing-test",
-    element: <SlideNavbar AppComponent={<TypingTest/>} />,
-  },
+  // {
+  //   path: "/typing-test",
+  //   element: <SlideNavbar AppComponent={<TypingTest/>} />,
+  // },
 ]);
 
 export default router

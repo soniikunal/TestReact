@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container } from '@mui/material'
 import { Sheet, FormControl, FormLabel, Modal, ModalClose, AspectRatio, Typography, Input, FormHelperText, Select, Option, RadioGroup, Radio, Divider, Box, SvgIcon, Button, styled, ModalOverflow, IconButton } from '@mui/joy';
 import { Close } from '@mui/icons-material';
-import { AddQuestion } from '../../config/apiConfig.js'
+import { AddQuestion, GetCategories } from '../../config/apiConfig.js'
 // import { DataGrid } from '@mui/x-data-grid';
 // import { useDemoData } from '@mui/x-data-grid-generator';
 
@@ -20,6 +20,11 @@ const AddQuestionModal = () => {
     const [options, setOptions] = useState([]);
     const [question, setQuestion] = useState('');
     const [category, setCategory] = useState('');
+    const [categoryOptions, setCategoryOptions] = useState([]);
+
+    useEffect(() => {
+        fetchCategories()
+    }, [])
 
     const VisuallyHiddenInput = styled('input')`
     clip: rect(0 0 0 0);
@@ -54,7 +59,14 @@ const AddQuestionModal = () => {
             setOptions(initialOptions);
         }
     };
-
+    const fetchCategories = async () => {
+        try {
+            const allCategories = await GetCategories();
+            setCategoryOptions(allCategories)
+        } catch (error) {
+            console.error('FEtch failed:', error.message);
+        }
+    }
     const handleCorrectRadio = (e) => {
         if (e?.target) {
             setcorrectOpt(parseInt(e.target.value))
@@ -98,138 +110,139 @@ const AddQuestionModal = () => {
 
     return (
         <>
-                {/* <DataGrid {...data} /> */}
-                <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
-                    Add Questions
-                </Button>
-                <Modal
-                    aria-labelledby="modal-title"
-                    aria-describedby="modal-desc"
-                    open={open}
-                    onClose={() => setOpen(false)}
-                    // sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow:'auto' }}
-                    sx={{
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'flex-start'
-                    }}
-                >
-                    <ModalOverflow>
-                        <Sheet
-                            variant="outlined"
-                            sx={{
-                                maxWidth: 900,
-                                width: 700,
-                                borderRadius: 'md',
-                                p: 3,
-                                boxShadow: 'lg',
-                                margin: 'auto',
-                                flex: 'none'
-                            }}
+            {/* <DataGrid {...data} /> */}
+            <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
+                Add Questions
+            </Button>
+            <Modal
+                aria-labelledby="modal-title"
+                aria-describedby="modal-desc"
+                open={open}
+                onClose={() => setOpen(false)}
+                // sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow:'auto' }}
+                sx={{
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start'
+                }}
+            >
+                <ModalOverflow>
+                    <Sheet
+                        variant="outlined"
+                        sx={{
+                            maxWidth: 900,
+                            width: 700,
+                            borderRadius: 'md',
+                            p: 3,
+                            boxShadow: 'lg',
+                            margin: 'auto',
+                            flex: 'none'
+                        }}
+                    >
+                        <ModalClose variant="plain" sx={{ m: 1 }} />
+                        <Typography
+                            component="h2"
+                            id="modal-title"
+                            level="h4"
+                            textColor="inherit"
+                            fontWeight="lg"
+                            mb={1}
                         >
-                            <ModalClose variant="plain" sx={{ m: 1 }} />
-                            <Typography
-                                component="h2"
-                                id="modal-title"
-                                level="h4"
-                                textColor="inherit"
-                                fontWeight="lg"
-                                mb={1}
-                            >
-                                Add Question
-                            </Typography>
-                            <Sheet variant="outlined" color="neutral" sx={{ p: 4 }}>
-                                <FormControl sx={{ mb: 2 }}>
-                                    <FormLabel>Question</FormLabel>
-                                    <Input placeholder="Question" variant="soft" onChange={e => handleQuestionChange(e)} />
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>Category</FormLabel>
-                                    <Select
-                                        placeholder="Category"
-                                        variant="soft"
-                                        onChange={e => handleCategoryChange(e)}
-                                    >
-                                        <Option value="...">...</Option>
-                                    </Select>
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>Number of Options</FormLabel>
-                                    <Select
-                                        placeholder="No. of Options"
-                                        variant="soft"
-                                        value={optionQuantity} onChange={(e) => handleOptionQuantityChange(e)}
-                                        sx={{ mb: 2 }}
-                                    >
-                                        {[...Array(3).keys()].map((num) => (
-                                            <Option key={num + 2} value={num + 2}>
-                                                {num + 2}
-                                            </Option>
-                                        ))}
-                                    </Select>
-                                    <Divider />
-                                    {options.map((option, index) => (
-                                        <Input placeholder={`Option ${index + 1}`} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
+                            Add Question
+                        </Typography>
+                        <Sheet variant="outlined" color="neutral" sx={{ p: 4 }}>
+                            <FormControl sx={{ mb: 2 }}>
+                                <FormLabel>Question</FormLabel>
+                                <Input placeholder="Question" variant="soft" onChange={e => handleQuestionChange(e)} />
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Category</FormLabel>
+                                <Select
+                                    placeholder="Category"
+                                    variant="soft"
+                                    onChange={e => handleCategoryChange(e)}
+                                >
+                                    {categoryOptions.map((option) => (
+                                        <Option key={option.name} value={option.name}>{option.name}</Option>))}
+                                </Select>
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Number of Options</FormLabel>
+                                <Select
+                                    placeholder="No. of Options"
+                                    variant="soft"
+                                    value={optionQuantity} onChange={(e) => handleOptionQuantityChange(e)}
+                                    sx={{ mb: 2 }}
+                                >
+                                    {[...Array(3).keys()].map((num) => (
+                                        <Option key={num + 2} value={num + 2}>
+                                            {num + 2}
+                                        </Option>
                                     ))}
-                                </FormControl>
+                                </Select>
                                 <Divider />
-                                {options.length > 0 && (
-                                    <FormControl>
-                                        <FormLabel id="optionRadio">Correct Option</FormLabel>
-                                        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-                                            {options.map((option, index) => (
-                                                <Radio value={index + 1} label={index + 1} checked={correctOpt === index + 1} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
-                                            ))}
-                                        </Box>
-                                    </FormControl>)}
+                                {options.map((option, index) => (
+                                    <Input placeholder={`Option ${index + 1}`} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
+                                ))}
+                            </FormControl>
+                            <Divider />
+                            {options.length > 0 && (
                                 <FormControl>
-                                    <FormLabel>Image</FormLabel>
-                                    {avatar && (
-                                        <Box sx={{
-                                            display: 'contents'
-                                        }}>
-                                            <img src={avatar} style={{ maxHeight: '250px', objectFit: 'contain' }} />
-                                            <IconButton aria-label="close" onClick={removeAvatar} sx={{ position: 'absolute', top: '0', right: '0px', }}>
-                                                <Close />
-                                            </IconButton>
-                                        </Box>
-                                    )}
-                                    <Button
-                                        component="label"
-                                        role={undefined}
-                                        tabIndex={-1}
-                                        variant="outlined"
-                                        color="neutral"
-                                        startDecorator={
-                                            <SvgIcon>
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth={1.5}
-                                                    stroke="currentColor"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-                                                    />
-                                                </svg>
-                                            </SvgIcon>
-                                        }
-                                    >
-                                        Upload a file
-                                        <VisuallyHiddenInput type="file" onChange={(e) => setTheAvatar(e)} />
-                                    </Button>
-                                </FormControl>
-                                <FormControl>
-                                    <Button onClick={handleAddQuestion}>Add Question</Button>
-                                </FormControl>
+                                    <FormLabel id="optionRadio">Correct Option</FormLabel>
+                                    <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                                        {options.map((option, index) => (
+                                            <Radio value={index + 1} label={index + 1} checked={correctOpt === index + 1} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
+                                        ))}
+                                    </Box>
+                                </FormControl>)}
+                            <FormControl>
+                                <FormLabel>Image</FormLabel>
+                                {avatar && (
+                                    <Box sx={{
+                                        display: 'contents'
+                                    }}>
+                                        <img src={avatar} style={{ maxHeight: '250px', objectFit: 'contain' }} />
+                                        <IconButton aria-label="close" onClick={removeAvatar} sx={{ position: 'absolute', top: '0', right: '0px', }}>
+                                            <Close />
+                                        </IconButton>
+                                    </Box>
+                                )}
+                                <Button
+                                    component="label"
+                                    role={undefined}
+                                    tabIndex={-1}
+                                    variant="outlined"
+                                    color="neutral"
+                                    startDecorator={
+                                        <SvgIcon>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+                                                />
+                                            </svg>
+                                        </SvgIcon>
+                                    }
+                                >
+                                    Upload a file
+                                    <VisuallyHiddenInput type="file" onChange={(e) => setTheAvatar(e)} />
+                                </Button>
+                            </FormControl>
+                            <FormControl>
+                                <Button onClick={handleAddQuestion}>Add Question</Button>
+                            </FormControl>
 
-                            </Sheet>
                         </Sheet>
-                    </ModalOverflow>
-                </Modal>
+                    </Sheet>
+                </ModalOverflow>
+            </Modal>
         </>
     )
 }
