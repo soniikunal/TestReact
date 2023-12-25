@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { register } from '../../config/authServices.js';
 import { Box, Grid, } from '@mui/material'
 import { Input, FormLabel, FormControl, Button } from '@mui/joy'
+import image from "../../assets/register-image.svg"
 
 const Register = () => {
     const [mailId, setMailId] = useState('');
@@ -19,13 +20,13 @@ const Register = () => {
 
     return (
         <>
-            <Grid container spacing={2} >
-                <Grid item xs={0} md={8} sx={{ borderRight: '1px solid #64626233' }}>
-                    <Box>xs=6 md=8</Box>
+            <Grid container spacing={2} alignItems="center" >
+                <Grid item xs={0} md={8} sx={{ display: 'flex', alignItems: "center", justifyContent: 'center', justifyItems: 'center', borderRight: '1px solid #64626233' }}>
+                    <Box><img src={image} alt="" /></Box>
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', justifyItems: 'center', flexDirection: 'column' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', justifyItems: 'center', flexDirection: 'column', mx: '2rem' }}>
                         {/* <FormControl sx={{ my: 1 }}>
               <FormLabel>Username</FormLabel>
               <Input value={username} onChange={(e) => setUsername(e.target.value)} />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container } from '@mui/material'
 import { Sheet, FormControl, FormLabel, Modal, ModalClose, AspectRatio, Typography, Input, FormHelperText, Select, Option, RadioGroup, Radio, Divider, Box, SvgIcon, Button, styled, ModalOverflow, IconButton } from '@mui/joy';
 import { Close } from '@mui/icons-material';
-import { AddQuestion, GetCategories } from '../../config/apiConfig.js'
+import { AddQuestion, GetCategories, UploadImage } from '../../config/apiConfig.js'
 // import { DataGrid } from '@mui/x-data-grid';
 // import { useDemoData } from '@mui/x-data-grid-generator';
 
@@ -108,6 +108,22 @@ const AddQuestionModal = () => {
         }
     };
 
+    // const saveImage = async (e) => {
+    //     debugger
+    //     const file = e.target.files[0];
+    //     // const formData = new FormData();
+    //     // formData.append('avatar', file);
+    //     const formData ={avatar:file}
+
+    //     try {
+    //         const result = await UploadImage(file);
+    //         console.log('Login successful:', result);
+    //     } catch (error) {
+    //         console.error('Login failed:', error.message);
+    //     }
+       
+    // }
+
     return (
         <>
             {/* <DataGrid {...data} /> */}
@@ -130,8 +146,8 @@ const AddQuestionModal = () => {
                     <Sheet
                         variant="outlined"
                         sx={{
-                            maxWidth: 900,
-                            width: 700,
+                            maxWidth: 1000,
+                            width: 900,
                             borderRadius: 'md',
                             p: 3,
                             boxShadow: 'lg',
@@ -232,6 +248,7 @@ const AddQuestionModal = () => {
                                     }
                                 >
                                     Upload a file
+                                    {/* <VisuallyHiddenInput type="file" onChange={(e) => saveImage(e)} /> */}
                                     <VisuallyHiddenInput type="file" onChange={(e) => setTheAvatar(e)} />
                                 </Button>
                             </FormControl>

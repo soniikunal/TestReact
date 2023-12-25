@@ -11,13 +11,13 @@ import Register from "../views/Authentication/Register.jsx";
 import AddQuestion from "../Components/common/AddQuestionModal.jsx";
 import Category from "../Components/common/Category.jsx";
 import ComponentParent from "../views/ComponentParent.jsx";
-// import TypingTest from "../views/TypingTest.jsx";
+import TypingTest from "../views/Tests/TypingTest.jsx";
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <NavLayout AppComponent={<Register />} /> ,
+    element: <NavLayout AppComponent={<Login />} /> ,
   },
   {
     path: "/register",
@@ -37,10 +37,10 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <SlideNavbar AppComponent={<ComponentParent />} />,
   },
-  // {
-  //   path: "/typing-test",
-  //   element: <SlideNavbar AppComponent={<TypingTest/>} />,
-  // },
+  {
+    path: "/typing-test",
+    element: <SlideNavbar AppComponent={<TypingTest/>} />,
+  },
   // {
   //   path: "/login",
   //   element: <ProtectedRoute AppComponent={<NavLayout AppComponent={<Register />} />} />,

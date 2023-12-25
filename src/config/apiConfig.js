@@ -38,10 +38,26 @@ export const DeleteCategory = async (categoryId) => {
 };
 
 export const AddQuestion = async (questionData) => {
-    debugger
     try {
       const response = await axios.post(`${baseURL}/addQuestion`, questionData);
-      debugger
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+export const GetQuestions = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/getQuestions`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  export const UploadImage = async (formData) => {
+    try {
+      const response = await axios.post(`${baseURL}/upload`, formData);
       return response.data;
     } catch (error) {
       throw error;

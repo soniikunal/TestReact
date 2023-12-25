@@ -2,7 +2,10 @@
 import React, { useState } from 'react';
 import { login } from '../../config/authServices.js';
 import { Box, Grid, } from '@mui/material'
-import { Input, FormLabel, FormControl, Button } from '@mui/joy'
+import { Input, FormLabel, FormControl, Button, Checkbox } from '@mui/joy'
+import image from "../../assets/login-image.svg"
+// import Checkbox from '@mui/joy/Checkbox';
+
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -19,22 +22,32 @@ const Login = () => {
 
   return (
     <>
-      <Grid container spacing={2} >
-        <Grid item xs={0} md={8} sx={{ borderRight: '1px solid #64626233' }}>
-          <Box>xs=6 md=8</Box>
+      <Grid container spacing={2} alignItems="center" sx={{height:'calc(100% - 20px)'}}>
+        <Grid item xs={0} md={8} sx={{ display: 'flex', alignItems: "center", justifyContent: 'center', justifyItems: 'center', borderRight: '1px solid #64626233' }}>
+          <Box><img src={image} alt="" /></Box>
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', justifyItems: 'center', flexDirection: 'column' }}>
+          <Box sx={{ gap: '0.5rem', display: 'flex', justifyContent: 'center', flexDirection: 'column', mx: '2rem' }}>
+            <h2>Welcome 👋</h2>
+            {/* <p>Please sign-in to your account and start the adventure</p> */}
             <FormControl sx={{ my: 1 }}>
               <FormLabel>Username</FormLabel>
               <Input value={username} onChange={(e) => setUsername(e.target.value)} />
             </FormControl>
             <FormControl sx={{ my: 1 }}>
               <FormLabel>Password</FormLabel>
-              <Input value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input sx={{ mb: 1 }} value={password} onChange={(e) => setPassword(e.target.value)} />
+              {/* <a href="" >Forgot Password?</a> */}
             </FormControl>
+            {/* <Checkbox color="primary" disabled={false} label="Remember Me" /> */}
             <Button onClick={handleLogin} size="lg" sx={{ my: 2 }}>Login</Button>
+
+            <Box sx={{ textAlign: 'center' }}>
+              <p>
+                New on our platform? <a href="/register" style={{ color: 'blue' }}>Create an account</a>
+              </p>
+            </Box>
           </Box>
         </Grid>
       </Grid>
