@@ -1,7 +1,7 @@
 /* Navbar CSS */
 
 .NavbarCss {
-  background: hsla(0, 20%, 52%, 0.51) !important;
+  background: hsl(0, 5%, 84%) !important;
   border-bottom: 3px solid var(--primary-color);
 }
 

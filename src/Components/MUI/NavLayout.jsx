@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Footer from './Footer';
+import logo from "../../assets/FBSPL Logo.png"
 
 export default function NavLayout({ AppComponent }) {
 
@@ -37,8 +38,8 @@ export default function NavLayout({ AppComponent }) {
               >
                 <MenuIcon />
               </IconButton> */}
+              <img src={logo} style={{ width: 'auto', height: '60px' }} />
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Test
               </Typography>
               {/* <Button color="inherit">Login</Button> */}
             </Toolbar>
@@ -49,7 +50,7 @@ export default function NavLayout({ AppComponent }) {
         </Wrapper>
 
         <Footer />
-      </Main> 
+      </Main>
     </>
   );
 }

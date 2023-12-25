@@ -8,16 +8,15 @@ import NavLayout from '../Components/MUI/NavLayout.jsx'
 import Home from "../views/Tests/Test.jsx";
 import Login from "../views/Authentication/Login.jsx";
 import Register from "../views/Authentication/Register.jsx";
-import AddQuestion from "../Components/common/AddQuestionModal.jsx";
-import Category from "../Components/common/Category.jsx";
 import ComponentParent from "../views/ComponentParent.jsx";
+import ManageTest from "../views/Admin/ManageTest.jsx"
 import TypingTest from "../views/Tests/TypingTest.jsx";
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <NavLayout AppComponent={<Login />} /> ,
+    element: <NavLayout AppComponent={<Login />} />,
   },
   {
     path: "/register",
@@ -30,8 +29,12 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/about",
+    path: "/dev",
     element: <NavLayout AppComponent={<Home />} />,
+  },
+  {
+    path: "/manage-question",
+    element: <SlideNavbar AppComponent={<ManageTest/>} />,
   },
   {
     path: "/admin",
@@ -39,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/typing-test",
-    element: <SlideNavbar AppComponent={<TypingTest/>} />,
+    element: <SlideNavbar AppComponent={<TypingTest />} />,
   },
   // {
   //   path: "/login",

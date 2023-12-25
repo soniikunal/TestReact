@@ -26,7 +26,7 @@ const TypingTest = () => {
     }, []);
 
     useEffect(() => {
-        debugger
+        // debugger 
         if (timeLeft > 0 && isTyping) {
             const timer = setInterval(() => {
                 setTimeLeft(timeLeft - 1);
@@ -80,7 +80,21 @@ const TypingTest = () => {
     const handleFocusClick = () => {
         inputRef.current.focus();
     }
-
+    const CalculateResult = () => {
+        // let paragraph = "Authors often misinterpret the lettuce as a folklore rabbi, when in actuality it feels more like an uncursed bacon."
+        // let text = "Authors often misinterpret the lettuce as a folklore rabi, when "
+        const paraArr = paragraph.split(' ')
+        const textArr = text.split(' ')
+        let error = 0
+        for (let index = 0; index < paraArr.length; index++) {
+            if (textArr[index] !== undefined) {
+                if (paraArr[index] !== textArr[index]) {
+                    error++
+                }
+            } else return
+        }
+        const Accuracy = ((textArr.length - error) / textArr.length * 100).toFixed()
+    }
     const resetGame = () => {
         loadParagraph();
         setTimeLeft(60);
@@ -120,7 +134,11 @@ const TypingTest = () => {
                 </Typography>
                 <Card className="" sx={{ my: 'auto' }}>
                     <input type="text" className="input-field" ref={inputRef} onChange={e => handleChange(e)} value={text} />
-                    <Chip color="primary" className='blinking-chip' sx={{ ml: 'auto' }}>00:{timeLeft}</Chip>
+                    <Box className='blinking-chip' sx={{ display: 'flex', textAlign: 'center' }}>
+
+                        {isTyping ? "" : 'Start Typing'}
+                        <Chip color="primary" sx={{ ml: 'auto' }}>00:{timeLeft}</Chip>
+                    </Box>
                     <div className="typing-text">
                         <div className="content-box" onClick={handleFocusClick}>
                             {paragraph ?

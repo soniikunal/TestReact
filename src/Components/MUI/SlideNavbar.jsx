@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Link } from "react-router-dom";
 import './common.css'
 import Footer from './Footer';
+import logo from "../../assets/FBSPL Logo.png"
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -89,6 +90,10 @@ export default function Navbar({ AppComponent }) {
     };
     const DrawerElements = [
         {
+            displayName: 'Manage Questions',
+            link: '/manage-question'
+        },
+        {
             displayName: 'Admin',
             link: '/admin'
         },
@@ -121,8 +126,8 @@ export default function Navbar({ AppComponent }) {
                         >
                             <MenuIcon />
                         </IconButton>
+                        <img src={logo} style={{ width: 'auto', height: '60px' }} />
                         <Typography variant="h6" noWrap component="div">
-                            Test Management
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -147,7 +152,7 @@ export default function Navbar({ AppComponent }) {
                     <Divider />
                     <List>
                         {DrawerElements.map((e) => (
-                            <Link key={e.link} to={e.link}>
+                            <Link key={e.link} to={e.link} onClick={handleDrawerClose}>
                                 <ListItem disablePadding>
                                     <ListItemButton>
                                         <ListItemIcon>
