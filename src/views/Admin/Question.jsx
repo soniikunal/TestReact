@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Typography, Input, Stack, Box, Button } from '@mui/joy'
-import QuestionPreviewModal from '../../Components/common/QuestionPreviewModal'
-import AddQuestionModal from '../../Components/common/AddQuestionModal'
-import Category from '../../Components/common/Category'
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import LayersIcon from '@mui/icons-material/Layers';
+import QuestionPreviewModal from '../../Components/common/QuestionPreviewModal'
+import AddQuestionModal from '../../Components/common/AddQuestionModal'
+import EditQuestionModal from '../../Components/common/EditQuestionModal'
+import Category from '../../Components/common/Category'
+import DeleteConfModal from '../../Components/common/DeleteConfModal';
+import { DelQuestion, GetQuestions } from '../../config/apiConfig';
+import { toastError, toastSuccess } from '../../Utils/Toasts';
 
 const data = [{
     "_id": {
@@ -43,26 +47,28 @@ const data = [{
 
 const Question = () => {
     const [questions, setQuestions] = useState([]);
-    const [selectedQuestion, setSelectedQuestion] = useState();
+    const [selectedQuestion, setSelectedQuestion] = useState(null);
+    const [deletedQuestion, setDeletedQuestion] = useState(null);
+    const [editQuestion, setEditQuestion] = useState(null);
     const [isModalOpen, setModalOpen] = useState(true);
 
-    useEffect(()=>{
-        setQuestions(data)
-    })
-  
+    useEffect(() => {
+        fetchQuestion()
+    }, [])
+
 
     const columns = [
         { field: 'uniqueCode', headerName: 'ID', width: 100 },
         {
             field: 'question',
             headerName: 'Question',
-            width: 500,
+            width: 1000,
             editable: true,
         },
         {
             field: 'category',
             headerName: 'Category',
-            width: 500,
+            width: 200,
             editable: true,
         },
         {
@@ -97,22 +103,50 @@ const Question = () => {
             },
         },
     ];
-    const handleDeleteClick = (id) => async () => {
 
+    const fetchQuestion = async () => {
+        try {
+            const allQuestions = await GetQuestions();
+            setQuestions(allQuestions)
+        } catch (error) {
+            console.error('FEtch failed:', error.message);
+        }
+    }
+
+    const handleDeleteClick = (id) => () => {
+        const selectedQue = questions.filter(e => e.uniqueCode == id)
+        setDeletedQuestion(selectedQue[0])
+        setModalOpen(true);
     };
 
     const handleEditClick = (id) => () => {
+        const editedQue = questions.filter(e => e.uniqueCode == id)
+        setEditQuestion(editedQue[0])
+        setModalOpen(true);
+    };
 
+    const onDelete = async () => {
+        try {
+            const { _id } = deletedQuestion
+            const deletedObj = await DelQuestion(_id)
+            fetchQuestion()
+            toastSuccess(deletedObj.message)
+            handleCloseModal()
+        } catch (error) {
+            toastError(error.message)
+            console.error('Update failed:', error.message);
+        }
     };
 
     const handleShowClick = (question) => () => {
-        const selectedQuestion = questions.filter(e=> e.uniqueCode == question)
-        setSelectedQuestion(selectedQuestion[0]);
+        const selectedQue = questions.filter(e => e.uniqueCode == question)
+        setSelectedQuestion(selectedQue[0]);
         setModalOpen(true);
     };
 
     const handleCloseModal = () => {
         setModalOpen(false);
+        setDeletedQuestion(null)
         setSelectedQuestion(null);
     };
 
@@ -164,6 +198,26 @@ const Question = () => {
                     open={isModalOpen}
                 />
             )}
+            {
+                deletedQuestion && (
+                    <DeleteConfModal
+                        onDelete={onDelete}
+                        onClose={handleCloseModal}
+                        open={isModalOpen}
+                        deletedQuestion={deletedQuestion}
+                    />
+                )
+            }
+            {
+                editQuestion && (
+                    <EditQuestionModal
+                        onDelete={onDelete}
+                        onClose={handleCloseModal}
+                        open={isModalOpen}
+                        question={editQuestion}
+                    />
+                )
+            }
         </>
     )
 }

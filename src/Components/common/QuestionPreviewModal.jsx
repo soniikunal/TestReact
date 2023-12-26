@@ -23,7 +23,7 @@ const QuestionPreviewModal = ({ open, handleClose, question }) => {
                             ))}
                         </ul>
                         <Typography variant="subtitle1" sx={{ marginTop: 2, fontWeight: 'bold' }}>
-                            Correct Answer: {}
+                            Correct Answer: <span style={{color:"green"}}>{question.correctOpt}</span>
                         </Typography>
                     </CardContent>
                     {/* <Divider />

@@ -11,6 +11,7 @@ import Register from "../views/Authentication/Register.jsx";
 import ComponentParent from "../views/ComponentParent.jsx";
 import ManageTest from "../views/Admin/ManageTest.jsx"
 import TypingTest from "../views/Tests/TypingTest.jsx";
+import DeleteConfModal from "../Components/common/DeleteConfModal.jsx";
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
@@ -30,11 +31,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dev",
-    element: <NavLayout AppComponent={<Home />} />,
+    element: <NavLayout AppComponent={<DeleteConfModal />} />,
   },
   {
     path: "/manage-question",
-    element: <SlideNavbar AppComponent={<ManageTest/>} />,
+    element: <SlideNavbar AppComponent={<ManageTest />} />,
   },
   {
     path: "/admin",

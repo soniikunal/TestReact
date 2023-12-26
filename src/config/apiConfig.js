@@ -55,6 +55,15 @@ export const GetQuestions = async () => {
     }
   };
 
+  export const DelQuestion = async (categoryId) => {
+    try {
+      const response = await axios.delete(`${baseURL}/delQuestion/${categoryId}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   export const UploadImage = async (formData) => {
     try {
       const response = await axios.post(`${baseURL}/upload`, formData);
