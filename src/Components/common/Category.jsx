@@ -15,9 +15,9 @@ const Category = () => {
     const [categoryItem, setCategoryItem] = useState(null);
     const [categoryName, setCategoryName] = useState('');
 
-    useEffect(() => {
-        fetchCategories()
-    }, [])
+    // useEffect(() => {
+    //     fetchCategories()
+    // }, [])
 
     const columns = [
         { field: '_id', headerName: 'ID', width: 180 },
@@ -113,49 +113,52 @@ const Category = () => {
 
     return (
         <>
-                <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
-                    Manage Categories
-                </Button>
-                <Modal
-                    aria-labelledby="modal-title"
-                    aria-describedby="modal-desc"
-                    open={open}
-                    onClose={() => setOpen(false)}
-                    // sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow:'auto' }}
-                    sx={{
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'flex-start'
-                    }}
-                >
-                    <ModalOverflow>
-                        <Sheet
-                            variant="outlined"
-                            sx={{
-                                maxWidth: 900,
-                                width: 700,
-                                borderRadius: 'md',
-                                p: 3,
-                                boxShadow: 'lg',
-                                margin: 'auto',
-                                flex: 'none'
-                            }}
+            <Button variant="outlined" color="neutral" onClick={() => {
+                fetchCategories()
+                setOpen(true)
+            }}>
+                Manage Categories
+            </Button>
+            <Modal
+                aria-labelledby="modal-title"
+                aria-describedby="modal-desc"
+                open={open}
+                onClose={() => setOpen(false)}
+                // sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow:'auto' }}
+                sx={{
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start'
+                }}
+            >
+                <ModalOverflow>
+                    <Sheet
+                        variant="outlined"
+                        sx={{
+                            maxWidth: 900,
+                            width: 700,
+                            borderRadius: 'md',
+                            p: 3,
+                            boxShadow: 'lg',
+                            margin: 'auto',
+                            flex: 'none'
+                        }}
+                    >
+                        <ModalClose variant="plain" sx={{ m: 1 }} />
+                        <Typography
+                            component="h2"
+                            id="modal-title"
+                            level="h4"
+                            textColor="inherit"
+                            fontWeight="lg"
+                            mb={1}
                         >
-                            <ModalClose variant="plain" sx={{ m: 1 }} />
-                            <Typography
-                                component="h2"
-                                id="modal-title"
-                                level="h4"
-                                textColor="inherit"
-                                fontWeight="lg"
-                                mb={1}
-                            >
-                                Categories
-                            </Typography>
-                            <Divider sx={{ my: 2 }} />
-                            <Sheet >
-                                <Box>
-                                    {/* {(editingMode === false) ? <FormControl sx={{ mb: 2, flexDirection: "row", gap: "20px" }}>
+                            Categories
+                        </Typography>
+                        <Divider sx={{ my: 2 }} />
+                        <Sheet >
+                            <Box>
+                                {/* {(editingMode === false) ? <FormControl sx={{ mb: 2, flexDirection: "row", gap: "20px" }}>
                                         <FormLabel>Add Category</FormLabel>
                                         <Input placeholder="Category Name" variant="soft" onChange={e => handleAddCategoryName(e)} sx={{ flexGrow: 1 }} />
                                         <Button>Submit</Button>
@@ -164,24 +167,24 @@ const Category = () => {
                                         <Input placeholder="Category Name"  value={categoryItem.name} variant="soft" onChange={e => handleAddCategoryName(e)} sx={{ flexGrow: 1 }} />
                                         <Button onClick={handleSaveClick}>Save</Button>
                                     </FormControl>} */}
-                                    <FormControl sx={{ mb: 2, flexDirection: "row", gap: "20px" }}>
-                                        <FormLabel>{(editingMode === false) ? 'Add Category' : 'Edit Category'}</FormLabel>
-                                        <Input placeholder="Category Name" value={categoryName} variant="soft" onKeyDown={e => e.key === 'Enter' && handleSaveClick()} onChange={e => handleAddCategoryName(e)} sx={{ flexGrow: 1 }} />
-                                        <Button onClick={handleSaveClick}>{(editingMode === false) ? 'Submit' : 'Save'}</Button>
-                                    </FormControl>
-                                </Box>
+                                <FormControl sx={{ mb: 2, flexDirection: "row", gap: "20px" }}>
+                                    <FormLabel>{(editingMode === false) ? 'Add Category' : 'Edit Category'}</FormLabel>
+                                    <Input placeholder="Category Name" value={categoryName} variant="soft" onKeyDown={e => e.key === 'Enter' && handleSaveClick()} onChange={e => handleAddCategoryName(e)} sx={{ flexGrow: 1 }} />
+                                    <Button onClick={handleSaveClick}>{(editingMode === false) ? 'Submit' : 'Save'}</Button>
+                                </FormControl>
+                            </Box>
 
 
-                                <DataGrid rows={rows}
-                                    columns={columns}
-                                    editMode="row"
-                                    getRowId={(row) => row._id}
-                                />
+                            <DataGrid rows={rows}
+                                columns={columns}
+                                editMode="row"
+                                getRowId={(row) => row._id}
+                            />
 
-                            </Sheet>
                         </Sheet>
-                    </ModalOverflow>
-                </Modal>
+                    </Sheet>
+                </ModalOverflow>
+            </Modal>
         </>
     )
 }

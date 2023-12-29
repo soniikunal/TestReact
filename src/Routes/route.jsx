@@ -12,6 +12,7 @@ import ComponentParent from "../views/ComponentParent.jsx";
 import ManageTest from "../views/Admin/ManageTest.jsx"
 import TypingTest from "../views/Tests/TypingTest.jsx";
 import DeleteConfModal from "../Components/common/DeleteConfModal.jsx";
+import TinyMCEEditor from "../Components/common/TinyMCEEditor.jsx";
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dev",
-    element: <NavLayout AppComponent={<DeleteConfModal />} />,
+    element: <NavLayout AppComponent={<TinyMCEEditor/>}/>,
   },
   {
     path: "/manage-question",
