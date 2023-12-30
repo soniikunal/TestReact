@@ -148,6 +148,7 @@ const Question = () => {
         setModalOpen(false);
         setDeletedQuestion(null)
         setSelectedQuestion(null);
+        setEditQuestion(null);
     };
 
     return (

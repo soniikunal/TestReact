@@ -45,7 +45,7 @@ const ManageTest = () => {
                     }}
                 >
                     <Tab indicatorInset>
-                        100 Questions
+                        Pre Screening Test
                     </Tab>
                     <Tab indicatorInset>
                         Article

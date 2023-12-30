@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Container } from '@mui/material'
 import { Sheet, FormControl, FormLabel, Modal, ModalClose, AspectRatio, Typography, Input, FormHelperText, Select, Option, RadioGroup, Radio, Divider, Box, SvgIcon, Button, styled, ModalOverflow, IconButton } from '@mui/joy';
 import { Close } from '@mui/icons-material';
-import { AddQuestion, GetCategories, UploadImage } from '../../config/apiConfig.js'
+import { AddQuestion, GetCategories } from '../../config/apiConfig.js'
 
 const EditQuestionModal = ({ open, onClose, question }) => {
-
+    
     const [avatar, setAvatar] = useState(null);
     const [correctOpt, setcorrectOpt] = useState(question.correctOpt);
     const [optionQuantity, setOptionQuantity] = useState(question.options.length);
@@ -169,7 +169,7 @@ const EditQuestionModal = ({ open, onClose, question }) => {
                                 </Select>
                                 <Divider />
                                 {options.map((option, index) => (
-                                    <Input placeholder={`Option ${index + 1}`} value={option} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
+                                    <Input placeholder={`Option ${index + 1}`} key={option} value={option} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
                                 ))}
                             </FormControl>
                             <Divider />
@@ -178,7 +178,7 @@ const EditQuestionModal = ({ open, onClose, question }) => {
                                     <FormLabel id="optionRadio">Correct Option</FormLabel>
                                     <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                                         {options.map((option, index) => (
-                                            <Radio value={index + 1} label={index + 1} checked={correctOpt == index +1} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
+                                            <Radio value={index + 1} key={option} label={index + 1} checked={correctOpt == index +1} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
                                         ))}
                                     </Box>
                                 </FormControl>)}

@@ -63,12 +63,3 @@ export const GetQuestions = async () => {
       throw error;
     }
   };
-
-  export const UploadImage = async (formData) => {
-    try {
-      const response = await axios.post(`${baseURL}/upload`, formData);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  };
