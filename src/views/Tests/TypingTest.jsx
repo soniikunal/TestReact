@@ -5,7 +5,7 @@ import TimerOffIcon from '@mui/icons-material/TimerOff';
 
 const paragraphs = [
     "Their politician was, in this moment, a notour paperback. The first armless grouse is, in its own way, a gear. The coat is a wash. However, a cake is the llama of a caravan. Snakelike armies show us how playgrounds can be viscoses. Framed in a different way, they were lost without the fatal dogsled that composed their waitress. Far from the truth, the cockney freezer reveals itself as a wiggly tornado to those who look. The first hawklike sack.",
-    "Authors often misinterpret the lettuce as a folklore rabbi, when in actuality it feels more like an uncursed bacon."
+    // "Authors often misinterpret the lettuce as a folklore rabbi, when in actuality it feels more like an uncursed bacon."
 ];
 
 const TypingTest = () => {
@@ -15,8 +15,6 @@ const TypingTest = () => {
     const [mistakes, setMistakes] = useState(0);
     const [isTyping, setIsTyping] = useState(false);
     const [paragraph, setParagraph] = useState("");
-    const [wpm, setWpm] = useState(0);
-    const [accuracy, setAccuracy] = useState(0);
 
     const inputRef = useRef(null);
     const TestDivRef = useRef(null);
@@ -26,20 +24,14 @@ const TypingTest = () => {
     }, []);
 
     useEffect(() => {
-        // debugger 
+        if(timeLeft == 0){
+            CalculateResult()
+        }
         if (timeLeft > 0 && isTyping) {
             const timer = setInterval(() => {
                 setTimeLeft(timeLeft - 1);
             }, 1000);
             return () => clearInterval(timer);
-        } else {
-            //call submit and redirect to next page.
-            // setParagraph('')
-            // console.log({
-            //     WPM: wpm,
-            //     Accuracy: accuracy,
-            //     NetSpeed: (wpm*accuracy).toFixed()
-            // })
         }
         inputRef.current.focus();
     }, [timeLeft, isTyping]);
@@ -50,7 +42,6 @@ const TypingTest = () => {
     }
 
     const handleChange = (e) => {
-        //   debugger
         if (timeLeft === 60 && !isTyping) {
             setIsTyping(true);
         }
@@ -61,39 +52,18 @@ const TypingTest = () => {
         }
         setMistakes(errs);
         setCharIndex(e.target.value.length);
-
-        let wpm, cpm;
-        debugger
-
-        if (charIndex === 0) {
-            wpm = 0;
-            cpm = 0;
-        } else {
-            wpm = Math.round(((charIndex - mistakes) / 5) / (1 - timeLeft / 60) * 60);
-            cpm = charIndex - mistakes;
-        }
-
-        setWpm(wpm); // Update the state of WPM
-        setAccuracy(cpm); // Update the state of CPM Net Speed wpm * cpm = accuracy.toFixed()
-
     }
     const handleFocusClick = () => {
         inputRef.current.focus();
     }
     const CalculateResult = () => {
-        // let paragraph = "Authors often misinterpret the lettuce as a folklore rabbi, when in actuality it feels more like an uncursed bacon."
-        // let text = "Authors often misinterpret the lettuce as a folklore rabi, when "
-        const paraArr = paragraph.split(' ')
-        const textArr = text.split(' ')
-        let error = 0
-        for (let index = 0; index < paraArr.length; index++) {
-            if (textArr[index] !== undefined) {
-                if (paraArr[index] !== textArr[index]) {
-                    error++
-                }
-            } else return
-        }
-        const Accuracy = ((textArr.length - error) / textArr.length * 100).toFixed()
+        setParagraph(null)
+        const Accuracy = Math.round(((charIndex - mistakes) / charIndex) * 100);
+        const WordPrMinute = Math.round(((charIndex - mistakes) / 5));
+        const penalty = Math.round((mistakes / charIndex) * 100);
+        const netSpeed = Math.round((charIndex / 5) - penalty);
+        const str = `${WordPrMinute} WPM x ${Accuracy}% Accuracy = ${netSpeed} NetSpeed`
+        alert(str)
     }
     const resetGame = () => {
         loadParagraph();
@@ -141,34 +111,13 @@ const TypingTest = () => {
                     </Box>
                     <div className="typing-text">
                         <div className="content-box" onClick={handleFocusClick}>
-                            {paragraph ?
+                            {paragraph !==null ?
                                 (<p>
                                     {paragraph.split('').map((char, index) => (
                                         <span key={index} className={giveClass(char, index)} >{char}</span>
                                     ))}
                                 </p>) : <Box className='text-center my-5'><TimerOffIcon sx={{ fontSize: 50 }} /><p className='text-center'>Times Up!</p></Box>}
                         </div>
-                        {/* <div className="content">
-                            <ul className="result-details">
-                                <li className="time">
-                                    <p>Time Left:</p>
-                                    <span><b>{timeLeft}</b>s</span>
-                                </li>
-                                <li className="mistake">
-                                    <p>Mistakes:</p>
-                                    <span>{mistakes}</span>
-                                </li>
-                                <li className="wpm">
-                                    <p>WPM:</p>
-                                    <span>{Math.round(((charIndex - mistakes) / 5) / (60 - timeLeft) * 60)}</span>
-                                </li>
-                                <li className="cpm">
-                                    <p>CPM:</p>
-                                    <span>{charIndex - mistakes}</span>
-                                </li>
-                            </ul>
-                            <button onClick={resetGame}>Try Again</button>
-                        </div> */}
                     </div>
                 </Card>
             </Box>
