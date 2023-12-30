@@ -26,7 +26,7 @@ function Footer() {
   return (
     <>
       <footer className="mainFooter">
-        <Container>
+        <Container maxWidth=''>
           <Grid container spacing={2}>
             <Grid justifyContent="flex-start" item xs={7}>
               <img src={isoImg1} alt="" />
@@ -42,7 +42,7 @@ function Footer() {
               </p>
             </Grid>
 
-            <Grid justifyContent="flex-end" item xs={5}>
+            <Grid sx={{ textAlign: "end" }} item xs={5}>
               <p
                 style={{
                   display: "inline-block",
@@ -50,7 +50,7 @@ function Footer() {
                   margin: "20px 0px",
                 }}
               >
-                © 2023 Fusion Business Solutions (P) Limited. All Rights
+                © {new Date().getFullYear()} Fusion Business Solutions (P) Limited. All Rights
                 Reserved
               </p>
             </Grid>

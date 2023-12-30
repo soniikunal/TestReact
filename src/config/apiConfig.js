@@ -1,4 +1,6 @@
 import axios, { createInstance }  from "./axiosConfig.js";
+import { toastError, toastSuccess } from '../Utils/Toasts.js';
+
 const baseURL = '/admin'; // Update with your actual backend URL
 const ImageInstance = createInstance({
   "Content-Type": "multipart/form-data",
@@ -43,6 +45,17 @@ export const DeleteCategory = async (categoryId) => {
 export const AddQuestion = async (questionData) => {
     try {
       const response = await ImageInstance.post(`${baseURL}/addQuestion`, questionData);
+      toastSuccess(response.data.message)
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  export const EditQuestion = async (questionId, questionData) => {
+    try {
+      const response = await ImageInstance.put(`${baseURL}/updateQuestion/${questionId}`, questionData);
+      toastSuccess(response.data.message)
       return response.data;
     } catch (error) {
       throw error;
