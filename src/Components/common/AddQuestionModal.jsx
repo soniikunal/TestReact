@@ -2,29 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { Container } from '@mui/material'
 import { Sheet, FormControl, FormLabel, Modal, ModalClose, AspectRatio, Typography, Input, FormHelperText, Select, Option, RadioGroup, Radio, Divider, Box, SvgIcon, Button, styled, ModalOverflow, IconButton } from '@mui/joy';
 import { Close } from '@mui/icons-material';
-import { AddQuestion, GetCategories, UploadImage } from '../../config/apiConfig.js'
-// import { DataGrid } from '@mui/x-data-grid';
-// import { useDemoData } from '@mui/x-data-grid-generator';
+import { AddQuestion, GetCategories } from '../../config/apiConfig.js'
+import TinyMCEEditor from './TinyMCEEditor.jsx';
+import axios from 'axios';
+
 
 const AddQuestionModal = () => {
-    // const { data } = useDemoData({
-    //     dataSet: 'Commodity',
-    //     rowLength: 5,
-    //     maxColumns: 6,
-    //   });
 
     const [open, setOpen] = useState(false);
     const [avatar, setAvatar] = useState(null);
+    const [image, setImage] = useState(null);
     const [correctOpt, setcorrectOpt] = useState(null);
     const [optionQuantity, setOptionQuantity] = useState(0);
     const [options, setOptions] = useState([]);
     const [question, setQuestion] = useState('');
     const [category, setCategory] = useState('');
     const [categoryOptions, setCategoryOptions] = useState([]);
-
-    useEffect(() => {
-        fetchCategories()
-    }, [])
 
     const VisuallyHiddenInput = styled('input')`
     clip: rect(0 0 0 0);
@@ -37,13 +30,14 @@ const AddQuestionModal = () => {
     white-space: nowrap;
     width: 1px;
     `;
-    const setTheAvatar = e => {
+
+    const setTheAvatar = (e) => {
         const reader = new FileReader(),
             files = e.target.files
-        //setPhotoName(files[0].name)
         reader.onload = function () {
-            setAvatar(reader.result)
+            setImage(reader.result)
         }
+        setAvatar(files[0])
         reader.readAsDataURL(files[0])
     }
     const removeAvatar = () => {
@@ -75,7 +69,7 @@ const AddQuestionModal = () => {
 
     const handleCategoryChange = (e) => {
         if (e?.target) {
-            setCategory(e.target.value)
+            setCategory(e.target.innerHTML)
         }
     }
 
@@ -92,42 +86,26 @@ const AddQuestionModal = () => {
     };
 
     const handleAddQuestion = async () => {
-        const data = {
-            question,
-            category,
-            options,
-            correctOpt,
-            avatar,
-        }
-
+        const formData = new FormData();
+        formData.append('avatar', avatar);
+        formData.append('question', question);
+        formData.append('category', category);
+        formData.append('options', options);
+        formData.append('correctOpt', correctOpt);
         try {
-            const result = await AddQuestion(data);
-            console.log('Login successful:', result);
+            const result = await AddQuestion(formData)
+                console.log('Question added successfully:', result);
         } catch (error) {
-            console.error('Login failed:', error.message);
+            console.error('Failed to add question:', error.message);
         }
     };
 
-    // const saveImage = async (e) => {
-    //     debugger
-    //     const file = e.target.files[0];
-    //     // const formData = new FormData();
-    //     // formData.append('avatar', file);
-    //     const formData ={avatar:file}
-
-    //     try {
-    //         const result = await UploadImage(file);
-    //         console.log('Login successful:', result);
-    //     } catch (error) {
-    //         console.error('Login failed:', error.message);
-    //     }
-       
-    // }
-
     return (
         <>
-            {/* <DataGrid {...data} /> */}
-            <Button variant="outlined" color="neutral" onClick={() => setOpen(true)}>
+            <Button variant="outlined" color="neutral" onClick={() => {
+                fetchCategories()
+                setOpen(true)
+            }}>
                 Add Questions
             </Button>
             <Modal
@@ -170,6 +148,7 @@ const AddQuestionModal = () => {
                             <FormControl sx={{ mb: 2 }}>
                                 <FormLabel>Question</FormLabel>
                                 <Input placeholder="Question" variant="soft" onChange={e => handleQuestionChange(e)} />
+                                {/* <TinyMCEEditor /> */}
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Category</FormLabel>
@@ -198,7 +177,7 @@ const AddQuestionModal = () => {
                                 </Select>
                                 <Divider />
                                 {options.map((option, index) => (
-                                    <Input placeholder={`Option ${index + 1}`} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
+                                    <Input placeholder={`Option ${index + 1}`} key={index} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
                                 ))}
                             </FormControl>
                             <Divider />
@@ -207,7 +186,7 @@ const AddQuestionModal = () => {
                                     <FormLabel id="optionRadio">Correct Option</FormLabel>
                                     <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                                         {options.map((option, index) => (
-                                            <Radio value={index + 1} label={index + 1} checked={correctOpt === index + 1} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
+                                            <Radio value={index + 1} key={index} label={index + 1} checked={correctOpt === index + 1} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
                                         ))}
                                     </Box>
                                 </FormControl>)}
@@ -217,7 +196,7 @@ const AddQuestionModal = () => {
                                     <Box sx={{
                                         display: 'contents'
                                     }}>
-                                        <img src={avatar} style={{ maxHeight: '250px', objectFit: 'contain' }} />
+                                        <img src={image} style={{ maxHeight: '250px', objectFit: 'contain' }} />
                                         <IconButton aria-label="close" onClick={removeAvatar} sx={{ position: 'absolute', top: '0', right: '0px', }}>
                                             <Close />
                                         </IconButton>

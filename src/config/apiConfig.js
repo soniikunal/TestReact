@@ -1,5 +1,8 @@
-import axios from "./axiosConfig.js";
+import axios, { createInstance }  from "./axiosConfig.js";
 const baseURL = '/admin'; // Update with your actual backend URL
+const ImageInstance = createInstance({
+  "Content-Type": "multipart/form-data",
+});
 
 export const GetCategories = async () => {
   try {
@@ -39,7 +42,7 @@ export const DeleteCategory = async (categoryId) => {
 
 export const AddQuestion = async (questionData) => {
     try {
-      const response = await axios.post(`${baseURL}/addQuestion`, questionData);
+      const response = await ImageInstance.post(`${baseURL}/addQuestion`, questionData);
       return response.data;
     } catch (error) {
       throw error;
