@@ -4,6 +4,7 @@ import { login } from '../../config/authServices.js';
 import { Box, Grid, } from '@mui/material'
 import { Input, FormLabel, FormControl, Button, Checkbox } from '@mui/joy'
 import image from "../../assets/login-image.svg"
+import certificateImg from "../../assets/GreatPlace.png"
 // import Checkbox from '@mui/joy/Checkbox';
 
 
@@ -28,8 +29,12 @@ const Login = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
+        
           <Box sx={{ gap: '0.5rem', display: 'flex', justifyContent: 'center', flexDirection: 'column', mx: '2rem' }}>
-            <h2>Welcome 👋</h2>
+            <div style={{display: "flex"}}>
+            <h2 style={{marginInlineEnd:'auto', marginBlock :'auto'}}>Welcome 👋</h2>
+            <img style={{width: "100px", height: "auto", display: "inline"}} src={certificateImg} alt="" />  
+            </div>
             {/* <p>Please sign-in to your account and start the adventure</p> */}
             <FormControl sx={{ my: 1 }}>
               <FormLabel>Username</FormLabel>
@@ -51,6 +56,7 @@ const Login = () => {
           </Box>
         </Grid>
       </Grid>
+      
 
     </>
   );

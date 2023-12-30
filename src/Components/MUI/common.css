@@ -8,10 +8,16 @@
 /* Navbar CSS */
 /* Footer CSS */
 .mainFooter {
-  background-color: hsla(0, 0%, 100%, 0.5098039215686274);
+  background-color: #212529;
   border-top: 3px solid var(--primary-color);
-  padding: 20px;
-  text-align: center;
+  padding: 20px;  
+  color: white;
 }
 
+.mainFooter img {
+  width: 55px;
+  height: 57px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
 /* Footer CSS */
