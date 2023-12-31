@@ -51,6 +51,7 @@ const Question = () => {
     const [deletedQuestion, setDeletedQuestion] = useState(null);
     const [editQuestion, setEditQuestion] = useState(null);
     const [isModalOpen, setModalOpen] = useState(true);
+    const [searchIpt, setSearchIpt] = useState("")
 
     useEffect(() => {
         fetchQuestion()
@@ -104,9 +105,14 @@ const Question = () => {
         },
     ];
 
+    const handleInputChange = (event) => {
+        const {value} = event.target;
+        setSearchIpt(value);
+    }
+
     const fetchQuestion = async () => {
         try {
-            const allQuestions = await GetQuestions();
+            const allQuestions = await GetQuestions(searchIpt);
             setQuestions(allQuestions)
         } catch (error) {
             console.error('FEtch failed:', error.message);
@@ -146,6 +152,7 @@ const Question = () => {
 
     const handleCloseModal = () => {
         setModalOpen(false);
+        fetchQuestion()
         setDeletedQuestion(null)
         setSelectedQuestion(null);
         setEditQuestion(null);
@@ -171,10 +178,8 @@ const Question = () => {
                         spacing={2}
                     >
                         <Typography level="title-md">Search by:</Typography>
-                        <Input placeholder="QuestionID" />
-                        <Input placeholder="Question" />
-                        <Input placeholder="Category" />
-                        <Button variant="solid" size="sm">
+                        <Input placeholder="Question" onChange={handleInputChange} value={searchIpt}/>
+                        <Button variant="solid" size="sm" onClick={fetchQuestion}>
                             Search
                         </Button>
                         <Box style={{ marginLeft: 'auto' }}>

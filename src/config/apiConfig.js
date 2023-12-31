@@ -49,9 +49,9 @@ export const AddQuestion = async (questionData) => {
     }
   };
 
-export const GetQuestions = async () => {
+export const GetQuestions = async (searchIpt) => {
     try {
-      const response = await axios.get(`${baseURL}/getQuestions`);
+      const response = await axios.get(`${baseURL}/getQuestions?search=${searchIpt}`);
       return response.data;
     } catch (error) {
       throw error;
