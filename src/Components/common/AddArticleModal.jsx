@@ -200,7 +200,7 @@ const AddArticleModal = () => {
                                 justifyContent="center"
                                 alignItems="center"
                                 spacing={2}
-                                sx={{ mt: 3 }}
+                                sx={{ mt: 3, flexWrap: 'wrap', gap: '1rem' }}
                             >
                                 {questions.map((question, questionIndex) => (
                                     <Card
@@ -210,7 +210,7 @@ const AddArticleModal = () => {
                                         orientation="vertical"
                                         size="lg"
                                         variant="soft"
-                                        sx={{ minWidth: "30%" }}
+                                        sx={{ minWidth: "650px", flexGrow: 1, flexShrink: 0 }}
                                     >
                                         <FormControl sx={{ mb: 2 }}>
                                             <FormLabel>Question</FormLabel>
@@ -295,7 +295,7 @@ const AddArticleModal = () => {
                             </Card> */}
                             </Stack>
                             <Divider />
-                            <FormControl sx={{mt: 3}}>
+                            <FormControl sx={{ mt: 3 }}>
                                 <Button onClick={handleAddArticle}>Add Article</Button>
                             </FormControl>
                         </Sheet>

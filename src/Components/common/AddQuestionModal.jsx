@@ -4,7 +4,6 @@ import { Sheet, FormControl, FormLabel, Modal, ModalClose, AspectRatio, Typograp
 import { Close } from '@mui/icons-material';
 import { AddQuestion, GetCategories } from '../../config/apiConfig.js'
 import TinyMCEEditor from './TinyMCEEditor.jsx';
-import axios from 'axios';
 
 
 const AddQuestionModal = () => {
@@ -42,6 +41,7 @@ const AddQuestionModal = () => {
     }
     const removeAvatar = () => {
         setAvatar(null)
+        setImage(null)
     }
     const handleOptionQuantityChange = (event) => {
         if (event?.target) {
@@ -86,15 +86,23 @@ const AddQuestionModal = () => {
     };
 
     const handleAddQuestion = async () => {
-        const formData = new FormData();
-        formData.append('avatar', avatar);
-        formData.append('question', question);
-        formData.append('category', category);
-        formData.append('options', options);
-        formData.append('correctOpt', correctOpt);
+        // const formData = new FormData();
+        // formData.append('avatar', avatar);
+        // formData.append('question', question);
+        // formData.append('category', category);
+        // formData.append('options', options);
+        // formData.append('correctOpt', correctOpt);
+
+        const formData = {
+            avatar,
+            question,
+            category,
+            options,
+            correctOpt
+        }
         try {
             const result = await AddQuestion(formData)
-                console.log('Question added successfully:', result);
+            console.log('Question added successfully:', result);
         } catch (error) {
             console.error('Failed to add question:', error.message);
         }
@@ -156,6 +164,7 @@ const AddQuestionModal = () => {
                                     placeholder="Category"
                                     variant="soft"
                                     onChange={e => handleCategoryChange(e)}
+                                    value={category}
                                 >
                                     {categoryOptions.map((option) => (
                                         <Option key={option.name} value={option.name}>{option.name}</Option>))}
@@ -177,7 +186,7 @@ const AddQuestionModal = () => {
                                 </Select>
                                 <Divider />
                                 {options.map((option, index) => (
-                                    <Input placeholder={`Option ${index + 1}`} key={index} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
+                                    <Input startDecorator={`${index + 1}.`} placeholder={`Option ${index + 1}`} key={index} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
                                 ))}
                             </FormControl>
                             <Divider />
