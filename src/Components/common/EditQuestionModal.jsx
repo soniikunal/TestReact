@@ -2,15 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { Container } from '@mui/material'
 import { Sheet, FormControl, FormLabel, Modal, ModalClose, AspectRatio, Typography, Input, FormHelperText, Select, Option, RadioGroup, Radio, Divider, Box, SvgIcon, Button, styled, ModalOverflow, IconButton } from '@mui/joy';
 import { Close } from '@mui/icons-material';
-import { AddQuestion, GetCategories } from '../../config/apiConfig.js'
+import { EditQuestion, GetCategories } from '../../config/apiConfig.js'
+import TinyMCEEditor from './TinyMCEEditor.jsx';
+import { toastError, toastSuccess } from '../../Utils/Toasts';
+
+const imgUrl = import.meta.env.VITE_API_URL;
 
 const EditQuestionModal = ({ open, onClose, question }) => {
-    
+    debugger
     const [avatar, setAvatar] = useState(null);
+    const [image, setImage] = useState(question.imgPath ? imgUrl + question.imgPath : null);
     const [correctOpt, setcorrectOpt] = useState(question.correctOpt);
     const [optionQuantity, setOptionQuantity] = useState(question.options.length);
     const [options, setOptions] = useState(question.options);
     const [que, setQuestion] = useState(question.question);
+    const [queId, setQuestionId] = useState(question._id);
     const [category, setCategory] = useState(question.category);
     const [categoryOptions, setCategoryOptions] = useState([]);
 
@@ -29,19 +35,21 @@ const EditQuestionModal = ({ open, onClose, question }) => {
     white-space: nowrap;
     width: 1px;
     `;
-    const setTheAvatar = e => {
+    const setTheAvatar = (e) => {
         const reader = new FileReader(),
             files = e.target.files
-        //setPhotoName(files[0].name)
         reader.onload = function () {
-            setAvatar(reader.result)
+            setImage(reader.result)
         }
+        setAvatar(files[0])
         reader.readAsDataURL(files[0])
     }
     const removeAvatar = () => {
         setAvatar(null)
+        setImage(null)
     }
     const handleOptionQuantityChange = (event) => {
+        debugger
         if (event?.target) {
             const quantity = parseInt(event.target.innerHTML, 10);
             setOptionQuantity(quantity);
@@ -67,15 +75,25 @@ const EditQuestionModal = ({ open, onClose, question }) => {
 
     const handleCategoryChange = (e) => {
         if (e?.target) {
-            setCategory(e.target.value)
+            setCategory(e.target.innerHTML)
         }
     }
 
     const handleOptionChange = (index, value) => {
+        debugger
         const newOptions = [...options];
         newOptions[index] = value;
         setOptions(newOptions);
     };
+    // const handleOptionChange = (index, value) => {
+    //     debugger
+    //     setOptions(prevOptions => {
+    //         const newOptions = [...prevOptions];
+    //         newOptions[index] = value;
+    //         return newOptions;
+    //     });
+    // };
+
 
     const handleQuestionChange = (e) => {
         if (e?.target) {
@@ -83,9 +101,10 @@ const EditQuestionModal = ({ open, onClose, question }) => {
         }
     };
 
-    const handleAddQuestion = async () => {
+    const handleEditQuestion = async () => {
+        debugger
         const data = {
-            question,
+            question: que,
             category,
             options,
             correctOpt,
@@ -93,10 +112,11 @@ const EditQuestionModal = ({ open, onClose, question }) => {
         }
 
         try {
-            const result = await AddQuestion(data);
-            console.log('Login successful:', result);
+            const result = await EditQuestion(queId, data);
+            console.log('Question Edited successfully:', result);
+            onClose()
         } catch (error) {
-            console.error('Login failed:', error.message);
+            console.error('Failed to edit question:', error.message);
         }
     };
 
@@ -148,6 +168,7 @@ const EditQuestionModal = ({ open, onClose, question }) => {
                                     placeholder="Category"
                                     variant="soft"
                                     onChange={e => handleCategoryChange(e)}
+                                    value={category}
                                 >
                                     {categoryOptions.map((option) => (
                                         <Option key={option.name} value={option.name}>{option.name}</Option>))}
@@ -167,28 +188,28 @@ const EditQuestionModal = ({ open, onClose, question }) => {
                                         </Option>
                                     ))}
                                 </Select>
-                                <Divider />
-                                {options.map((option, index) => (
-                                    <Input placeholder={`Option ${index + 1}`} key={option} value={option} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
-                                ))}
                             </FormControl>
                             <Divider />
+                            {options.map((option, index) => (
+                                <Input key={option + index} startDecorator={`${index + 1}.`} placeholder={`Option ${index + 1}`} value={option} variant="soft" sx={{ my: 1 }} onChange={(e) => handleOptionChange(index, e.target.value)} />
+                            ))}
+                            <Divider />
                             {options.length > 0 && (
-                                <FormControl>
+                                <>
                                     <FormLabel id="optionRadio">Correct Option</FormLabel>
-                                    <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                                    <Box sx={{ display: 'flex', gap: 2, my: 2 }}>
                                         {options.map((option, index) => (
-                                            <Radio value={index + 1} key={option} label={index + 1} checked={correctOpt == index +1} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
+                                            <Radio value={index + 1} key={option + index} label={index + 1} checked={correctOpt == (index + 1)} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
                                         ))}
                                     </Box>
-                                </FormControl>)}
-                            <FormControl>
+                                </>)}
+                            <Box sx={{ display: "flex", position: "relative", flexDirection: 'column' }}>
                                 <FormLabel>Image</FormLabel>
-                                {avatar && (
+                                {image && (
                                     <Box sx={{
-                                        display: 'contents'
+                                        display: 'contents',
                                     }}>
-                                        <img src={avatar} style={{ maxHeight: '250px', objectFit: 'contain' }} />
+                                        <img src={image} style={{ maxHeight: '250px', objectFit: 'contain' }} />
                                         <IconButton aria-label="close" onClick={removeAvatar} sx={{ position: 'absolute', top: '0', right: '0px', }}>
                                             <Close />
                                         </IconButton>
@@ -222,9 +243,9 @@ const EditQuestionModal = ({ open, onClose, question }) => {
                                     {/* <VisuallyHiddenInput type="file" onChange={(e) => saveImage(e)} /> */}
                                     <VisuallyHiddenInput type="file" onChange={(e) => setTheAvatar(e)} />
                                 </Button>
-                            </FormControl>
-                            <FormControl>
-                                <Button onClick={handleAddQuestion}>Add Question</Button>
+                            </Box>
+                            <FormControl sx={{ mt: 2 }}>
+                                <Button onClick={handleEditQuestion}>Edit Question</Button>
                             </FormControl>
 
                         </Sheet>
