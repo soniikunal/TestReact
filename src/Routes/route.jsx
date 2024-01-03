@@ -13,6 +13,7 @@ import ManageTest from "../views/Admin/ManageTest.jsx"
 import TypingTest from "../views/Tests/TypingTest.jsx";
 import DeleteConfModal from "../Components/common/DeleteConfModal.jsx";
 import TinyMCEEditor from "../Components/common/TinyMCEEditor.jsx";
+import PreScreenTest from "../views/Tests/PreScreenTest.jsx";
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dev",
-    element: <NavLayout AppComponent={<TinyMCEEditor/>}/>,
+    element: <NavLayout AppComponent={<PreScreenTest />} />,
   },
   {
     path: "/manage-question",
