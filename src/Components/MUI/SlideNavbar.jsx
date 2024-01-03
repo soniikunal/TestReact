@@ -114,6 +114,11 @@ export default function Navbar({ AppComponent }) {
             link: '/typing-test',
             logo: <DrawIcon/>
         },
+        {
+            displayName: 'Start Test',
+            link: '/StartTest',
+            logo: <DrawIcon/>
+        },
     ]
 
     return (
