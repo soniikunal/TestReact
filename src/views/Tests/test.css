@@ -14,3 +14,41 @@
     font-weight: 600 !important;
     color: #000 !important;
 }
+
+
+/* Resume.css */
+
+.outerCard {
+    width: 70vw;
+  }
+  
+  .mainCard {
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /* Updated to column layout */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+  }
+  
+  .innerCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .leftSide {
+    width: 40%;
+    padding: 16px;
+  }
+  
+  .rightSide {
+    width: 55%;
+    padding: 16px;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+  }
+  

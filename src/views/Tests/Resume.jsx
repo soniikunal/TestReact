@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CardContent, Typography, Container, Button } from "@mui/material";
 import { Card } from "@mui/joy";
-import "./Resume.css";
+import "./test.css";
 
 const mockData = {
   name: "John Doe",
