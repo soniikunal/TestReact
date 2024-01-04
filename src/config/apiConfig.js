@@ -1,7 +1,8 @@
 import axios, { createInstance } from "./axiosConfig.js";
 import { toastError, toastSuccess } from "../Utils/Toasts.js";
 
-const baseURL = "/admin"; // Update with your actual backend URL
+const baseURL = "/admin"; 
+const preRoute = "/presTest"; 
 const ImageInstance = createInstance({
   "Content-Type": "multipart/form-data",
 });
@@ -93,7 +94,7 @@ export const DelQuestion = async (categoryId) => {
 
 export const setPreTestQuestion = async () => {
   try {
-    const response = await axios.get("/auth/test");
+    const response = await axios.get(`${preRoute}/test`);
     return response.data;
   } catch (error) {
     throw error;
@@ -103,7 +104,7 @@ export const setPreTestQuestion = async () => {
 export const updateSelectedAnswers = async (userId, data) => {
   try {
     const response = await axios.put(
-      `/auth/updateSelectedAnswers/${userId}`,
+      `${preRoute}/updateSelectedAnswers/${userId}`,
       data
     );
     return response.data;
@@ -114,7 +115,16 @@ export const updateSelectedAnswers = async (userId, data) => {
 
 export const calculateScore = async (userId) => {
   try {
-    const response = await axios.post(`/auth/calculatePre/${userId}`);
+    const response = await axios.post(`${preRoute}/calculatePre/${userId}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const setATDTestQuestion = async () => {
+  try {
+    const response = await axios.get("/auth/ATDtest");
     return response.data;
   } catch (error) {
     throw error;
