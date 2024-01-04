@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import DrawIcon from '@mui/icons-material/Draw';
 import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import './common.css'
 import Footer from './Footer';
 import logo from "../../assets/FBSPL Logo.png"
@@ -92,32 +93,42 @@ export default function Navbar({ AppComponent }) {
         {
             displayName: 'Manage Questions',
             link: '/manage-question',
-            logo: <DrawIcon/>
+            logo: <DrawIcon />
         },
         {
             displayName: 'Admin',
             link: '/admin',
-            logo: <SupervisorAccountIcon/>
+            logo: <SupervisorAccountIcon />
         },
         {
             displayName: 'Login',
             link: '/login',
-            logo: <DrawIcon/>
+            logo: <DrawIcon />
         },
         {
             displayName: 'Register',
             link: '/register',
-            logo: <DrawIcon/>
+            logo: <DrawIcon />
         },
         {
-            displayName: 'TypingTest',
-            link: '/typing-test',
-            logo: <DrawIcon/>
+            displayName: 'Resume',
+            link: '/resume',
+            logo: <DrawIcon />
         },
         {
             displayName: 'Start Test',
             link: '/StartTest',
-            logo: <DrawIcon/>
+            logo: <DrawIcon />
+        },
+        {
+            displayName: 'Prescreening',
+            link: '/prescreening',
+            logo: <DrawIcon />
+        },
+        {
+            displayName: 'TypingTest',
+            link: '/typing-test',
+            logo: <DrawIcon />
         },
     ]
 
@@ -195,6 +206,18 @@ export default function Navbar({ AppComponent }) {
                     <Footer />
                 </Main>
             </Box>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </>
     );
 }

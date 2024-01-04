@@ -3,20 +3,25 @@ import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import { Container, FormControlLabel, RadioGroup, Radio } from '@mui/material';
 import { FormControl, FormLabel, Card, Typography, Divider, Box, Button, Chip } from '@mui/joy';
-import { setPreTestQuestion, updateSelectedAnswers } from '../../config/apiConfig';
+import Alert from '@mui/joy/Alert';
+import { useNavigate } from 'react-router-dom';
+import { setPreTestQuestion, updateSelectedAnswers, calculateScore } from '../../config/apiConfig';
 import './test.css'
+import { toastError } from '../../Utils/Toasts';
+import { getUserSession, setUserSession } from '../../Utils/utils';
 
 const imgUrl = import.meta.env.VITE_API_URL;
 
 
 const PreScreenTest = () => {
 
+  const navigate = useNavigate();
   const [time, setTime] = useState(45 * 60);
   const [currentQueNo, setCurrentQueNo] = useState(1);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [question, setQuestion] = useState({});
-  const [userInfo, setUserInfo] = useState({});
+  const [question, setQuestion] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
   const [queArray, setQueArray] = useState([]);
+  const [error, setError] = useState(null);
   const elementRef = useRef(null);
 
   useEffect(() => {
@@ -31,12 +36,11 @@ const PreScreenTest = () => {
     const timerId = setInterval(() => {
       setTime((prevTime) => {
 
-        if (prevTime > 0 && prevTime !== 1) {
+        if (prevTime > 1) {
           return prevTime - 1;
         } else {
           clearInterval(timerId);
-          // You can add additional logic here when the timer reaches 0
-          console.log(90);
+          SubmitAnswers();
         }
       });
     }, 1000);
@@ -44,32 +48,54 @@ const PreScreenTest = () => {
     return () => clearInterval(timerId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty dependency array to run the effect only once
+  }, []);
 
   const fetchQuestion = async () => {
-    debugger
+
     try {
       const response = await setPreTestQuestion()
-      setQueArray(response.user.assignedQuestions)
-      setUserInfo(response.user._id)
-      setTime(response.user.remainingTime)
+      if (response.user) {
+        setQueArray(response.user.assignedQuestions)
+        setUserInfo(response.user._id)
+        setUserSession(response.user._id)
+        setTime(response.user.remainingTime)
+      } else {
+        setError(response?.message)
+        toastError(response?.message)
+        navigate('/login');
+      }
     } catch (error) {
       console.log(`Cant fetch questions:` + error)
     }
   }
 
   const SendAnswers = async (newSelectedAnswer) => {
-    debugger
     try {
-      const response = await updateSelectedAnswers(userInfo, newSelectedAnswer)
+      if (userInfo && userInfo !== null) {
+        const response = await updateSelectedAnswers(userInfo, newSelectedAnswer)
+      } else if (getUserSession()) {
+        const response = await updateSelectedAnswers(getUserSession(), newSelectedAnswer)
+      }
     } catch (error) {
       console.log(`Cant send answers:` + error)
 
     }
   }
 
+  const SubmitAnswers = async () => {
+    try {
+      if (userInfo && userInfo !== null) {
+        const response = await calculateScore(userInfo)
+      } else if (getUserSession()) {
+        const response = await calculateScore(getUserSession())
+      }
+
+    } catch (error) {
+      console.log(`Cant send answers:` + error)
+    }
+  }
+
   const updateSelectedAnswersState = (selectedIndex) => {
-    debugger
     const newSelectedAnswer = {
       questionId: question._id,
       selectedAnswer: selectedIndex,
@@ -77,7 +103,7 @@ const PreScreenTest = () => {
     };
     setQuestion({
       ...question,
-      selectedAnswer: 4
+      selectedAnswer: selectedIndex
     })
 
     setQueArray((prevQueArray) => {
@@ -90,7 +116,7 @@ const PreScreenTest = () => {
         // Update the selectedAnswer property in the queArray
         updatedQueArray[questionIndex] = {
           ...updatedQueArray[questionIndex],
-          selectedAnswer: selectedIndex,
+          selectedAnswer: selectedIndex !== undefined ? selectedIndex : null,
         };
       }
 
@@ -101,7 +127,6 @@ const PreScreenTest = () => {
   };
 
   const handleSelectAnswer = (e) => {
-    debugger
     if (e?.target) {
       const selectedIndex = Number.parseInt(e.target.value, 10);
       updateSelectedAnswersState(selectedIndex);
@@ -152,49 +177,62 @@ const PreScreenTest = () => {
         color="primary"
         variant="soft"
         sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
-          <Chip>Total Number of Question 100</Chip>
-          <Chip>{formatTime(time)}</Chip>
-        </Box>
-        <Card color="neutral"
-          invertedColors
-          variant="soft"
-          sx={{ maxWidth: '1010px' }}>
-          <Pagination count={100} page={currentQueNo} onChange={handleChange} boundaryCount={100} hideNextButton={true} hidePrevButton={true} />
-        </Card>
-
         {question &&
           <>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
+              <Chip>Total Number of Question 100</Chip>
+              <Chip>{formatTime(time)}</Chip>
+            </Box>
+            <Card color="neutral"
+              invertedColors
+              variant="soft"
+              sx={{ maxWidth: '1010px' }}>
+              <Pagination count={100} page={currentQueNo} onChange={handleChange} boundaryCount={100} hideNextButton={true} hidePrevButton={true} />
+            </Card>
+
             <FormControl component="fieldset" style={{ alignSelf: 'flexStart', width: '100%' }} ref={elementRef}>
               <FormLabel component="legend" title={question.uniqueCode}>Q{currentQueNo}. {question.question}</FormLabel>
               {question.imgPath &&
                 <img src={imgUrl + question.imgPath} className='testImage' />
               }
-              <RadioGroup value={selectedOption} onChange={e => handleSelectAnswer(e)}>
+              <RadioGroup value={question.selectedAnswer} onChange={e => handleSelectAnswer(e)}>
                 {question?.options?.map((option, index) => (
                   <FormControlLabel
                     key={index}
                     value={index}
                     control={<Radio />}
                     label={option}
-                    checked={question.selectedAnswer ? question.selectedAnswer == index : false}
                   />
                 ))}
               </RadioGroup>
             </FormControl>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', justifyItems: 'center', mt: 2 }}>
-              <Button variant="soft" color="primary" onClick={handlePrevious}>
+              {(currentQueNo > 1 && queArray.length !== currentQueNo) && <Button variant="soft" color="primary" onClick={handlePrevious}>
                 Previous
-              </Button>
+              </Button>}
 
-              <Button variant="soft" color="primary" onClick={handleNext}>
-                Next
-              </Button>
+              {queArray.length == currentQueNo &&
+                <Button Button variant="soft" color="primary" onClick={SubmitAnswers}>
+                  Submit
+                </Button>
+              }
+
+              {queArray.length !== currentQueNo &&
+                <Button Button variant="soft" color="primary" onClick={handleNext} >
+                  Next
+                </Button>
+
+              }
             </Box>
           </>
         }
-      </Card>
-    </Container>
+        {error &&
+          <Alert variant="soft" color="danger">
+            {error}
+          </Alert>
+        }
+      </Card >
+    </Container >
   )
 }
 

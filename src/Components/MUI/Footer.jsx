@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./common.css";
-import { ToastContainer } from "react-toastify";
 import { Box, Container, Grid } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css";
 import isoImg1 from "../../assets/iso.svg";
@@ -57,18 +56,6 @@ function Footer() {
           </Grid>
         </Container>
       </footer>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </>
   );
 }

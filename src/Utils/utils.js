@@ -26,3 +26,15 @@ export function getCookie(name = "JwtToken") {
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
+
+export function setUserSession(userId) {
+  sessionStorage.setItem("userId", userId);
+}
+
+export function getUserSession() {
+  const userId = sessionStorage.getItem("userId");
+  if(userId){
+    return userId
+  }
+  return null
+}

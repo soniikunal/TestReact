@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Footer from './Footer';
 import logo from "../../assets/FBSPL Logo.png"
+import { ToastContainer } from "react-toastify";
 
 export default function NavLayout({ AppComponent }) {
 
@@ -51,6 +52,18 @@ export default function NavLayout({ AppComponent }) {
 
         <Footer />
       </Main>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }

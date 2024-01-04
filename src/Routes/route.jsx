@@ -14,6 +14,9 @@ import TypingTest from "../views/Tests/TypingTest.jsx";
 import DeleteConfModal from "../Components/common/DeleteConfModal.jsx";
 import TinyMCEEditor from "../Components/common/TinyMCEEditor.jsx";
 import PreScreenTest from "../views/Tests/PreScreenTest.jsx";
+import Resume from "../views/Tests/Resume.jsx"
+import StartTest from "../views/Tests/StartTest.jsx"
+
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
@@ -32,7 +35,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/dev",
+    path: "/prescreening",
     element: <NavLayout AppComponent={<PreScreenTest />} />,
   },
   {
@@ -46,6 +49,18 @@ const router = createBrowserRouter([
   {
     path: "/typing-test",
     element: <SlideNavbar AppComponent={<TypingTest />} />,
+  },
+  {
+    path: "/resume",
+    element: <SlideNavbar AppComponent={<Resume />} />,
+  },
+  {
+    path: "/startTest",
+    element: <SlideNavbar AppComponent={<StartTest />} />,
+  },
+  {
+    path: "/atdTest",
+    element: <SlideNavbar AppComponent={<StartTest />} />,
   },
   // {
   //   path: "/login",

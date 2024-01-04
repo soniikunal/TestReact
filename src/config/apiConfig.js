@@ -114,7 +114,7 @@ export const updateSelectedAnswers = async (userId, data) => {
 
 export const calculateScore = async (userId) => {
   try {
-    const response = await axios.put(`/auth/calculatePre/${userId}`);
+    const response = await axios.post(`/auth/calculatePre/${userId}`);
     return response.data;
   } catch (error) {
     throw error;
