@@ -195,7 +195,7 @@ const PreScreenTest = () => {
               {question.imgPath &&
                 <img src={imgUrl + question.imgPath} className='testImage' />
               }
-              <RadioGroup value={question.selectedAnswer} onChange={e => handleSelectAnswer(e)}>
+              <RadioGroup value={question.selectedAnswer !== undefined ? question.selectedAnswer : null} onChange={e => handleSelectAnswer(e)}>
                 {question?.options?.map((option, index) => (
                   <FormControlLabel
                     key={index}
@@ -212,13 +212,13 @@ const PreScreenTest = () => {
               </Button>}
 
               {queArray.length == currentQueNo &&
-                <Button Button variant="soft" color="primary" onClick={SubmitAnswers}>
+                <Button variant="soft" color="primary" onClick={SubmitAnswers}>
                   Submit
                 </Button>
               }
 
               {queArray.length !== currentQueNo &&
-                <Button Button variant="soft" color="primary" onClick={handleNext} >
+                <Button variant="soft" color="primary" onClick={handleNext} >
                   Next
                 </Button>
 

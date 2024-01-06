@@ -195,7 +195,7 @@ const AddQuestionModal = () => {
                                     <FormLabel id="optionRadio">Correct Option</FormLabel>
                                     <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                                         {options.map((option, index) => (
-                                            <Radio value={index + 1} key={index} label={index + 1} checked={correctOpt === index + 1} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
+                                            <Radio value={index} key={index} label={index + 1} checked={correctOpt === index} onChange={handleCorrectRadio} color="success" sx={{ mr: 2 }} />
                                         ))}
                                     </Box>
                                 </FormControl>)}

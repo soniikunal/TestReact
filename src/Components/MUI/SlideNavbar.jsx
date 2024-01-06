@@ -96,6 +96,11 @@ export default function Navbar({ AppComponent }) {
             logo: <DrawIcon />
         },
         {
+            displayName: 'Result',
+            link: '/results',
+            logo: <SupervisorAccountIcon />
+        },
+        {
             displayName: 'Admin',
             link: '/admin',
             logo: <SupervisorAccountIcon />
@@ -123,6 +128,11 @@ export default function Navbar({ AppComponent }) {
         {
             displayName: 'Prescreening',
             link: '/prescreening',
+            logo: <DrawIcon />
+        },
+        {
+            displayName: 'ATD Test',
+            link: '/atdTest',
             logo: <DrawIcon />
         },
         {

@@ -11,11 +11,12 @@ import Register from "../views/Authentication/Register.jsx";
 import ComponentParent from "../views/ComponentParent.jsx";
 import ManageTest from "../views/Admin/ManageTest.jsx"
 import TypingTest from "../views/Tests/TypingTest.jsx";
-import DeleteConfModal from "../Components/common/DeleteConfModal.jsx";
 import TinyMCEEditor from "../Components/common/TinyMCEEditor.jsx";
 import PreScreenTest from "../views/Tests/PreScreenTest.jsx";
 import Resume from "../views/Tests/Resume.jsx"
 import StartTest from "../views/Tests/StartTest.jsx"
+import AtdTest from "../views/Tests/AtdTest.jsx";
+import UserResults from "../views/Admin/UserResults.jsx";
 
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 
@@ -60,7 +61,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/atdTest",
-    element: <SlideNavbar AppComponent={<StartTest />} />,
+    element: <SlideNavbar AppComponent={<AtdTest />} />,
+  },
+  {
+    path: "/results",
+    element: <SlideNavbar AppComponent={<UserResults/>}/>,
+  },
+  {
+    path: "/dev",
+    element: <SlideNavbar AppComponent={<TinyMCEEditor/>}/>,
   },
   // {
   //   path: "/login",
