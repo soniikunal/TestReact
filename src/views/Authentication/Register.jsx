@@ -51,7 +51,7 @@ const Register = () => {
           >
             <div style={{ display: "flex" }}>
               <h2 style={{ marginInlineEnd: "auto", marginBlock: "auto" }}>
-                Welcome 👋
+                Register
               </h2>
               <img
                 style={{ width: "100px", height: "auto", display: "inline" }}
@@ -86,7 +86,7 @@ const Register = () => {
             </Button>
             <Box sx={{ textAlign: 'center' }}>
               <p>
-                Already have an account? <a href="/login" style={{ color: 'blue' }}>login</a>
+                Already have an account? <a href="/admin/login" style={{ color: 'blue' }}>login</a>
               </p>
             </Box>
           </Box>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
-import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
+// import Pagination from '@mui/material/Pagination';
+// import PaginationItem from '@mui/material/PaginationItem';
 import { Container, FormControlLabel, RadioGroup, Radio } from '@mui/material';
 import { FormControl, FormLabel, Card, Typography, Divider, Box, Button, Chip } from '@mui/joy';
 import Alert from '@mui/joy/Alert';
@@ -9,6 +9,7 @@ import { setPreTestQuestion, updateSelectedAnswers, calculateScore } from '../..
 import './test.css'
 import { toastError } from '../../Utils/Toasts';
 import { getUserSession, setUserSession } from '../../Utils/utils';
+import PaginationComponent from '../../Components/MUI/PaginationComponent';
 
 const imgUrl = import.meta.env.VITE_API_URL;
 
@@ -187,7 +188,8 @@ const PreScreenTest = () => {
               invertedColors
               variant="soft"
               sx={{ maxWidth: '1010px' }}>
-              <Pagination count={100} page={currentQueNo} onChange={handleChange} boundaryCount={100} hideNextButton={true} hidePrevButton={true} />
+              {/* <Pagination count={100} page={currentQueNo} onChange={handleChange} boundaryCount={100} hideNextButton={true} hidePrevButton={true} /> */}
+              <PaginationComponent data={queArray} currentQueNo={currentQueNo} handleChange={handleChange} />
             </Card>
 
             <FormControl component="fieldset" style={{ alignSelf: 'flexStart', width: '100%' }} ref={elementRef}>

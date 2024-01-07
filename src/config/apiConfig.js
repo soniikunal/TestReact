@@ -210,3 +210,12 @@ export const GetUserScores = async () => {
     throw error;
   }
 };
+
+export const submitTypingScore = async (userId, data) => {
+  try {
+    const response = await axios.post(`${scoreRoute}/typingscore/${userId}`, data)
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

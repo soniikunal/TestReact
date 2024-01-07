@@ -17,23 +17,24 @@ import Resume from "../views/Tests/Resume.jsx"
 import StartTest from "../views/Tests/StartTest.jsx"
 import AtdTest from "../views/Tests/AtdTest.jsx";
 import UserResults from "../views/Admin/UserResults.jsx";
+import ExamLogin from "../views/Authentication/ExamLogin.jsx";
 
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: "/",
+    element: (
+      <SlideNavbar AppComponent={<ExamLogin />} />
+    ),
+  },
+  {
+    path: "/admin/login",
     element: <NavLayout AppComponent={<Login />} />,
   },
   {
-    path: "/register",
+    path: "/admin/register",
     element: <NavLayout AppComponent={<Register />} />,
-  },
-  {
-    path: "/",
-    element: (
-      <SlideNavbar AppComponent={<Home />} />
-    ),
   },
   {
     path: "/prescreening",
@@ -65,11 +66,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/results",
-    element: <SlideNavbar AppComponent={<UserResults/>}/>,
+    element: <SlideNavbar AppComponent={<UserResults />} />,
   },
   {
     path: "/dev",
-    element: <SlideNavbar AppComponent={<TinyMCEEditor/>}/>,
+    element: <SlideNavbar AppComponent={<TinyMCEEditor />} />,
   },
   // {
   //   path: "/login",

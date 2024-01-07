@@ -10,6 +10,7 @@ import './test.css'
 import { toastError } from '../../Utils/Toasts';
 import { getUserSession, setUserSession } from '../../Utils/utils';
 import SubmitConfModal from '../../Components/common/SubmitConfModal';
+import PaginationComponent from '../../Components/MUI/PaginationComponent';
 
 const imgUrl = import.meta.env.VITE_API_URL;
 
@@ -185,12 +186,13 @@ const AtdTest = () => {
                                 <Chip>Total Number of Question 10</Chip>
                                 <Chip>{formatTime(time)}</Chip>
                             </Box>
-                            {/* <Card color="neutral"
+                            <Card color="neutral"
                                 invertedColors
                                 variant="soft"
                                 sx={{ maxWidth: '1010px' }}>
-                                <Pagination count={100} page={currentQueNo} onChange={handleChange} boundaryCount={100} hideNextButton={true} hidePrevButton={true} />
-                            </Card> */}
+                                {/* <Pagination count={100} page={currentQueNo} onChange={handleChange} boundaryCount={100} hideNextButton={true} hidePrevButton={true} /> */}
+                                <PaginationComponent data={queArray} currentQueNo={currentQueNo} handleChange={handleChange} />
+                            </Card>
 
                             <FormControl component="fieldset" style={{ alignSelf: 'flexStart', width: '100%' }} ref={elementRef}>
                                 <FormLabel component="legend" title={question.uniqueCode}>Q{currentQueNo}. {question.question}</FormLabel>
@@ -221,7 +223,7 @@ const AtdTest = () => {
                                 }
 
                                 {queArray.length !== currentQueNo &&
-                                    <Button Button variant="soft" color="primary" onClick={handleNext} >
+                                    <Button  variant="soft" color="primary" onClick={handleNext} >
                                         Next
                                     </Button>
 

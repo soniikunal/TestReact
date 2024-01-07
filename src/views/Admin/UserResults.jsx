@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Typography, Input, Stack, Box, Button } from '@mui/joy'
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import LayersIcon from '@mui/icons-material/Layers';
 import { GetUserScores } from '../../config/apiConfig';
-
 
 const UserResults = () => {
     const [searchIpt, setSearchIpt] = useState([]);
@@ -13,7 +15,7 @@ const UserResults = () => {
     }, [])
 
     const columns = [
-        { field: 'uniqueCode', headerName: 'UserId', width: 100 },
+        { field: 'uniqueCode', headerName: 'userId', width: 100 },
         {
             field: 'Prescreening',
             headerName: 'Prescreening',
@@ -34,45 +36,45 @@ const UserResults = () => {
         },
         {
             field: 'Submitted On',
-            headerName: 'TypingTest',
+            headerName: 'createdAt',
             width: 200,
             editable: true,
+            renderCell: formateDate
         },
-        {
-            field: 'actions',
-            type: 'actions',
-            headerName: 'Actions',
-            width: 100,
-            cellClassName: 'actions',
-            getActions: ({ id }) => {
-                return [
-                    <GridActionsCellItem
-                        icon={<LayersIcon />}
-                        label="Preview"
-                        className="textPrimary"
-                        onClick={handleShowClick(id)}
-                        color="inherit"
-                    />,
-                    <GridActionsCellItem
-                        icon={<EditIcon />}
-                        label="Edit"
-                        className="textPrimary"
-                        onClick={handleEditClick(id)}
-                        color="inherit"
-                    />,
-                    <GridActionsCellItem
-                        icon={<DeleteIcon />}
-                        label="Delete"
-                        onClick={handleDeleteClick(id)}
-                        color="inherit"
-                    />,
-                ];
-            },
-        },
+        // {
+        //     field: 'actions',
+        //     type: 'actions',
+        //     headerName: 'Actions',
+        //     width: 100,
+        //     cellClassName: 'actions',
+        //     getActions: ({ id }) => {
+        //         return [
+        //             <GridActionsCellItem
+        //                 icon={<LayersIcon />}
+        //                 label="Preview"
+        //                 className="textPrimary"
+        //                 // onClick={handleShowClick(id)}
+        //                 color="inherit"
+        //             />,
+        //             <GridActionsCellItem
+        //                 icon={<EditIcon />}
+        //                 label="Edit"
+        //                 className="textPrimary"
+        //                 // onClick={handleEditClick(id)}
+        //                 color="inherit"
+        //             />,
+        //             <GridActionsCellItem
+        //                 icon={<DeleteIcon />}
+        //                 label="Delete"
+        //                 // onClick={handleDeleteClick(id)}
+        //                 color="inherit"
+        //             />,
+        //         ];
+        //     },
+        // },
     ];
 
     const fetchUserResult = async () => {
-        debugger
         try {
             const allQuestions = await GetUserScores(searchIpt);
             setUser(allQuestions)
@@ -86,11 +88,11 @@ const UserResults = () => {
         setSearchIpt(value);
     }
 
-    const formateDate = (date) => {
-        if (!date) {
+    function formateDate(date) {
+        if (!date.row.createdAt) {
             return ""
         }
-        const dateObject = new Date(date);
+        const dateObject = new Date(date.row.createdAt);
         // Format the date as 'MM/DD/YYYY hh:mm:ss A'
         const formattedDate = new Intl.DateTimeFormat('en-US', {
             year: 'numeric',

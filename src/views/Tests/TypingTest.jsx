@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './TypingTest.css'; // Import the CSS file
+import './test.css'; // Import the CSS file
 import { Box, Card, Container, Typography, Chip } from '@mui/joy';
 import TimerOffIcon from '@mui/icons-material/TimerOff';
+import { submitTypingScore } from '../../config/apiConfig';
+import { getUserSession } from '../../Utils/utils';
 
 const paragraphs = [
-    "Their politician was, in this moment, a notour paperback. The first armless grouse is, in its own way, a gear. The coat is a wash. However, a cake is the llama of a caravan. Snakelike armies show us how playgrounds can be viscoses. Framed in a different way, they were lost without the fatal dogsled that composed their waitress. Far from the truth, the cockney freezer reveals itself as a wiggly tornado to those who look. The first hawklike sack.",
-    // "Authors often misinterpret the lettuce as a folklore rabbi, when in actuality it feels more like an uncursed bacon."
+    // "Their politician was, in this moment, a notour paperback. The first armless grouse is, in its own way, a gear. The coat is a wash. However, a cake is the llama of a caravan. Snakelike armies show us how playgrounds can be viscoses. Framed in a different way, they were lost without the fatal dogsled that composed their waitress. Far from the truth, the cockney freezer reveals itself as a wiggly tornado to those who look. The first hawklike sack.",
+    // "The sun dipped below the horizon, casting a warm golden glow across the tranquil lake. Trees stood tall along the water's edge, their leaves rustling softly in the evening breeze. As the day waned, the symphony of crickets and frogs began, creating a soothing melody that echoed through the air. A lone boat glided silently across the water, leaving gentle ripples in its wake. The sky transformed into a canvas of vibrant hues, with shades of pink, orange, and purple blending seamlessly. Nature's quiet beauty enveloped the scene, inviting a sense of peace and serenity. It was a moment to pause, breathe, and appreciate the simple wonders that the world has to offer",
+    "In the heart of the bustling city, skyscrapers reached towards the sky, their reflective glass facades capturing the hustle and bustle below. Cars zipped through the streets, and pedestrians navigated the sidewalks with purpose. Neon signs illuminated the evening, creating a vibrant tapestry of colors. Street vendors offered a diverse array of aromas, from sizzling stir-fry to freshly baked pastries. The city's energy was palpable, a constant hum of activity and ambition. Amidst the urban chaos, pockets of greenery provided a welcome respite, with parks offering a quiet oasis amidst the concrete jungle. Each corner held a story, each alleyway a secret waiting to be discovered. The city, a living, breathing organism, pulsating with life and possibilities.",
 ];
 
 const TypingTest = () => {
@@ -17,14 +20,17 @@ const TypingTest = () => {
     const [paragraph, setParagraph] = useState("");
 
     const inputRef = useRef(null);
-    const TestDivRef = useRef(null);
 
     useEffect(() => {
         loadParagraph();
+        document.addEventListener('keypress', handleFocusClick);
+        return () => {
+            document.removeEventListener('keypress', handleFocusClick);
+        };
     }, []);
 
     useEffect(() => {
-        if(timeLeft == 0){
+        if (timeLeft == 0) {
             CalculateResult()
         }
         if (timeLeft > 0 && isTyping) {
@@ -63,7 +69,7 @@ const TypingTest = () => {
         const penalty = Math.round((mistakes / charIndex) * 100);
         const netSpeed = Math.round((charIndex / 5) - penalty);
         const str = `${WordPrMinute} WPM x ${Accuracy}% Accuracy = ${netSpeed} NetSpeed`
-        alert(str)
+        saveData(str)
     }
     const resetGame = () => {
         loadParagraph();
@@ -72,6 +78,15 @@ const TypingTest = () => {
         setMistakes(0);
         setIsTyping(false);
         setText("");
+    }
+
+    const saveData = async (str) => {
+        try {
+            const userId = getUserSession()
+            const response = await submitTypingScore(userId, { str })
+        } catch (error) {
+
+        }
     }
     const giveClass = (char, index) => {
         let Cls = "";
@@ -111,7 +126,7 @@ const TypingTest = () => {
                     </Box>
                     <div className="typing-text">
                         <div className="content-box" onClick={handleFocusClick}>
-                            {paragraph !==null ?
+                            {paragraph !== null ?
                                 (<p>
                                     {paragraph.split('').map((char, index) => (
                                         <span key={index} className={giveClass(char, index)} >{char}</span>
