@@ -1,17 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "@mui/material";
-import { Sheet, FormControl, FormLabel, Modal, ModalClose, AspectRatio, Typography, Input, FormHelperText, Select, Option, RadioGroup, Radio, Divider, Box, SvgIcon, Button, styled, ModalOverflow, IconButton } from '@mui/joy';
+import {
+  Sheet,
+  FormControl,
+  FormLabel,
+  Modal,
+  ModalClose,
+  AspectRatio,
+  Typography,
+  Input,
+  FormHelperText,
+  Select,
+  Option,
+  RadioGroup,
+  Radio,
+  Divider,
+  Box,
+  SvgIcon,
+  Button,
+  styled,
+  ModalOverflow,
+  IconButton,
+} from "@mui/joy";
 import { Close } from "@mui/icons-material";
-import { EditQuestion, GetCategories } from "../../config/apiConfig.js";
+import { EditATDQuestion, GetCategories } from "../../config/apiConfig.js";
 import TinyMCEEditor from "./TinyMCEEditor.jsx";
 import { toastError, toastSuccess } from "../../Utils/Toasts";
 
 const imgUrl = import.meta.env.VITE_API_URL;
 
-const EditQuestionModal = ({ open, onClose, question }) => {
+const EditATDQuestionModal = ({ open, onClose, question }) => {
   debugger;
   const [avatar, setAvatar] = useState(null);
-  const [image, setImage] = useState(question.imgPath ? imgUrl + question.imgPath : null );
+  const [image, setImage] = useState(
+    question.imgPath ? imgUrl + question.imgPath : null
+  );
   const [correctOpt, setcorrectOpt] = useState(question.correctOpt);
   const [optionQuantity, setOptionQuantity] = useState(question.options.length);
   const [options, setOptions] = useState(question.options);
@@ -65,7 +88,7 @@ const EditQuestionModal = ({ open, onClose, question }) => {
       setCategoryOptions(allCategories);
     } catch (error) {
       console.error("FEtch failed:", error.message);
-        }
+    }
   };
   const handleCorrectRadio = (e) => {
     if (e?.target) {
@@ -100,7 +123,7 @@ const EditQuestionModal = ({ open, onClose, question }) => {
     }
   };
 
-  const handleEditQuestion = async () => {
+  const handleEditATDQuestion = async () => {
     debugger;
     const data = {
       question: que,
@@ -111,7 +134,7 @@ const EditQuestionModal = ({ open, onClose, question }) => {
     };
 
     try {
-      const result = await EditQuestion(queId, data);
+      const result = await EditATDQuestion(queId, data);
       console.log("Question Edited successfully:", result);
       onClose();
     } catch (error) {
@@ -216,10 +239,10 @@ const EditQuestionModal = ({ open, onClose, question }) => {
                   <Box sx={{ display: "flex", gap: 2, my: 2 }}>
                     {options.map((option, index) => (
                       <Radio
-                        value={index + 1}
+                        value={index}
                         key={option + index}
                         label={index + 1}
-                        checked={correctOpt == index + 1}
+                        checked={correctOpt == index}
                         onChange={handleCorrectRadio}
                         color="success"
                         sx={{ mr: 2 }}
@@ -288,7 +311,7 @@ const EditQuestionModal = ({ open, onClose, question }) => {
                 </Button>
               </Box>
               <FormControl sx={{ mt: 2 }}>
-                <Button onClick={handleEditQuestion}>Edit Question</Button>
+                <Button onClick={handleEditATDQuestion}>Edit Question</Button>
               </FormControl>
             </Sheet>
           </Sheet>
@@ -298,4 +321,4 @@ const EditQuestionModal = ({ open, onClose, question }) => {
   );
 };
 
-export default EditQuestionModal;
+export default EditATDQuestionModal;

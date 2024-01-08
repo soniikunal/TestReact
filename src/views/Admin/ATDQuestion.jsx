@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import LayersIcon from '@mui/icons-material/Layers';
 import QuestionPreviewModal from '../../Components/common/QuestionPreviewModal'
 import AddATDQuestionModal from '../../Components/common/AddATDQuestionModal'
-import EditQuestionModal from '../../Components/common/EditQuestionModal'
+import EditATDQuestionModal from '../../Components/common/EditATDQuestionModal'
 import Category from '../../Components/common/Category'
 import DeleteConfModal from '../../Components/common/DeleteConfModal';
 import { DelATDQuestion, GetATDQuestions } from '../../config/apiConfig';
@@ -216,7 +216,7 @@ const ATDQuestion = () => {
             }
             {
                 editQuestion && (
-                    <EditQuestionModal
+                    <EditATDQuestionModal
                         onDelete={onDelete}
                         onClose={handleCloseModal}
                         open={isModalOpen}
