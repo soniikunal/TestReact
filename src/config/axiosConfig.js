@@ -19,7 +19,7 @@ const createInstance = (headers) => {
 const instance = createInstance();
 
 instance.interceptors.request.use((config) => {
-  const token = getCookie("jwtToken");
+  const token = getCookie("JwtToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

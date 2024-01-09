@@ -25,7 +25,7 @@ const Login = () => {
 
   return (
     <>
-      <Grid container spacing={2} alignItems="center" sx={{ height: 'calc(100% - 20px)' }}>
+      <Grid container spacing={2} alignItems="center" sx={{ height: 'calc(100vh - 210px)' }}>
         <Grid item xs={0} md={8} sx={{ display: 'flex', alignItems: "center", justifyContent: 'center', justifyItems: 'center', borderRight: '1px solid #64626233' }}>
           <Box><img src={image} alt="" /></Box>
         </Grid>

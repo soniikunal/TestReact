@@ -20,61 +20,61 @@ import UserResults from "../views/Admin/UserResults.jsx";
 import ExamLogin from "../views/Authentication/ExamLogin.jsx";
 
 // import ProtectedRoute from "./ProtectedRoute.jsx";
-
+const adminRoute = '/admin'
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <SlideNavbar AppComponent={<ExamLogin />} />
+      <NavLayout AppComponent={<ExamLogin />} />
     ),
   },
   {
-    path: "/admin/login",
-    element: <NavLayout AppComponent={<Login />} />,
-  },
-  {
-    path: "/admin/register",
-    element: <NavLayout AppComponent={<Register />} />,
-  },
-  {
-    path: "/prescreening",
+    path: `/prescreening`,
     element: <NavLayout AppComponent={<PreScreenTest />} />,
   },
   {
-    path: "/manage-question",
-    element: <SlideNavbar AppComponent={<ManageTest />} />,
+    path: `/typing-test`,
+    element: <NavLayout AppComponent={<TypingTest />} />,
   },
   {
-    path: "/admin",
-    element: <SlideNavbar AppComponent={<ComponentParent />} />,
+    path: `/resume`,
+    element: <NavLayout AppComponent={<Resume />} />,
   },
   {
-    path: "/typing-test",
-    element: <SlideNavbar AppComponent={<TypingTest />} />,
+    path: `/startTest`,
+    element: <NavLayout AppComponent={<StartTest />} />,
   },
   {
-    path: "/resume",
-    element: <SlideNavbar AppComponent={<Resume />} />,
+    path: `/atdTest`,
+    element: <NavLayout AppComponent={<AtdTest />} />,
   },
   {
-    path: "/startTest",
-    element: <SlideNavbar AppComponent={<StartTest />} />,
+    path: `${adminRoute}/login`,
+    element: <NavLayout AppComponent={<Login />} />,
   },
   {
-    path: "/atdTest",
-    element: <SlideNavbar AppComponent={<AtdTest />} />,
+    path: `${adminRoute}/register`,
+    element: <NavLayout AppComponent={<Register />} />,
   },
   {
-    path: "/results",
+    path: `${adminRoute}/results`,
     element: <SlideNavbar AppComponent={<UserResults />} />,
   },
   {
-    path: "/dev",
+    path: `${adminRoute}/manage-question`,
+    element: <SlideNavbar AppComponent={<ManageTest />} />,
+  },
+  {
+    path: `${adminRoute}/admin`,
+    element: <SlideNavbar AppComponent={<ComponentParent />} />,
+  },
+  {
+    path: `${adminRoute}/dev`,
     element: <SlideNavbar AppComponent={<TinyMCEEditor />} />,
   },
   // {
-  //   path: "/login",
-  //   element: <ProtectedRoute AppComponent={<NavLayout AppComponent={<Register />} />} />,
+  //   path: `/login`,
+  //   element: <ProtectedRoute AppComponent={<SlideNavbar AppComponent={<Register />} />} />,
   // },
 ]);
 

@@ -77,7 +77,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
 }));
-
+const adminRoute = '/admin'
 export default function Navbar({ AppComponent }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -92,52 +92,52 @@ export default function Navbar({ AppComponent }) {
     const DrawerElements = [
         {
             displayName: 'Manage Questions',
-            link: '/manage-question',
+            link: `${adminRoute}/manage-question`,
             logo: <DrawIcon />
         },
         {
             displayName: 'Result',
-            link: '/results',
+            link: `${adminRoute}/results`,
             logo: <SupervisorAccountIcon />
         },
         {
             displayName: 'Admin',
-            link: '/admin',
+            link: `${adminRoute}/admin`,
             logo: <SupervisorAccountIcon />
         },
         {
-            displayName: 'Login',
-            link: '/login',
+            displayName: 'Admin Login',
+            link: `${adminRoute}/admin/login`,
             logo: <DrawIcon />
         },
         {
             displayName: 'Register',
-            link: '/register',
+            link: `${adminRoute}/register`,
             logo: <DrawIcon />
         },
         {
             displayName: 'Resume',
-            link: '/resume',
+            link: `/resume`,
             logo: <DrawIcon />
         },
         {
             displayName: 'Start Test',
-            link: '/StartTest',
+            link: `/StartTest`,
             logo: <DrawIcon />
         },
         {
             displayName: 'Prescreening',
-            link: '/prescreening',
+            link: `/prescreening`,
             logo: <DrawIcon />
         },
         {
             displayName: 'ATD Test',
-            link: '/atdTest',
+            link: `/atdTest`,
             logo: <DrawIcon />
         },
         {
             displayName: 'TypingTest',
-            link: '/typing-test',
+            link: `/typing-test`,
             logo: <DrawIcon />
         },
     ]

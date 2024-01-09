@@ -4,12 +4,14 @@ import { Box, Grid, } from '@mui/material'
 import { Input, FormLabel, FormControl, Button, Checkbox } from '@mui/joy'
 import image from "../../assets/login-image.svg"
 import certificateImg from "../../assets/GreatPlace.png"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toastError, toastSuccess } from '../../Utils/Toasts.js';
+import { setTestUser } from '../../Utils/utils.js';
 // import Checkbox from '@mui/joy/Checkbox';
 
 
 const ExamLogin = () => {
+  const navigate = useNavigate();
   const [registerId, setRegisterId] = useState('');
   const [registerIdError, setRegisterIdError] = useState('');
   const [mailId, setMailId] = useState('');
@@ -27,8 +29,15 @@ const ExamLogin = () => {
       } else {
         setMailIdError("")
       }
-      const result = await examLogin(registerId, mailId);
-      toastSuccess("Login Successful !")
+      const response = await examLogin(registerId, mailId);
+      const result = response.erpResponse
+      if(result.success == true && result.applicant == null){
+        toastError(result.message)
+      }else if(result.success == true && result.applicant !== null){
+        toastSuccess("Login Successful !")
+        setTestUser(result.applicant)
+        navigate('/resume')
+      }
       console.log('Login Successful:', result);
     } catch (error) {
       toastError(error.message)
@@ -58,7 +67,7 @@ const ExamLogin = () => {
 
   return (
     <>
-      <Grid container spacing={2} alignItems="center" sx={{ height: 'calc(100% - 20px)' }}>
+      <Grid container spacing={2} alignItems="center" sx={{ height: 'calc(100vh - 210px)' }}>
         <Grid item xs={0} md={8} sx={{ display: 'flex', alignItems: "center", justifyContent: 'center', justifyItems: 'center', borderRight: '1px solid #64626233' }}>
           <Box><img src={image} alt="" /></Box>
         </Grid>
@@ -75,12 +84,12 @@ const ExamLogin = () => {
             {/* <p>Please sign-in to your account and start the adventure</p> */}
             <FormControl sx={{ my: 1 }}>
               <FormLabel>Registration ID</FormLabel>
-              <Input value={registerId} autocomplete="off" onChange={(e) => handleRegister(e)} error={registerIdError.length > 0} />
+              <Input value={registerId} autoComplete="off" onChange={(e) => handleRegister(e)} error={registerIdError.length > 0} />
               {registerIdError && <small style={{ color: 'red' }}>{registerIdError}</small>}
             </FormControl>
             <FormControl sx={{ my: 1 }}>
               <FormLabel>Email ID</FormLabel>
-              <Input value={mailId} autocomplete="off" onChange={(e) => setMailId(e.target.value)} error={mailIdError.length > 0} />
+              <Input value={mailId} autoComplete="off" onChange={(e) => setMailId(e.target.value)} error={mailIdError.length > 0} />
               {mailIdError && <small style={{ color: 'red' }}>{mailIdError}</small>}
             </FormControl>
             <Button onClick={handleLogin} size="lg" sx={{ my: 2 }}>Login</Button>

@@ -20,6 +20,7 @@ export default function NavLayout({ AppComponent }) {
     minHeight: '100vh',
   }))
   const Wrapper = styled('section')(({ theme }) => ({
+    display:"flex",
     flex: 1,
     padding: theme.spacing(3),
   }))

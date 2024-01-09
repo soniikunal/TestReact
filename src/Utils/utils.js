@@ -33,8 +33,37 @@ export function setUserSession(userId) {
 
 export function getUserSession() {
   const userId = sessionStorage.getItem("userId");
-  if(userId){
-    return userId
+  if (userId) {
+    return userId;
   }
-  return null
+  return null;
+}
+
+export const setTestUser = (userData) => {
+  sessionStorage.setItem("userData", JSON.stringify(userData));
+};
+
+export const getTestUser = () => {
+  const userDataObj = sessionStorage.getItem("userData");
+  if (userDataObj) {
+    return userDataObj;
+  }
+  return null;
+};
+
+export function formateDate(date) {
+  debugger;
+  const dateObject = new Date(date);
+  // Format the date as 'MM/DD/YYYY hh:mm:ss A'
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+    timeZone: "UTC", // Specify your desired timezone here
+  }).format(dateObject);
+  return formattedDate;
 }
