@@ -40,11 +40,11 @@ const Login = () => {
             {/* <p>Please sign-in to your account and start the adventure</p> */}
             <FormControl sx={{ my: 1 }}>
               <FormLabel>Username</FormLabel>
-              <Input value={username} onChange={(e) => setUsername(e.target.value)} />
+              <Input autoComplete="off" value={username} onChange={(e) => setUsername(e.target.value)} />
             </FormControl>
             <FormControl sx={{ my: 1 }}>
               <FormLabel>Password</FormLabel>
-              <Input sx={{ mb: 1 }} value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input autoComplete="off" sx={{ mb: 1 }} value={password} onChange={(e) => setPassword(e.target.value)} />
               {/* <a href="" >Forgot Password?</a> */}
             </FormControl>
             {/* <Checkbox color="primary" disabled={false} label="Remember Me" /> */}

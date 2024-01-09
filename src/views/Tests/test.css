@@ -19,11 +19,11 @@
 /* Resume.css */
 
 .outerCard {
-    width: 70vw;
+    /* width: 100%; */
   }
   
   .mainCard {
-    height: 100vh;
+  height: calc(100vh - 180px);
     display: flex;
     flex-direction: column; /* Updated to column layout */
     align-items: center; /* Center horizontally */

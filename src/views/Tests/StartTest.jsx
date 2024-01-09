@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { CardContent, Typography, Container, Button, Box } from "@mui/material";
 import { Card } from "@mui/joy";
+import { Link } from "react-router-dom";
 
 export default function StartTest() {
   return (
     <>
+    <Container maxWidth="">
       <Card
         color="primary"
         size="md"
         variant="soft"
         style={{
-          height: "100vh",
+          height: 'calc(100vh - 180px)',
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <Container>
-          <Typography variant="h3" sx={{ textAlign: "center" }}>
+        {/* <Container> */}
+          {/* <Typography variant="h6" gutterBottom fontSize="xl" sx={{ textAlign: "center" }}>
             Test
-          </Typography>
+          </Typography> */}
           <Card className="outerCard">
             <Typography variant="h4">Instruction</Typography>
             <Card className="innerCard">
@@ -48,18 +50,19 @@ export default function StartTest() {
                 marginTop: "16px",
               }}
             >
+              <Link to={'/prescreening'}>
               <Button
                 variant="contained"
                 color="primary"
                 size="large"
-                href="/resume"
-              >
+                >
                 Next &gt; &gt;
               </Button>
+                </Link>
             </Box>
           </Card>
-        </Container>
       </Card>
+        </Container>
     </>
   );
 }
