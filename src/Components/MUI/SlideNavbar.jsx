@@ -127,12 +127,12 @@ export default function Navbar({ AppComponent }) {
         },
         {
             displayName: 'Prescreening',
-            link: `/prescreening`,
+            link: `/Prescreening`,
             logo: <DrawIcon />
         },
         {
             displayName: 'ATD Test',
-            link: `/atdTest`,
+            link: `/ATD`,
             logo: <DrawIcon />
         },
         {
@@ -215,7 +215,6 @@ export default function Navbar({ AppComponent }) {
                     </Wrapper>
                     <Footer />
                 </Main>
-            </Box>
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -228,6 +227,7 @@ export default function Navbar({ AppComponent }) {
                 pauseOnHover
                 theme="light"
             />
+            </Box>
         </>
     );
 }

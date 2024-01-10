@@ -151,21 +151,18 @@ export const setPreTestQuestion = async () => {
   }
 };
 
-export const updateSelectedAnswers = async (userId, data) => {
+export const updateSelectedAnswers = async (data) => {
   try {
-    const response = await axios.put(
-      `${preRoute}/updateSelectedAnswers/${userId}`,
-      data
-    );
+    const response = await axios.put(`${preRoute}/updateSelectedAnswers`, data);
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-export const calculateScore = async (userId) => {
+export const calculateScore = async () => {
   try {
-    const response = await axios.post(`${preRoute}/calculatePre/${userId}`);
+    const response = await axios.post(`${preRoute}/calculatePre`);
     return response.data;
   } catch (error) {
     throw error;
@@ -181,21 +178,18 @@ export const setATDTestQuestion = async () => {
   }
 };
 
-export const updateSelectedATDAnswers = async (userId, data) => {
+export const updateSelectedATDAnswers = async (data) => {
   try {
-    const response = await axios.put(
-      `${atdRoute}/updateSelectedAnswers/${userId}`,
-      data
-    );
+    const response = await axios.put(`${atdRoute}/updateSelectedAnswers`, data);
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-export const calculateATDScore = async (userId) => {
+export const calculateATDScore = async () => {
   try {
-    const response = await axios.post(`${atdRoute}/calculateATD/${userId}`);
+    const response = await axios.post(`${atdRoute}/calculateATD`);
     return response.data;
   } catch (error) {
     throw error;
@@ -211,9 +205,18 @@ export const GetUserScores = async () => {
   }
 };
 
-export const submitTypingScore = async (userId, data) => {
+export const submitTypingScore = async (data) => {
   try {
-    const response = await axios.post(`${scoreRoute}/typingscore/${userId}`, data)
+    const response = await axios.post(`${atdRoute}/typingscore`, data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getTypingScore = async () => {
+  try {
+    const response = await axios.get(`${atdRoute}/getTypingScore`);
     return response.data;
   } catch (error) {
     throw error;

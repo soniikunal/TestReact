@@ -11,6 +11,9 @@ const CustomPagination = styled(Pagination)({
         backgroundColor: 'green !important',
         color: "white"
     },
+    '.Mui-selected':{
+        backgroundColor: '#e38c297c !important',
+    } 
 });
 const PaginationComponent = ({ data, currentQueNo, handleChange }) => {
     return (
