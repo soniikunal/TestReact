@@ -50,7 +50,7 @@ export default function StartTest() {
                 marginTop: "16px",
               }}
             >
-              <Link to={'/prescreening'}>
+              <Link to={'/Prescreening'}>
               <Button
                 variant="contained"
                 color="primary"

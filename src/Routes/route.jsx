@@ -29,12 +29,12 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: `/prescreening`,
-    element: <NavLayout AppComponent={<PreScreenTest />} />,
+    path: `/Prescreening`,
+    element: <SlideNavbar AppComponent={<PreScreenTest />} />,
   },
   {
-    path: `/typing-test`,
-    element: <NavLayout AppComponent={<TypingTest />} />,
+    path: `/TypingTest`,
+    element: <SlideNavbar AppComponent={<TypingTest />} />,
   },
   {
     path: `/resume`,
@@ -42,19 +42,19 @@ const router = createBrowserRouter([
   },
   {
     path: `/startTest`,
-    element: <NavLayout AppComponent={<StartTest />} />,
+    element: <SlideNavbar AppComponent={<StartTest />} />,
   },
   {
-    path: `/atdTest`,
-    element: <NavLayout AppComponent={<AtdTest />} />,
+    path: `/ATD`,
+    element: <SlideNavbar AppComponent={<AtdTest />} />,
   },
   {
     path: `${adminRoute}/login`,
-    element: <NavLayout AppComponent={<Login />} />,
+    element: <SlideNavbar AppComponent={<Login />} />,
   },
   {
     path: `${adminRoute}/register`,
-    element: <NavLayout AppComponent={<Register />} />,
+    element: <SlideNavbar AppComponent={<Register />} />,
   },
   {
     path: `${adminRoute}/results`,

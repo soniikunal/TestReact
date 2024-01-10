@@ -12,9 +12,9 @@ import { setTestUser } from '../../Utils/utils.js';
 
 const ExamLogin = () => {
   const navigate = useNavigate();
-  const [registerId, setRegisterId] = useState('');
+  const [registerId, setRegisterId] = useState('ZN1AWY');
   const [registerIdError, setRegisterIdError] = useState('');
-  const [mailId, setMailId] = useState('');
+  const [mailId, setMailId] = useState('kunal.soni@fusionfirst.com');
   const [mailIdError, setMailIdError] = useState('');
 
   const handleLogin = async () => {
@@ -31,14 +31,19 @@ const ExamLogin = () => {
       }
       const response = await examLogin(registerId, mailId);
       const result = response.erpResponse
-      if(result.success == true && result.applicant == null){
+      if (result.success == true && result.applicant == null) {
         toastError(result.message)
-      }else if(result.success == true && result.applicant !== null){
+      } else if (result.success == true && result.applicant !== null) {
         toastSuccess("Login Successful !")
         setTestUser(result.applicant)
+        console.log('Login Successful:', result);
+        if (response.TestPending && response.TestPending.length > 0) {
+          if (response.TestPending[0] !== "Prescreening") {
+            return navigate(`/${response.TestPending[0]}`)
+          }
+        }
         navigate('/resume')
       }
-      console.log('Login Successful:', result);
     } catch (error) {
       toastError(error.message)
       console.error('Login failed:', error.message);
@@ -67,7 +72,7 @@ const ExamLogin = () => {
 
   return (
     <>
-      <Grid container spacing={2} alignItems="center" sx={{ height: 'calc(100vh - 210px)' }}>
+      <Grid container spacing={2} alignItems="center" sx={{ height: 'calc(100% - 210px)' }}>
         <Grid item xs={0} md={8} sx={{ display: 'flex', alignItems: "center", justifyContent: 'center', justifyItems: 'center', borderRight: '1px solid #64626233' }}>
           <Box><img src={image} alt="" /></Box>
         </Grid>

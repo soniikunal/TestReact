@@ -7,8 +7,8 @@ import Alert from '@mui/joy/Alert';
 import { useNavigate } from 'react-router-dom';
 import { setPreTestQuestion, updateSelectedAnswers, calculateScore } from '../../config/apiConfig';
 import './test.css'
-import { toastError } from '../../Utils/Toasts';
-import { getUserSession, setUserSession } from '../../Utils/utils';
+import { toastError, toastSuccess } from '../../Utils/Toasts';
+import SubmitConfModal from '../../Components/common/SubmitConfModal';
 import PaginationComponent from '../../Components/MUI/PaginationComponent';
 
 const imgUrl = import.meta.env.VITE_API_URL;
@@ -23,10 +23,16 @@ const PreScreenTest = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [queArray, setQueArray] = useState([]);
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const elementRef = useRef(null);
 
   useEffect(() => {
     fetchQuestion()
+    const timeoutId = setTimeout(() => {
+      setMessage(null);
+    }, 20000);
+
+    return () => clearTimeout(timeoutId);
   }, [])
 
   useEffect(() => {
@@ -58,12 +64,14 @@ const PreScreenTest = () => {
       if (response.user) {
         setQueArray(response.user.assignedQuestions)
         setUserInfo(response.user._id)
-        setUserSession(response.user._id)
         setTime(response.user.remainingTime)
       } else {
         setError(response?.message)
         toastError(response?.message)
-        navigate('/login');
+        navigate('/');
+      }
+      if (response.message) {
+        setMessage(response.message)
       }
     } catch (error) {
       console.log(`Cant fetch questions:` + error)
@@ -72,11 +80,11 @@ const PreScreenTest = () => {
 
   const SendAnswers = async (newSelectedAnswer) => {
     try {
-      if (userInfo && userInfo !== null) {
-        const response = await updateSelectedAnswers(userInfo, newSelectedAnswer)
-      } else if (getUserSession()) {
-        const response = await updateSelectedAnswers(getUserSession(), newSelectedAnswer)
-      }
+      // if (userInfo && userInfo !== null) {
+      const response = await updateSelectedAnswers(newSelectedAnswer)
+      // } else if (getUserSession()) {
+      //   const response = await updateSelectedAnswers(getUserSession(), newSelectedAnswer)
+      // }
     } catch (error) {
       console.log(`Cant send answers:` + error)
 
@@ -85,10 +93,15 @@ const PreScreenTest = () => {
 
   const SubmitAnswers = async () => {
     try {
-      if (userInfo && userInfo !== null) {
-        const response = await calculateScore(userInfo)
-      } else if (getUserSession()) {
-        const response = await calculateScore(getUserSession())
+      debugger
+      // if (userInfo && userInfo !== null) {
+      const response = await calculateScore()
+      // } else if (getUserSession()) {
+      //   const response = await calculateScore(getUserSession())
+      // }
+      if (response.success == true) {
+        toastSuccess(response.message)
+        navigate('/ATD');
       }
 
     } catch (error) {
@@ -144,12 +157,10 @@ const PreScreenTest = () => {
   const handleNext = () => {
     const increment = currentQueNo + 1
     setCurrentQueNo(increment)
-    scrollToElement()
   }
   const handlePrevious = () => {
     const decrement = currentQueNo - 1
     setCurrentQueNo(decrement)
-    scrollToElement()
   }
 
   const formatTime = (seconds) => {
@@ -162,15 +173,15 @@ const PreScreenTest = () => {
     return `Times Up`
   };
 
-  function scrollToElement() {
-    if (elementRef.current) {
-      elementRef.current.scrollIntoView({
-        behavior: 'smooth', // 'auto' or 'smooth'
-        block: 'start',     // 'start', 'center', 'end', or 'nearest'
-        inline: 'start',    // 'start', 'center', 'end', or 'nearest'
-      });
-    }
-  }
+  // function scrollToElement() {
+  //   if (elementRef.current) {
+  //     elementRef.current.scrollIntoView({
+  //       behavior: 'smooth', // 'auto' or 'smooth'
+  //       block: 'start',     // 'start', 'center', 'end', or 'nearest'
+  //       inline: 'start',    // 'start', 'center', 'end', or 'nearest'
+  //     });
+  //   }
+  // }
 
   return (
     <Container maxWidth="">
@@ -182,7 +193,8 @@ const PreScreenTest = () => {
           <>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
               <Chip>Total Number of Question 100</Chip>
-              <Chip>{formatTime(time)}</Chip>
+              {message && <Chip className='blinking-chip'>{message}</Chip>}
+              <Chip className='blinking-chip'>{formatTime(time)}</Chip>
             </Box>
             <Card color="neutral"
               invertedColors
@@ -214,9 +226,10 @@ const PreScreenTest = () => {
               </Button>}
 
               {queArray.length == currentQueNo &&
-                <Button variant="soft" color="primary" onClick={SubmitAnswers}>
-                  Submit
-                </Button>
+                <SubmitConfModal onSubmit={SubmitAnswers} />
+                // <Button Button variant="soft" color="primary" onClick={SubmitAnswers}>
+                //     Submit
+                // </Button>
               }
 
               {queArray.length !== currentQueNo &&

@@ -7,10 +7,11 @@ import Alert from '@mui/joy/Alert';
 import { useNavigate } from 'react-router-dom';
 import { setATDTestQuestion, updateSelectedATDAnswers, calculateATDScore } from '../../config/apiConfig';
 import './test.css'
-import { toastError } from '../../Utils/Toasts';
+import { toastError, toastSuccess } from '../../Utils/Toasts';
 import { getUserSession, setUserSession } from '../../Utils/utils';
 import SubmitConfModal from '../../Components/common/SubmitConfModal';
 import PaginationComponent from '../../Components/MUI/PaginationComponent';
+import { setNavigateToLogin } from '../../config/axiosConfig';
 
 const imgUrl = import.meta.env.VITE_API_URL;
 
@@ -22,11 +23,25 @@ const AtdTest = () => {
     const [question, setQuestion] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [queArray, setQueArray] = useState([]);
+    const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     const elementRef = useRef(null);
 
     useEffect(() => {
+        setNavigateToLogin(() => {
+            toastError('Unauthorized access. Redirecting to login page.')
+            navigate('/');
+
+        });
+    }, [navigate]);
+
+    useEffect(() => {
         fetchQuestion()
+        const timeoutId = setTimeout(() => {
+            setMessage(null);
+        }, 20000);
+
+        return () => clearTimeout(timeoutId);
     }, [])
 
     useEffect(() => {
@@ -52,8 +67,8 @@ const AtdTest = () => {
     }, []);
 
     const fetchQuestion = async () => {
-        debugger
         try {
+            debugger
             const response = await setATDTestQuestion()
             if (response.user) {
                 setQueArray(response.user.assignedQuestions)
@@ -63,20 +78,25 @@ const AtdTest = () => {
             } else {
                 setError(response?.message)
                 toastError(response?.message)
-                navigate('/login');
+                navigate('/TypingTest');
+            }
+            if (response.message) {
+                setMessage(response.message)
             }
         } catch (error) {
+            debugger
+            toastError(error.message)
             console.log(`Cant fetch questions:` + error)
         }
     }
 
     const SendAnswers = async (newSelectedAnswer) => {
         try {
-            if (userInfo && userInfo !== null) {
-                const response = await updateSelectedATDAnswers(userInfo, newSelectedAnswer)
-            } else if (getUserSession()) {
-                const response = await updateSelectedATDAnswers(getUserSession(), newSelectedAnswer)
-            }
+            // if (userInfo && userInfo !== null) {
+            const response = await updateSelectedATDAnswers(newSelectedAnswer)
+            // } else if (getUserSession()) {
+            //     const response = await updateSelectedATDAnswers(getUserSession(), newSelectedAnswer)
+            // }
         } catch (error) {
             console.log(`Cant send answers:` + error)
 
@@ -85,11 +105,16 @@ const AtdTest = () => {
 
     const SubmitAnswers = async () => {
         try {
-            if (userInfo && userInfo !== null) {
-                const response = await calculateATDScore(userInfo)
-            } else if (getUserSession()) {
-                const response = await calculateATDScore(getUserSession())
+            // if (userInfo && userInfo !== null) {
+            const response = await calculateATDScore()
+            debugger
+            if (response.success == true) {
+                toastSuccess(response.message)
+                navigate('/TypingTest');
             }
+            // } else if (getUserSession()) {
+            //     const response = await calculateATDScore(getUserSession())
+            // }
 
         } catch (error) {
             console.log(`Cant send answers:` + error)
@@ -146,12 +171,10 @@ const AtdTest = () => {
     const handleNext = () => {
         const increment = currentQueNo + 1
         setCurrentQueNo(increment)
-        scrollToElement()
     }
     const handlePrevious = () => {
         const decrement = currentQueNo - 1
         setCurrentQueNo(decrement)
-        scrollToElement()
     }
 
     const formatTime = (seconds) => {
@@ -164,15 +187,15 @@ const AtdTest = () => {
         return `Times Up`
     };
 
-    function scrollToElement() {
-        if (elementRef.current) {
-            elementRef.current.scrollIntoView({
-                behavior: 'smooth', // 'auto' or 'smooth'
-                block: 'start',     // 'start', 'center', 'end', or 'nearest'
-                inline: 'start',    // 'start', 'center', 'end', or 'nearest'
-            });
-        }
-    }
+    // function scrollToElement() {
+    //     if (elementRef.current) {
+    //         elementRef.current.scrollIntoView({
+    //             behavior: 'smooth', // 'auto' or 'smooth'
+    //             block: 'start',     // 'start', 'center', 'end', or 'nearest'
+    //             inline: 'start',    // 'start', 'center', 'end', or 'nearest'
+    //         });
+    //     }
+    // }
     return (
         <>
             <Container maxWidth="">
@@ -184,7 +207,8 @@ const AtdTest = () => {
                         <>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
                                 <Chip>Total Number of Question 10</Chip>
-                                <Chip>{formatTime(time)}</Chip>
+                                {message && <Chip className='blinking-chip'>{message}</Chip>}
+                                <Chip className='blinking-chip'>{formatTime(time)}</Chip>
                             </Box>
                             <Card color="neutral"
                                 invertedColors
@@ -223,7 +247,7 @@ const AtdTest = () => {
                                 }
 
                                 {queArray.length !== currentQueNo &&
-                                    <Button  variant="soft" color="primary" onClick={handleNext} >
+                                    <Button variant="soft" color="primary" onClick={handleNext} >
                                         Next
                                     </Button>
 
