@@ -222,3 +222,51 @@ export const getTypingScore = async () => {
     throw error;
   }
 };
+
+export const AddArticleQuestion = async (questionData) => {
+  try {
+    const response = await axios.post(
+      `${baseURL}/addArticle`,
+      questionData
+    );
+    toastSuccess(response.data.message);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const EditArticleQuestion = async (questionId, questionData) => {
+  try {
+    const response = await axios.put(
+      `${baseURL}/updateArticle/${questionId}`,
+      questionData
+    );
+    toastSuccess(response.data.message);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const GetArticleQuestions = async (searchIpt) => {
+  try {
+    const response = await axios.get(
+      `${baseURL}/getArticles?search=${searchIpt}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const DelArticleQuestion = async (categoryId) => {
+  try {
+    const response = await axios.delete(
+      `${baseURL}/delArticle/${categoryId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
