@@ -92,11 +92,10 @@ const AtdTest = () => {
 
     const SendAnswers = async (newSelectedAnswer) => {
         try {
-            // if (userInfo && userInfo !== null) {
             const response = await updateSelectedATDAnswers(newSelectedAnswer)
-            // } else if (getUserSession()) {
-            //     const response = await updateSelectedATDAnswers(getUserSession(), newSelectedAnswer)
-            // }
+            if (!response.success){
+                toastError("Failed to Submit the answer!")
+            }
         } catch (error) {
             console.log(`Cant send answers:` + error)
 
@@ -219,7 +218,11 @@ const AtdTest = () => {
                             </Card>
 
                             <FormControl component="fieldset" style={{ alignSelf: 'flexStart', width: '100%' }} ref={elementRef}>
-                                <FormLabel component="legend" title={question.uniqueCode}>Q{currentQueNo}. {question.question}</FormLabel>
+                                {/* <FormLabel component="legend" title={question.uniqueCode}>Q{currentQueNo}. {question.question}</FormLabel> */}
+                                <FormLabel component="legend" title={question.uniqueCode}>
+                                    Q{currentQueNo}.{" "}
+                                    <span dangerouslySetInnerHTML={{ __html: question.question }} />
+                                </FormLabel>
                                 {question.imgPath &&
                                     <img src={imgUrl + question.imgPath} className='testImage' />
                                 }

@@ -196,9 +196,11 @@ export const calculateATDScore = async () => {
   }
 };
 
-export const GetUserScores = async () => {
+export const GetUserScores = async (searchIpt, startDate, endDate, page) => {
   try {
-    const response = await axios.get(`${scoreRoute}/getUsers`);
+    const response = await axios.get(
+      `${scoreRoute}/getUsers?userId=${searchIpt}&startDate=${startDate}&endDate=${endDate}&page=${page}`
+    );
     return response.data;
   } catch (error) {
     throw error;

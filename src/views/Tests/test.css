@@ -6,8 +6,10 @@
 }
 .MuiPagination-ul{
     padding: 10px !important;
-    /* border: 1px solid black; */
     border-radius: 27px;
+    li{
+      margin:2px 0px;
+    }
 }
 .MuiFormLabel-root{
     font-size: 1.2rem !important;

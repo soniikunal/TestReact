@@ -5,26 +5,26 @@ import "./test.css";
 import { formateDate, getTestUser } from "../../Utils/utils";
 import { Link } from "react-router-dom";
 
-const formData = {
-  name: "John Doe",
-  department: "IT",
-  position: "Software Engineer",
-  test: "React",
-  fatherName: "Michael Doe",
-  dob: "1990-01-01",
-  email: "john.doe@example.com",
-  number: "123-456-7890",
-};
+// const formData = {
+//   name: "John Doe",
+//   department: "IT",
+//   position: "Software Engineer",
+//   test: "React",
+//   fatherName: "Michael Doe",
+//   dob: "1990-01-01",
+//   email: "john.doe@example.com",
+//   number: "123-456-7890",
+// };
 
 const Resume = () => {
-  //   const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({});
 
-  // useEffect(() => {
-  //   const userData = getTestUser();
-  //   if (userData) {
-  //     setFormData(JSON.parse(userData));
-  //   }
-  // }, []);
+  useEffect(() => {
+    const userData = getTestUser();
+    if (userData) {
+      setFormData(JSON.parse(userData));
+    }
+  }, []);
 
   return (
     <Container maxWidth="">

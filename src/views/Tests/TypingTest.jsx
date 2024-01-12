@@ -72,7 +72,7 @@ const TypingTest = () => {
         const WordPrMinute = Math.round(((charIndex - mistakes) / 5));
         const penalty = Math.round((mistakes / charIndex) * 100);
         const netSpeed = Math.round((charIndex / 5) - penalty);
-        const str = `${WordPrMinute} WPM x ${Accuracy}% Accuracy = ${netSpeed} NetSpeed`
+        const str = `${WordPrMinute} WPM x ${Accuracy}% ACC = ${netSpeed} NS`
         saveData(str)
     }
     const resetGame = () => {
@@ -101,7 +101,8 @@ const TypingTest = () => {
             if(response.success){
                 loadParagraph();
             } else{
-
+                navigate('/')
+                toastError('You have Already appeared for Typing Test!')
             }
         } catch (error) {
             toastError(error.response.data)

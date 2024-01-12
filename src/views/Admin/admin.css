@@ -1,0 +1,9 @@
+.flatpickr {
+  background-color: #0000000f;
+  padding: 5px;
+  border: 1px solid rgb(237, 245, 253, 0.45);
+  border-radius: 5px;
+}
+.flatpickr.flatpickr-input::placeholder {
+  color: rgb(237, 245, 253, 0.45) !important;
+}

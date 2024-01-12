@@ -5,17 +5,26 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import LayersIcon from '@mui/icons-material/Layers';
 import { GetUserScores } from '../../config/apiConfig';
-
+import Flatpickr from 'react-flatpickr';
+import ExcelJS from 'exceljs';
+import 'flatpickr/dist/themes/material_green.css';
+import './admin.css'
+import { toastError } from '../../Utils/Toasts';
+import { saveAs } from 'file-saver';
 const UserResults = () => {
-    const [searchIpt, setSearchIpt] = useState([]);
+
+    const maxDate = new Date();
+    const [searchIpt, setSearchIpt] = useState('');
     const [users, setUser] = useState([]);
+    const [page, setPage] = useState([]);
+    const [date, setDate] = useState([null, null]);
 
     useEffect(() => {
         fetchUserResult()
     }, [])
 
     const columns = [
-        { field: 'uniqueCode', headerName: 'userId', width: 100 },
+        { field: 'userId', headerName: 'RegId', width: 100 },
         {
             field: 'Prescreening',
             headerName: 'Prescreening',
@@ -74,18 +83,97 @@ const UserResults = () => {
         // },
     ];
 
+
+    const exportToExcel = () => {
+        try {
+            // Create a new workbook
+            if (users.length > 0) {
+                const workbook = new ExcelJS.Workbook();
+                const worksheet = workbook.addWorksheet('Sheet1');
+                const headers = [
+                    'userId',
+                    'Prescreening',
+                    'ATD',
+                    'TypingTest',
+                    'Date',
+                ];
+                worksheet.addRow(headers);
+                const data = users;
+
+                //Sorting descending
+                data.toSorted((a, b) => {
+                    const prescreeningA = parseInt(a['Prescreening'], 10);
+                    const prescreeningB = parseInt(b['Prescreening'], 10);
+
+                    // Compare 'Prescreening' values in descending order
+                    return prescreeningB - prescreeningA;
+                }).forEach((row) => {
+                    // Extract values from the object in the correct order
+                    const rowData = headers.map(header => {
+                        if (header == 'Date') {
+                            return row['createdAt'].split('T')[0]
+                        }
+                        return row[header]
+                    });
+                    // Add a new row with the extracted values
+                    worksheet.addRow(rowData);
+
+                    const prescreeningValue = parseInt(row['Prescreening'], 10);
+                    // Add color to rows based on the Prescreening value
+                    if (prescreeningValue < 45 && prescreeningValue > 0) {
+                        worksheet.lastRow.eachCell({ includeEmpty: true }, (cell) => {
+                            cell.fill = {
+                                type: 'pattern',
+                                pattern: 'solid',
+                                fgColor: { argb: 'E6B8B7' }, // Red background color
+                            };
+                        });
+                    } else if (prescreeningValue >= 45 && prescreeningValue <= 50) {
+                        worksheet.lastRow.eachCell({ includeEmpty: true }, (cell) => {
+                            cell.fill = {
+                                type: 'pattern',
+                                pattern: 'solid',
+                                fgColor: { argb: 'B8CCE4' }, // Orange background color
+                            };
+                        });
+                    }
+                });
+
+                // Save the file and prompt the user to download
+                workbook.xlsx.writeBuffer()
+                    .then((buffer) => {
+                        saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Prescreening Results.xlsx');
+                    })
+                    .catch((error) => {
+                        console.error('Error writing the file:', error);
+                    });
+            }
+        } catch (error) {
+            toastError(error)
+        }
+    };
+
     const fetchUserResult = async () => {
         try {
-            const allQuestions = await GetUserScores(searchIpt);
+            setUser([])
+            const allQuestions = await GetUserScores(searchIpt, date[0], date[1], page);
+            if (allQuestions.message) {
+                toastError(allQuestions.message)
+            }
             setUser(allQuestions)
+            console.log(users);
         } catch (error) {
-            console.error('Fe tch failed:', error.message);
+            console.error('Fetch failed:', error.message);
         }
     }
 
     const handleInputChange = (event) => {
         const { value } = event.target;
         setSearchIpt(value);
+    }
+
+    const handleDateChange = (e) => {
+        setDate(e)
     }
 
     function formateDate(date) {
@@ -105,7 +193,6 @@ const UserResults = () => {
             timeZone: 'UTC'  // Specify your desired timezone here
         }).format(dateObject);
         return formattedDate;
-
     }
 
     return (
@@ -132,11 +219,26 @@ const UserResults = () => {
                     >
                         <Typography level="title-md">Search by:</Typography>
                         <Input placeholder="UserId" onChange={handleInputChange} value={searchIpt} />
+                        {/* <AddQuestionModal /> */}
+                        <Flatpickr
+                            className='flatpickr'
+                            placeholder='Select date range'
+                            options={{
+                                mode: 'range',
+                                maxDate: maxDate,
+                                dateFormat: 'd M Y',
+                            }}
+                            value={date}
+                            onChange={handleDateChange}
+                        />
                         <Button variant="solid" size="sm" onClick={fetchUserResult}>
                             Search
                         </Button>
                         <Box style={{ marginLeft: 'auto' }}>
-                            {/* <AddQuestionModal /> */}
+                            {users.length > 0 &&
+                                <Button variant="solid" size="sm" onClick={exportToExcel}>
+                                    exportToExcel
+                                </Button>}
                         </Box>
                         {/* <Category /> */}
                     </Stack>
@@ -147,6 +249,9 @@ const UserResults = () => {
                     editMode="row"
                     getRowId={(row) => row.userId}
                     disableToolbar
+                // initialState={{
+                //     pagination: { paginationModel: { pageSize: 5 } },
+                //   }}
                 />
 
             </Card>
