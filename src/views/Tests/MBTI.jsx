@@ -273,27 +273,6 @@ const MBTI = () => {
                 >
                     Myer Brigs Type Indicator
                 </Typography>
-                {/* <Stepper sx={{ width: '100%' }}>
-                    <Step
-                        orientation="vertical"
-                        indicator={
-                            <StepIndicator variant="solid" color="neutral">
-                                1
-                            </StepIndicator>
-                        }
-                    >
-                        Order placed
-                    </Step>
-                    <Step
-                        orientation="vertical"
-                        indicator={<StepIndicator variant="outlined">2</StepIndicator>}
-                    >
-                        In review
-                    </Step>
-                    <Step orientation="vertical" indicator={<StepIndicator>3</StepIndicator>}>
-                        Approved
-                    </Step>
-                </Stepper> */}
                 <Stepper sx={{ width: '100%' }}>
                     {steps.map((step, index) => (
                         <Step
