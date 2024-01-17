@@ -4,7 +4,7 @@ import { Box, Card, Container, Typography, Chip } from '@mui/joy';
 import TimerOffIcon from '@mui/icons-material/TimerOff';
 import { submitTypingScore, getTypingScore } from '../../config/apiConfig';
 import { getUserSession } from '../../Utils/utils';
-import { toastError } from '../../Utils/Toasts';
+import { toastError, toastSuccess } from '../../Utils/Toasts';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -87,7 +87,10 @@ const TypingTest = () => {
     const saveData = async (str) => {
         try {
             const response = await submitTypingScore({ str })
-            
+            if (response.status) {
+                toastSuccess('Record Saved to DataBase.')
+                navigate('/Completion')
+            }
         } catch (error) {
             toastError(error.response.data)
         }
@@ -95,12 +98,10 @@ const TypingTest = () => {
 
     const checkForScore = async () => {
         try {
-            debugger
             const response = await getTypingScore()
-            debugger
-            if(response.success){
+            if (response.success) {
                 loadParagraph();
-            } else{
+            } else {
                 navigate('/')
                 toastError('You have Already appeared for Typing Test!')
             }

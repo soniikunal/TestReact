@@ -122,7 +122,7 @@ export default function Navbar({ AppComponent }) {
         },
         {
             displayName: 'Start Test',
-            link: `/StartTest`,
+            link: `/Prescreening`,
             logo: <DrawIcon />
         },
         {
@@ -137,7 +137,7 @@ export default function Navbar({ AppComponent }) {
         },
         {
             displayName: 'TypingTest',
-            link: `/typing-test`,
+            link: `/TypingTest`,
             logo: <DrawIcon />
         },
     ]

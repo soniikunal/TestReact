@@ -238,16 +238,26 @@ const MBTI = () => {
             Judging: judgingScore,
             Perceiving: perceivingScore,
         });
-        console.log({
-            introversionScore,
-            extraversionScore,
-            sensingScore,
-            intuitingScore,
-            thinkingScore,
-            feelingScore,
-            judgingScore,
-            perceivingScore,
-        })
+        // console.log({
+        //     introversionScore,
+        //     extraversionScore,
+        //     sensingScore,
+        //     intuitingScore,
+        //     thinkingScore,
+        //     feelingScore,
+        //     judgingScore,
+        //     perceivingScore,
+        // })
+
+        const introversionType = introversionScore > extraversionScore ? "I" : extraversionScore > introversionScore ? "E" : "IE";
+        const sensingType = sensingScore > intuitingScore ? "S" : intuitingScore > sensingScore ? "N" : "SN";
+        const judgingType = judgingScore > perceivingScore ? "J" : perceivingScore > judgingScore ? "P" : "JP";
+        const thinkingType = thinkingScore > feelingScore ? "T" : feelingScore > thinkingScore ? "F" : "TF";
+
+        // Concatenate the results
+        const personalityResult = introversionType + sensingType + judgingType + thinkingType;
+
+        console.log(personalityResult);
     };
     const showNextForm = () => {
 

@@ -68,7 +68,7 @@ const PreScreenTest = () => {
       } else {
         setError(response?.message)
         toastError(response?.message)
-        navigate('/');
+        navigate('/ATD');
       }
       if (response.message) {
         setMessage(response.message)
@@ -80,11 +80,10 @@ const PreScreenTest = () => {
 
   const SendAnswers = async (newSelectedAnswer) => {
     try {
-      // if (userInfo && userInfo !== null) {
       const response = await updateSelectedAnswers(newSelectedAnswer)
-      // } else if (getUserSession()) {
-      //   const response = await updateSelectedAnswers(getUserSession(), newSelectedAnswer)
-      // }
+      if (!response.status) {
+        toastError('Some issue occurred!')
+      }
     } catch (error) {
       console.log(`Cant send answers:` + error)
 
@@ -93,12 +92,7 @@ const PreScreenTest = () => {
 
   const SubmitAnswers = async () => {
     try {
-      debugger
-      // if (userInfo && userInfo !== null) {
       const response = await calculateScore()
-      // } else if (getUserSession()) {
-      //   const response = await calculateScore(getUserSession())
-      // }
       if (response.success == true) {
         toastSuccess(response.message)
         navigate('/ATD');
@@ -205,7 +199,11 @@ const PreScreenTest = () => {
             </Card>
 
             <FormControl component="fieldset" style={{ alignSelf: 'flexStart', width: '100%' }} ref={elementRef}>
-              <FormLabel component="legend" title={question.uniqueCode}>Q{currentQueNo}. {question.question}</FormLabel>
+              {/* <FormLabel component="legend" title={question.uniqueCode}>Q{currentQueNo}. {question.question}</FormLabel> */}
+              <FormLabel component="legend" title={question.uniqueCode} sx={{ alignItems: "start" }}>
+                Q{currentQueNo}.{" "}
+                <span dangerouslySetInnerHTML={{ __html: question.question }} />
+              </FormLabel>
               {question.imgPath &&
                 <img src={imgUrl + question.imgPath} className='testImage' />
               }

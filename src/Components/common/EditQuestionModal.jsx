@@ -9,7 +9,6 @@ import { toastError, toastSuccess } from "../../Utils/Toasts";
 const imgUrl = import.meta.env.VITE_API_URL;
 
 const EditQuestionModal = ({ open, onClose, question }) => {
-  debugger;
   const [avatar, setAvatar] = useState(null);
   const [image, setImage] = useState(question.imgPath ? imgUrl + question.imgPath : null );
   const [correctOpt, setcorrectOpt] = useState(question.correctOpt);
@@ -49,7 +48,6 @@ const EditQuestionModal = ({ open, onClose, question }) => {
     setImage(null);
   };
   const handleOptionQuantityChange = (event) => {
-    debugger;
     if (event?.target) {
       const quantity = parseInt(event.target.innerHTML, 10);
       setOptionQuantity(quantity);
@@ -80,13 +78,11 @@ const EditQuestionModal = ({ open, onClose, question }) => {
   };
 
   const handleOptionChange = (index, value) => {
-    debugger;
     const newOptions = [...options];
     newOptions[index] = value;
     setOptions(newOptions);
   };
   // const handleOptionChange = (index, value) => {
-  //     debugger
   //     setOptions(prevOptions => {
   //         const newOptions = [...prevOptions];
   //         newOptions[index] = value;
@@ -101,7 +97,6 @@ const EditQuestionModal = ({ open, onClose, question }) => {
   };
 
   const handleEditQuestion = async () => {
-    debugger;
     const data = {
       question: que,
       category,

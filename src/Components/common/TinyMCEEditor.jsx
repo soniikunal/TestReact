@@ -3,7 +3,6 @@ import { Editor } from '@tinymce/tinymce-react';
 
 const TinyMCEEditor = ({ value, onChange }) => {
     // useEffect(() => {
-    //     debugger
     //     const alert = document.querySelector('body > div.tox.tox-silver-sink.tox-tinymce-aux > div > div > div.tox-notification__body')
     //     const alertBox= document.getElementsByClassName('tox-notifications-container')[0]
     //     if (!alert?.innerHTML.includes('A valid API key is required, starting 2024, to continue using TinyMCE.')) {

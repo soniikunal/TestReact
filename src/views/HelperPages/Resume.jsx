@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CardContent, Typography, Container, Button, Box } from "@mui/material";
 import { Card, Table, Sheet } from "@mui/joy";
-import "./test.css";
+import "./helperPages.css";
 import { formateDate, getTestUser } from "../../Utils/utils";
 import { Link } from "react-router-dom";
 
@@ -179,7 +179,7 @@ const Resume = () => {
               </div>
             </Card>
             <div className="buttonContainer">
-              <Link to={"/startTest"}>
+              <Link to={"/Prescreening"}>
                 <Button variant="contained" color="primary" size="large">
                   Next &gt; &gt;
                 </Button>

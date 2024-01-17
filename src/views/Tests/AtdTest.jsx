@@ -68,7 +68,6 @@ const AtdTest = () => {
 
     const fetchQuestion = async () => {
         try {
-            debugger
             const response = await setATDTestQuestion()
             if (response.user) {
                 setQueArray(response.user.assignedQuestions)
@@ -84,7 +83,6 @@ const AtdTest = () => {
                 setMessage(response.message)
             }
         } catch (error) {
-            debugger
             toastError(error.message)
             console.log(`Cant fetch questions:` + error)
         }
@@ -106,7 +104,6 @@ const AtdTest = () => {
         try {
             // if (userInfo && userInfo !== null) {
             const response = await calculateATDScore()
-            debugger
             if (response.success == true) {
                 toastSuccess(response.message)
                 navigate('/TypingTest');
@@ -121,7 +118,6 @@ const AtdTest = () => {
     }
 
     const updateSelectedAnswersState = (selectedIndex) => {
-        debugger
         const newSelectedAnswer = {
             questionId: question._id,
             selectedAnswer: selectedIndex,
@@ -153,7 +149,6 @@ const AtdTest = () => {
     };
 
     const handleSelectAnswer = (e) => {
-        debugger
         if (e?.target) {
             const selectedIndex = Number.parseInt(e.target.value, 10);
             updateSelectedAnswersState(selectedIndex);

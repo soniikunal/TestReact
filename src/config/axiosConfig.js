@@ -29,7 +29,7 @@ instance.interceptors.request.use((config) => {
 let navigateToLogin; // Callback function to be set by the component
 
 export const setNavigateToLogin = (callback) => {
-  debugger
+
   navigateToLogin = callback;
 };
 
@@ -38,8 +38,7 @@ export const setNavigateToLogin = (callback) => {
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    debugger
-    if (error.response.status === 401) {
+    if (error?.response?.status === 401) {
       // Handle unauthorized access, e.g., redirect to login page
       console.log('Unauthorized access. Redirecting to login page.');
       // Implement your redirection logic here, e.g., using react-router-dom

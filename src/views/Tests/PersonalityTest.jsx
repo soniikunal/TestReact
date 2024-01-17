@@ -61,9 +61,8 @@ const PersonalityTest = () => {
         ))
     }
     const calculateResult = () => {
-        debugger
-        const LeftScore = questions1.reduceRight((total, question) => total += Number(question.response), 0)
-        const RightScore = questions2.reduceRight((total, question) => total += Number(question.response), 0)
+        const LeftScore = questions1.reduceRight((total, question) => total += Number(question.response), 0) / 15
+        const RightScore = questions2.reduceRight((total, question) => total += Number(question.response), 0) / 15
         console.log(LeftScore);
         console.log(RightScore);
     }

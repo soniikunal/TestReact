@@ -13,11 +13,16 @@ import ManageTest from "../views/Admin/ManageTest.jsx"
 import TypingTest from "../views/Tests/TypingTest.jsx";
 import TinyMCEEditor from "../Components/common/TinyMCEEditor.jsx";
 import PreScreenTest from "../views/Tests/PreScreenTest.jsx";
-import Resume from "../views/Tests/Resume.jsx"
-import StartTest from "../views/Tests/StartTest.jsx"
+import Resume from "../views/HelperPages/Resume.jsx"
+import PreScreeningInstruc from "../views/HelperPages/PreScreeningInstruc.jsx"
 import AtdTest from "../views/Tests/AtdTest.jsx";
 import UserResults from "../views/Admin/UserResults.jsx";
 import ExamLogin from "../views/Authentication/ExamLogin.jsx";
+import MBTI from "../views/Tests/MBTI.jsx";
+import PersonalityTest from "../views/Tests/PersonalityTest.jsx";
+import Completion from "../views/HelperPages/Completion.jsx";
+import ATDInstructions from "../views/HelperPages/ATDInstructions.jsx";
+import TPInstructions from "../views/HelperPages/TPInstructions.jsx";
 
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 const adminRoute = '/admin'
@@ -29,32 +34,40 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: `/Prescreening`,
-    element: <SlideNavbar AppComponent={<PreScreenTest />} />,
-  },
-  {
-    path: `/TypingTest`,
-    element: <SlideNavbar AppComponent={<TypingTest />} />,
-  },
-  {
     path: `/resume`,
     element: <NavLayout AppComponent={<Resume />} />,
   },
   {
-    path: `/startTest`,
-    element: <SlideNavbar AppComponent={<StartTest />} />,
+    path: `/Prescreening`,
+    element: <NavLayout AppComponent={<PreScreeningInstruc />} />,
+  },
+  {
+    path: `/PrescreeningTest`,
+    element: <NavLayout AppComponent={<PreScreenTest />} />,
+  },
+  {
+    path: `/TypingTest`,
+    element: <NavLayout AppComponent={<TPInstructions />} />,
+  },
+  {
+    path: `/Typing-test`,
+    element: <NavLayout AppComponent={<TypingTest />} />,
   },
   {
     path: `/ATD`,
-    element: <SlideNavbar AppComponent={<AtdTest />} />,
+    element: <NavLayout AppComponent={<ATDInstructions />} />,
+  },
+  {
+    path: `/ATDTest`,
+    element: <NavLayout AppComponent={<AtdTest />} />,
   },
   {
     path: `${adminRoute}/login`,
-    element: <SlideNavbar AppComponent={<Login />} />,
+    element: <NavLayout AppComponent={<Login />} />,
   },
   {
     path: `${adminRoute}/register`,
-    element: <SlideNavbar AppComponent={<Register />} />,
+    element: <NavLayout AppComponent={<Register />} />,
   },
   {
     path: `${adminRoute}/results`,
@@ -69,9 +82,21 @@ const router = createBrowserRouter([
     element: <SlideNavbar AppComponent={<ComponentParent />} />,
   },
   {
-    path: `${adminRoute}/dev`,
-    element: <SlideNavbar AppComponent={<TinyMCEEditor />} />,
+    path: `/Personality`,
+    element: <SlideNavbar AppComponent={<PersonalityTest />} />,
   },
+  {
+    path: `/MBTI`,
+    element: <SlideNavbar AppComponent={<MBTI />} />,
+  },
+  {
+    path: `/Completion`,
+    element: <NavLayout AppComponent={<Completion />} />,
+  },
+  // {
+  //   path: `${adminRoute}/dev`,
+  //   element: <SlideNavbar AppComponent={<TinyMCEEditor />} />,
+  // },
   // {
   //   path: `/login`,
   //   element: <ProtectedRoute AppComponent={<SlideNavbar AppComponent={<Register />} />} />,

@@ -5,18 +5,21 @@ import { Input, FormLabel, FormControl, Button, Checkbox } from '@mui/joy'
 import image from "../../assets/login-image.svg"
 import certificateImg from "../../assets/GreatPlace.png"
 import { toastError, toastSuccess } from '../../Utils/Toasts.js';
-// import Checkbox from '@mui/joy/Checkbox';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     try {
       const result = await login(username, password);
-      toastSuccess('Login Successful!')
-      console.log('Login successful:', result);
+      if (result.status) {
+        toastSuccess('Login Successful!')
+        navigate('/admin/results');
+      }
     } catch (error) {
       toastError(error.response.data)
       console.error('Login failed:', error.response);
