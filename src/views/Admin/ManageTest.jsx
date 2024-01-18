@@ -7,6 +7,7 @@ import Tab, { tabClasses } from '@mui/joy/Tab';
 import TabPanel from '@mui/joy/TabPanel';
 import Question from './Question'
 import ATDQuestion from './ATDQuestion'
+import ArticleQuestion from './ArticleQuestion'
 
 const ManageTest = () => {
     const [index, setIndex] = React.useState(0);
@@ -64,7 +65,7 @@ const ManageTest = () => {
                     })}
                 >
                     <TabPanel value={0}><Question/></TabPanel>
-                    <TabPanel value={1}>Library</TabPanel>
+                    <TabPanel value={1}><ArticleQuestion/></TabPanel>
                     <TabPanel value={2}><ATDQuestion/></TabPanel>
                 </Box>
             </Tabs>
