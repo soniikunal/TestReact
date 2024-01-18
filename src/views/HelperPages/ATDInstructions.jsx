@@ -14,7 +14,7 @@ const ATDInstructions = () => {
         sx={{ py: 5, marginBlock: 'auto', width: '1200px', flexDirection: "column" }}
       >
         <Typography level="h1" sx={{ mb: 2, textAlign: "center" }}>
-          🌐 Welcome to the ATD Test - Assess, Think, Decide! ⏱️
+          🌐 Welcome to the ATD Test - Attention To Detail! ⏱️
         </Typography>
         <Typography level="h4" sx={{ mb: 2, textAlign: "center" }}>
           This test comprises 10 Multiple Choice Questions (MCQs), and you have a total of 10 minutes to showcase your skills. The format is similar to the previous test, so follow the instructions carefully.

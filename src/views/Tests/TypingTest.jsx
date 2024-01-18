@@ -88,7 +88,7 @@ const TypingTest = () => {
         try {
             const response = await submitTypingScore({ str })
             if (response.status) {
-                toastSuccess('Record Saved to DataBase.')
+                toastSuccess('Submitted!')
                 navigate('/Completion')
             }
         } catch (error) {
@@ -141,8 +141,7 @@ const TypingTest = () => {
                 </Typography>
                 <Card className="" sx={{ my: 'auto' }}>
                     <input type="text" className="input-field" ref={inputRef} onChange={e => handleChange(e)} value={text} />
-                    <Box className='blinking-chip' sx={{ display: 'flex', textAlign: 'center' }}>
-
+                    <Box sx={{ display: 'flex', textAlign: 'center' }}>
                         {isTyping ? "" : 'Start Typing'}
                         <Chip color="primary" sx={{ ml: 'auto' }}>00:{timeLeft}</Chip>
                     </Box>

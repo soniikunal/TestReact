@@ -188,7 +188,7 @@ const PreScreenTest = () => {
             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
               <Chip>Total Number of Question 100</Chip>
               {message && <Chip className='blinking-chip'>{message}</Chip>}
-              <Chip className='blinking-chip'>{formatTime(time)}</Chip>
+              <Chip>{formatTime(time)}</Chip>
             </Box>
             <Card color="neutral"
               invertedColors
@@ -219,19 +219,16 @@ const PreScreenTest = () => {
               </RadioGroup>
             </FormControl>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', justifyItems: 'center', mt: 2 }}>
-              {(currentQueNo > 1 && queArray.length !== currentQueNo) && <Button variant="soft" color="primary" onClick={handlePrevious}>
+              {(currentQueNo > 1 && queArray.length !== currentQueNo) && <Button variant="solid" color="primary" onClick={handlePrevious} size="lg" sx={{mr:2}}>
                 Previous
               </Button>}
 
               {queArray.length == currentQueNo &&
                 <SubmitConfModal onSubmit={SubmitAnswers} />
-                // <Button Button variant="soft" color="primary" onClick={SubmitAnswers}>
-                //     Submit
-                // </Button>
               }
 
               {queArray.length !== currentQueNo &&
-                <Button variant="soft" color="primary" onClick={handleNext} >
+                <Button variant="solid" color="primary" onClick={handleNext} size="lg" sx={{ml:2}}>
                   Next
                 </Button>
 

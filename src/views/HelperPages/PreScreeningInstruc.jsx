@@ -14,7 +14,7 @@ const PreScreeningInstruc = () => {
         sx={{ py: 5, marginBlock: 'auto', width: '1200px', flexDirection: "column" }}
       >
         <Typography level="h1" sx={{ mb: 2, textAlign: "center" }}>
-          📚 Welcome to the 100 Multiple Choice Questions (MCQ) Test! 🕒
+          📚 Welcome to the Multiple Choice Questions (MCQ) Test! 🕒
         </Typography>
         <Typography level="h4" sx={{ mb: 2, textAlign: "center" }}>
           This test consists of 100 questions, and you have a total of 45 minutes to complete it. Make sure to read each question carefully and choose the most appropriate answer.
@@ -41,8 +41,7 @@ const PreScreeningInstruc = () => {
               <ListItem>Read each question and the answer choices thoroughly.</ListItem>
               <ListItem>Select the correct answer by clicking on the corresponding option.</ListItem>
               <ListItem>You can navigate between questions using the 'Next' and 'Previous' buttons.</ListItem>
-              <ListItem>Keep an eye on the timer in the top corner—once it hits 0:00, the test will automatically submit.</ListItem>
-              <ListItem>Pay attention to accuracy and try to type as much as you can within the time limit.</ListItem>
+              <ListItem>Keep an eye on the timer in the right top corner—once it hits 0:00, the test will automatically submit.</ListItem>
             </List>
           </Box>
         </Card>

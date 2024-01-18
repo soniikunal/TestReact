@@ -6,7 +6,7 @@ export default function SubmitConfModal({ onSubmit }) {
 
     return (
         <>
-            <Button Button variant="soft" color="primary" onClick={() => setOpen(true)}>
+            <Button Button variant="solid" color="primary" size="lg" onClick={() => setOpen(true)}>
                 Submit
             </Button>
             <Modal

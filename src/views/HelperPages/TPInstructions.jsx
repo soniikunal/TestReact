@@ -14,10 +14,10 @@ const TPInstructions = () => {
         sx={{ py: 5, marginBlock: 'auto', width: '1000px', flexDirection: "column" }}
       >
         <Typography level="h1" sx={{ mb: 2, textAlign: "center" }}>
-          🕒 Get ready for the 1-minute typing challenge! 🚀
+          🕒 Get ready for the 1-minute typing test! 🚀
         </Typography>
         <Typography level="h4" sx={{ mb: 2, textAlign: "center" }}>
-          Type the given text as accurately and quickly as possible. Correct spelling and punctuation matter, so aim for both speed and precision.
+          Type the given text as accurately and quickly as possible. Correct spelling and punctuation matters, so aim for both speed and precision.
         </Typography>
         <Card
           color="warning"
@@ -53,7 +53,7 @@ const TPInstructions = () => {
               size="lg"
               variant="solid"
             >
-              Next &gt; &gt;
+              Start &gt; &gt;
             </Button>
           </Link>
         </Box>

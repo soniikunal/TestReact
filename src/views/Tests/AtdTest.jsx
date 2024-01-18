@@ -91,7 +91,7 @@ const AtdTest = () => {
     const SendAnswers = async (newSelectedAnswer) => {
         try {
             const response = await updateSelectedATDAnswers(newSelectedAnswer)
-            if (!response.success){
+            if (!response.success) {
                 toastError("Failed to Submit the answer!")
             }
         } catch (error) {
@@ -102,15 +102,11 @@ const AtdTest = () => {
 
     const SubmitAnswers = async () => {
         try {
-            // if (userInfo && userInfo !== null) {
             const response = await calculateATDScore()
             if (response.success == true) {
                 toastSuccess(response.message)
                 navigate('/TypingTest');
             }
-            // } else if (getUserSession()) {
-            //     const response = await calculateATDScore(getUserSession())
-            // }
 
         } catch (error) {
             console.log(`Cant send answers:` + error)
@@ -202,7 +198,7 @@ const AtdTest = () => {
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
                                 <Chip>Total Number of Question 10</Chip>
                                 {message && <Chip className='blinking-chip'>{message}</Chip>}
-                                <Chip className='blinking-chip'>{formatTime(time)}</Chip>
+                                <Chip>{formatTime(time)}</Chip>
                             </Box>
                             <Card color="neutral"
                                 invertedColors
@@ -233,19 +229,16 @@ const AtdTest = () => {
                                 </RadioGroup>
                             </FormControl>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', justifyItems: 'center', mt: 2 }}>
-                                {(currentQueNo > 1 && queArray.length !== currentQueNo) && <Button variant="soft" color="primary" onClick={handlePrevious}>
+                                {(currentQueNo > 1 && queArray.length !== currentQueNo) && <Button variant="solid" size="lg" color="primary" onClick={handlePrevious} sx={{ mr: 2 }}>
                                     Previous
                                 </Button>}
 
                                 {queArray.length == currentQueNo &&
                                     <SubmitConfModal onSubmit={SubmitAnswers} />
-                                    // <Button Button variant="soft" color="primary" onClick={SubmitAnswers}>
-                                    //     Submit
-                                    // </Button>
                                 }
 
                                 {queArray.length !== currentQueNo &&
-                                    <Button variant="soft" color="primary" onClick={handleNext} >
+                                    <Button variant="solid" size="lg" color="primary" onClick={handleNext} sx={{ ml: 2 }} >
                                         Next
                                     </Button>
 
