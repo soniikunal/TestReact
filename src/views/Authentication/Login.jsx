@@ -6,10 +6,12 @@ import image from "../../assets/login-image.svg"
 import certificateImg from "../../assets/GreatPlace.png"
 import { toastError, toastSuccess } from '../../Utils/Toasts.js';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth.js';
 
 
 const Login = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, setIsAuthenticated, loading, setLoading } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,6 +19,8 @@ const Login = () => {
     try {
       const result = await login(username, password);
       if (result.status) {
+        sessionStorage.setItem('userDetail', 'U2FsdGVkX18zGcnDzLtKy+wcsW1GQ7QlZmiUHPfvTZ4=')
+        setIsAuthenticated(true)
         toastSuccess('Login Successful!')
         navigate('/admin/results');
       }

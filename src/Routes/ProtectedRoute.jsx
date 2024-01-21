@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import { toastError } from '../Utils/Toasts';
+import { useAuth } from '../hooks/AuthContext';
 
 const PrivateRoute = ({ AppComponent, ...rest }) => {
-  const { isAuthenticated, loading } = useAuth();
+  // const { isAuthenticated, loading } = useAuth();
+  const { user } = useAuth();
+  useEffect(()=>{
+    if(!user) toastError('Login first!')
+  })
   const navigate = useNavigate();
 
   return (
@@ -14,10 +20,10 @@ const PrivateRoute = ({ AppComponent, ...rest }) => {
         element={
           loading ? (
             <div>Loading...</div>
-          ) : isAuthenticated ? (
+          ) : user ? (
             AppComponent  
           ) : (
-            <Navigate to="/register" replace />
+            <Navigate to="/admin/login" replace />
           )
         }
       />
