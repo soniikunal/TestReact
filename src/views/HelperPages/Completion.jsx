@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Card, Container, Typography, Chip } from '@mui/joy';
 
 
 const Completion = () => {
+    const [params, setParams] = useState(null)
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const strParam = searchParams.get('str');
+        if (strParam) setParams(strParam)
+    }, [])
     return (<>
         <Container maxWidth="" sx={{ height: 'calc(100vh-220px)', display: 'flex', width: 'auto' }}>
             <Card
@@ -28,18 +35,28 @@ const Completion = () => {
                         level="h3"
                         noWrap={false}
                         variant="plain"
+                        sx={{ mb: 3 }}
                     >
-                        {/* Thank You for Completing the Test, please wait for HR's next instructions */}
                         Thank you for your participation. Please stay tuned for the next instructions from our HR team. We appreciate your time and effort!
                     </Typography>
-                    {/* <Typography
-                        noWrap
-                        variant=""
-                        level="h2"
-                        sx={{ mt: 2, color: '#f7901e' }}
-                    >
-                        FBSPL
-                    </Typography> */}
+                    {params &&
+                        <Card
+                            color="neutral"
+                            invertedColors={false}
+                            orientation="horizontal"
+                            size="lg"
+                            variant="soft"
+                            sx={{ py: 2, mt: 3, marginBlock: 'auto', maxWidth: '1000px', justifyContent: 'center' }}
+                        ><Typography
+                            color=""
+                            level="h4"
+                            noWrap={false}
+                            variant="plain"
+                            sx={{ textAlign: "center" }}
+                        >
+                                Your Typing Score: <span style={{ fontWeight: 700 }}>{params}</span>
+                            </Typography>
+                        </Card>}
                 </Box>
             </Card>
         </Container >

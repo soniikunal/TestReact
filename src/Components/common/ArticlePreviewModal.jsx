@@ -15,12 +15,10 @@ import {
 } from "@mui/joy";
 import React from "react";
 const QuestionPreviewModal = ({ open, handleClose, question }) => {
-  debugger;
-
   return (
     <Modal open={!!open}>
       <ModalOverflow>
-        <ModalDialog size={"md"} sx={{width: '1000px'}}>
+        <ModalDialog size={"md"} sx={{ width: '1000px' }}>
           <ModalClose onClick={handleClose} />
           <DialogTitle>Question #{question.uniqueCode} </DialogTitle>
           <Card>
@@ -54,9 +52,9 @@ const QuestionPreviewModal = ({ open, handleClose, question }) => {
                     Options:
                   </Typography>
                   <ul>
-                  {questionNum.options.map((option, optionIdx) => (
-                    <li key={optionIdx}>{option}</li>
-                  ))}
+                    {questionNum.options.map((option, optionIdx) => (
+                      <li key={optionIdx}>{option}</li>
+                    ))}
                   </ul>
                   <Typography
                     variant="subtitle2"

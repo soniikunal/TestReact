@@ -25,23 +25,28 @@ const UserResults = () => {
 
     const columns = [
         { field: 'userId', headerName: 'RegId', width: 100 },
+        { field: 'name', headerName: 'Name', width: 100 },
+        { field: 'department', headerName: 'Department', width: 100 },
         {
             field: 'Prescreening',
-            headerName: 'Prescreening',
+            headerName: 'Online Test',
             width: 200,
             editable: true,
+            renderCell: formateData
         },
         {
             field: 'ATD',
             headerName: 'ATD',
             width: 200,
             editable: true,
+            renderCell: formateData
         },
         {
             field: 'TypingTest',
             headerName: 'TypingTest',
             width: 200,
             editable: true,
+            renderCell: formateData
         },
         {
             field: 'Submitted On',
@@ -92,10 +97,15 @@ const UserResults = () => {
                 const worksheet = workbook.addWorksheet('Sheet1');
                 const headers = [
                     'userId',
-                    'Prescreening',
+                    'name',
+                    'department',
+                    'OnlineTest',
                     'ATD',
                     'TypingTest',
                     'Date',
+                    'position',
+                    'Source Of Information',
+                    'Referral'
                 ];
                 worksheet.addRow(headers);
                 const data = users;
@@ -112,15 +122,21 @@ const UserResults = () => {
                     const rowData = headers.map(header => {
                         if (header == 'Date') {
                             return row['createdAt'].split('T')[0]
+                        } else if (header == 'OnlineTest') {
+                            return row['Prescreening'] == null ? 'N/A' : row['Prescreening']
+                        } else if (['position', 'Source Of Information', 'department', 'Referral'].includes(header)) {
+                            console.log(formateDataForExcel(row, header))
+                            return formateDataForExcel(row, header)
+                        } else {
+                            return row[header] == null ? 'N/A' : row[header]
                         }
-                        return row[header]
                     });
                     // Add a new row with the extracted values
                     worksheet.addRow(rowData);
 
                     const prescreeningValue = parseInt(row['Prescreening'], 10);
                     // Add color to rows based on the Prescreening value
-                    if (prescreeningValue < 45 && prescreeningValue > 0) {
+                    if (prescreeningValue < 45) {
                         worksheet.lastRow.eachCell({ includeEmpty: true }, (cell) => {
                             cell.fill = {
                                 type: 'pattern',
@@ -138,11 +154,21 @@ const UserResults = () => {
                         });
                     }
                 });
+                worksheet.columns.forEach((column) => {
+                    let maxLength = 0;
+
+                    column.eachCell({ includeEmpty: true }, (cell) => {
+                        const cellLength = String(cell.value).length;
+                        maxLength = Math.max(maxLength, cellLength);
+                    });
+
+                    column.width = maxLength + 2; // Add extra space for readability
+                });
 
                 // Save the file and prompt the user to download
                 workbook.xlsx.writeBuffer()
                     .then((buffer) => {
-                        saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Prescreening Results.xlsx');
+                        saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Recruitment Results.xlsx');
                     })
                     .catch((error) => {
                         console.error('Error writing the file:', error);
@@ -194,6 +220,26 @@ const UserResults = () => {
         }).format(dateObject);
         return formattedDate;
     }
+    function formateData(date) {
+        if (date.row[date.field] === null) {
+            return "N/A"
+        }
+        return date.row[date.field];
+    }
+    function formateDataForExcel(row, field) {
+        const data = row?.applicantData[0]
+        if (data) {
+            // ['position', 'Source Of Information', 'Referral']
+            if (field == 'position' || field == 'department') {
+                return data[field] == null ? 'N/A' : data[field]
+            }
+            if (field == 'Source Of Information') {
+                return data['source'] == null ? 'N/A' : data['source']
+            }
+            // if (field == 'Referral') { }
+        }
+        else return ""
+    }
 
     return (
         <>
@@ -237,7 +283,7 @@ const UserResults = () => {
                         <Box style={{ marginLeft: 'auto' }}>
                             {users.length > 0 &&
                                 <Button variant="solid" size="sm" onClick={exportToExcel}>
-                                    exportToExcel
+                                    Excel
                                 </Button>}
                         </Box>
                         {/* <Category /> */}

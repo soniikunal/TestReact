@@ -47,7 +47,6 @@ const EditArticleModal = ({ open, onClose, question }) => {
   }, [question]);
 
   const handleQuestionQuantityChange = (event) => {
-    debugger;
     if (event?.target) {
       const quantity = parseInt(event.target.innerHTML, 10);
       setQuestionQuantity(quantity);

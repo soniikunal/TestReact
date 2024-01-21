@@ -89,7 +89,7 @@ const TypingTest = () => {
             const response = await submitTypingScore({ str })
             if (response.status) {
                 toastSuccess('Submitted!')
-                navigate('/Completion')
+                navigate(`/Completion?str=${str}`)
             }
         } catch (error) {
             toastError(error.response.data)

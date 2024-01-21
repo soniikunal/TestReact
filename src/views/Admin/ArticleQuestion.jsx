@@ -74,13 +74,12 @@ const ATDQuestion = () => {
     ];
 
     const handleInputChange = (event) => {
-        const {value} = event.target;
+        const { value } = event.target;
         setSearchIpt(value);
     }
 
     const fetchQuestion = async () => {
         try {
-            debugger
             const allQuestions = await GetArticleQuestions(searchIpt);
             setQuestions(allQuestions)
         } catch (error) {
@@ -147,7 +146,7 @@ const ATDQuestion = () => {
                         spacing={2}
                     >
                         <Typography level="title-md">Search by:</Typography>
-                        <Input placeholder="Question" onChange={handleInputChange} value={searchIpt}/>
+                        <Input placeholder="Question" onChange={handleInputChange} value={searchIpt} />
                         <Button variant="solid" size="sm" onClick={fetchQuestion}>
                             Search
                         </Button>

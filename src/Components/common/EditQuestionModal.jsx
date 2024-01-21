@@ -214,7 +214,7 @@ const EditQuestionModal = ({ open, onClose, question }) => {
                         value={index + 1}
                         key={option + index}
                         label={index + 1}
-                        checked={correctOpt == index + 1}
+                        checked={correctOpt == index}
                         onChange={handleCorrectRadio}
                         color="success"
                         sx={{ mr: 2 }}

@@ -200,7 +200,7 @@ const PreScreenTest = () => {
 
             <FormControl component="fieldset" style={{ alignSelf: 'flexStart', width: '100%' }} ref={elementRef}>
               {/* <FormLabel component="legend" title={question.uniqueCode}>Q{currentQueNo}. {question.question}</FormLabel> */}
-              <FormLabel component="legend" title={question.uniqueCode} sx={{ alignItems: "start" }}>
+              <FormLabel component="legend" title={question.uniqueCode} sx={{ alignItems: "start", display:"flex", flexWrap:"nowrap" }} >
                 Q{currentQueNo}.{" "}
                 <span dangerouslySetInnerHTML={{ __html: question.question }} />
               </FormLabel>
