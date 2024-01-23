@@ -20,6 +20,7 @@ const Login = () => {
       const result = await login(username, password);
       if (result.status) {
         sessionStorage.setItem('userDetail', 'U2FsdGVkX18zGcnDzLtKy+wcsW1GQ7QlZmiUHPfvTZ4=')
+        setLoading(true)
         setIsAuthenticated(true)
         toastSuccess('Login Successful!')
         navigate('/admin/results');

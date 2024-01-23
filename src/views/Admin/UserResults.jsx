@@ -26,7 +26,10 @@ const UserResults = () => {
     const columns = [
         { field: 'userId', headerName: 'RegId', width: 100 },
         { field: 'name', headerName: 'Name', width: 100 },
-        { field: 'department', headerName: 'Department', width: 100 },
+        {
+            field: 'department', headerName: 'Department', width: 100,
+            renderCell: formateDepartment
+        },
         {
             field: 'Prescreening',
             headerName: 'Online Test',
@@ -227,6 +230,7 @@ const UserResults = () => {
         return date.row[date.field];
     }
     function formateDataForExcel(row, field) {
+        debugger
         const data = row?.applicantData[0]
         if (data) {
             // ['position', 'Source Of Information', 'Referral']
@@ -236,9 +240,18 @@ const UserResults = () => {
             if (field == 'Source Of Information') {
                 return data['source'] == null ? 'N/A' : data['source']
             }
-            // if (field == 'Referral') { }
+            if (field == 'Referral') {
+                return data['referral'] ? data['referral'].name : ""
+            }
         }
         else return ""
+    }
+
+    function formateDepartment(data) {
+        if (!data.row.applicantData[0]?.department) {
+            return ""
+        }
+        return data.row.applicantData[0].department
     }
 
     return (

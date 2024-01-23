@@ -89,7 +89,8 @@ const TypingTest = () => {
             const response = await submitTypingScore({ str })
             if (response.status) {
                 toastSuccess('Submitted!')
-                navigate(`/Completion?str=${str}`)
+                const encodedLink = str.replace('%', '-')
+                navigate(`/Completion?str=${encodedLink}`)
             }
         } catch (error) {
             toastError(error.response.data)

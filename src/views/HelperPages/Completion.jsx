@@ -8,7 +8,10 @@ const Completion = () => {
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
         const strParam = searchParams.get('str');
-        if (strParam) setParams(strParam)
+        if (strParam) {
+            const decodedString = strParam.replace('-', '%')
+            setParams(decodedString)
+        }
     }, [])
     return (<>
         <Container maxWidth="" sx={{ height: 'calc(100vh-220px)', display: 'flex', width: 'auto' }}>

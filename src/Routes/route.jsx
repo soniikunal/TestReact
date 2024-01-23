@@ -24,7 +24,7 @@ import Completion from "../views/HelperPages/Completion.jsx";
 import ATDInstructions from "../views/HelperPages/ATDInstructions.jsx";
 import TPInstructions from "../views/HelperPages/TPInstructions.jsx";
 
-// import ProtectedRoute from "./ProtectedRoute.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 const adminRoute = '/admin'
 const router = createBrowserRouter([
   {
@@ -71,15 +71,15 @@ const router = createBrowserRouter([
   },
   {
     path: `${adminRoute}/results`,
-    element: <SlideNavbar AppComponent={<UserResults />} />,
+    element: <ProtectedRoute AppComponent={<SlideNavbar AppComponent={<UserResults />} />} />,
   },
   {
     path: `${adminRoute}/manage-question`,
-    element: <SlideNavbar AppComponent={<ManageTest />} />,
+    element: <ProtectedRoute AppComponent={<SlideNavbar AppComponent={<ManageTest />} />} />,
   },
   {
     path: `${adminRoute}/admin`,
-    element: <SlideNavbar AppComponent={<ComponentParent />} />,
+    element: <ProtectedRoute AppComponent={<SlideNavbar AppComponent={<ComponentParent />} />} />,
   },
   {
     path: `/Personality`,

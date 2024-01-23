@@ -105,39 +105,49 @@ export default function Navbar({ AppComponent }) {
             link: `${adminRoute}/admin`,
             logo: <SupervisorAccountIcon />
         },
+        // {
+        //     displayName: 'Admin Login',
+        //     link: `${adminRoute}/admin/login`,
+        //     logo: <DrawIcon />
+        // },
+        // {
+        //     displayName: 'Register',
+        //     link: `${adminRoute}/register`,
+        //     logo: <DrawIcon />
+        // },
+        // {
+        //     displayName: 'Resume',
+        //     link: `/resume`,
+        //     logo: <DrawIcon />
+        // },
+        // {
+        //     displayName: 'Start Test',
+        //     link: `/Prescreening`,
+        //     logo: <DrawIcon />
+        // },
+        // {
+        //     displayName: 'Prescreening',
+        //     link: `/Prescreening`,
+        //     logo: <DrawIcon />
+        // },
+        // {
+        //     displayName: 'ATD Test',
+        //     link: `/ATD`,
+        //     logo: <DrawIcon />
+        // },
+        // {
+        //     displayName: 'TypingTest',
+        //     link: `/TypingTest`,
+        //     logo: <DrawIcon />
+        // },
         {
-            displayName: 'Admin Login',
-            link: `${adminRoute}/admin/login`,
+            displayName: 'MBIT',
+            link: `/Personality`,
             logo: <DrawIcon />
         },
         {
-            displayName: 'Register',
-            link: `${adminRoute}/register`,
-            logo: <DrawIcon />
-        },
-        {
-            displayName: 'Resume',
-            link: `/resume`,
-            logo: <DrawIcon />
-        },
-        {
-            displayName: 'Start Test',
-            link: `/Prescreening`,
-            logo: <DrawIcon />
-        },
-        {
-            displayName: 'Prescreening',
-            link: `/Prescreening`,
-            logo: <DrawIcon />
-        },
-        {
-            displayName: 'ATD Test',
-            link: `/ATD`,
-            logo: <DrawIcon />
-        },
-        {
-            displayName: 'TypingTest',
-            link: `/TypingTest`,
+            displayName: 'Personality Test',
+            link: `/Personality`,
             logo: <DrawIcon />
         },
     ]
