@@ -5,7 +5,7 @@
   }
   
   .mainCard {
-  height: calc(100vh - 180px);
+  /* height: calc(100vh - 180px); */
     display: flex;
     flex-direction: column; /* Updated to column layout */
     align-items: center; /* Center horizontally */

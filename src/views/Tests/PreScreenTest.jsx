@@ -10,6 +10,7 @@ import './test.css'
 import { toastError, toastSuccess } from '../../Utils/Toasts';
 import SubmitConfModal from '../../Components/common/SubmitConfModal';
 import PaginationComponent from '../../Components/MUI/PaginationComponent';
+import { setNavigateToLogin } from '../../config/axiosConfig';
 
 const imgUrl = import.meta.env.VITE_API_URL;
 
@@ -25,6 +26,14 @@ const PreScreenTest = () => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const elementRef = useRef(null);
+
+  useEffect(() => {
+    setNavigateToLogin(() => {
+        toastError('Unauthorized access. Redirecting to login page.')
+        navigate('/');
+
+    });
+}, [navigate]);
 
   useEffect(() => {
     fetchQuestion()
@@ -61,6 +70,7 @@ const PreScreenTest = () => {
 
     try {
       const response = await setPreTestQuestion()
+      debugger
       if (response.user) {
         setQueArray(response.user.assignedQuestions)
         setUserInfo(response.user._id)

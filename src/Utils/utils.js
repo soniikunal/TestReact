@@ -18,6 +18,7 @@ export function setCookie(value, options = {}, name = "JwtToken") {
 // Helper function to remove a cookie by name
 export function removeCookie(name = "JwtToken") {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  sessionStorage.clear()
 }
 
 // Helper  function to get a cookie by name

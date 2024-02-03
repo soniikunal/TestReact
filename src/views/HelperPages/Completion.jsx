@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Card, Container, Typography, Chip } from '@mui/joy';
-
+import { removeCookie } from '../../Utils/utils'
 
 const Completion = () => {
     const [params, setParams] = useState(null)
@@ -12,6 +12,7 @@ const Completion = () => {
             const decodedString = strParam.replace('-', '%')
             setParams(decodedString)
         }
+        removeCookie()
     }, [])
     return (<>
         <Container maxWidth="" sx={{ height: 'calc(100vh-220px)', display: 'flex', width: 'auto' }}>

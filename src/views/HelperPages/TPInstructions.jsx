@@ -11,7 +11,7 @@ const TPInstructions = () => {
         orientation="horizontal"
         size="lg"
         variant="soft"
-        sx={{ py: 5, marginBlock: 'auto', width: '1000px', flexDirection: "column" }}
+        sx={{ py: 5, marginBlock: 'auto', maxWidth: '1000px', flexDirection: "column" }}
       >
         <Typography level="h1" sx={{ mb: 2, textAlign: "center" }}>
           🕒 Get ready for the 1-minute typing test! 🚀
@@ -33,7 +33,7 @@ const TPInstructions = () => {
               noWrap
               variant=""
               level="h1"
-              sx={{ mb: 4, textAlign: "center" }}
+              sx={{ mb: 4, textAlign: "center", textDecoration: 'underline' }}
             >
               Instructions
             </Typography>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { CardContent, Typography, Container, Button, Box } from "@mui/material";
-import { Card, Table, Sheet } from "@mui/joy";
+import { CardContent } from "@mui/material";
+import { Table, Sheet, Box, Card, Container, Typography, List, ListItem, Button } from '@mui/joy';
 import "./helperPages.css";
 import { formateDate, getTestUser } from "../../Utils/utils";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 // };
 
 const Resume = () => {
-    const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     const userData = getTestUser();
@@ -27,19 +27,26 @@ const Resume = () => {
   }, []);
 
   return (
-    <Container maxWidth="">
+    <Container maxWidth="" sx={{ height: 'calc(100vh-220px)', display: 'flex', width: 'auto' }}>
       <Card color="primary" size="md" variant="soft" className="mainCard">
         {/* <Container> */}
         {/* <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
         Resume
       </Typography> */}
-        <Card className="outerCard">
+        <Card
+          color="neutral"
+          invertedColors={false}
+          orientation="horizontal"
+          size="lg"
+          variant="soft"
+          sx={{ py: 0, marginBlock: 'auto', maxWidth: '1200px', flexDirection: "column" }}
+        >
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography variant="h6" gutterBottom fontSize="xl">
+              <Typography level="h3" gutterBottom >
                 User Details
               </Typography>
-              <Typography variant="h6" gutterBottom fontSize="xl">
+              <Typography level="h3" gutterBottom >
                 {formData.AppID}
               </Typography>
             </Box>
@@ -50,39 +57,39 @@ const Resume = () => {
                     <tbody>
                       {formData.name && (
                         <tr>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            Name:
-                          </Typography>
-                        </td>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            {formData.name}
-                          </Typography>
-                        </td>
-                      </tr>
-                        )
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              Name:
+                            </Typography>
+                          </td>
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              {formData.name}
+                            </Typography>
+                          </td>
+                        </tr>
+                      )
                       }
                       {formData.department && (
                         <tr>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            Department
-                          </Typography>
-                        </td>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            {formData.department}
-                          </Typography>
-                        </td>
-                      </tr>
-                        )
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              Department:
+                            </Typography>
+                          </td>
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              {formData.department}
+                            </Typography>
+                          </td>
+                        </tr>
+                      )
                       }
                       {formData.position && (
                         <tr>
                           <td>
                             <Typography
-                              variant="subtitle1"
+                              level="title-md"
                               className="dataItem"
                             >
                               Position:
@@ -90,7 +97,7 @@ const Resume = () => {
                           </td>
                           <td>
                             <Typography
-                              variant="subtitle1"
+                              level="title-md"
                               className="dataItem"
                             >
                               {formData.position}
@@ -100,79 +107,79 @@ const Resume = () => {
                       )}
                       {formData.test && (
                         <tr>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            Test:
-                          </Typography>
-                        </td>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            {formData.test}
-                          </Typography>
-                        </td>
-                      </tr>
-                        )
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              Test:
+                            </Typography>
+                          </td>
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              {formData.test}
+                            </Typography>
+                          </td>
+                        </tr>
+                      )
                       }
                       {formData.fatherName && (
                         <tr>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            Father's Name:
-                          </Typography>
-                        </td>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            {formData.fatherName}
-                          </Typography>
-                        </td>
-                      </tr>
-                        )
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              Father's Name:
+                            </Typography>
+                          </td>
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              {formData.fatherName}
+                            </Typography>
+                          </td>
+                        </tr>
+                      )
                       }
                       {formData.dob && (
                         <tr>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            DOB:
-                          </Typography>
-                        </td>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            {formData.dob && formateDate(formData.dob)}
-                          </Typography>
-                        </td>
-                      </tr>
-                        )
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              DOB:
+                            </Typography>
+                          </td>
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              {formData.dob && formateDate(formData.dob)}
+                            </Typography>
+                          </td>
+                        </tr>
+                      )
                       }
                       {formData.email && (
                         <tr>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            Email:
-                          </Typography>
-                        </td>{" "}
-                        <td>
-                          {" "}
-                          <Typography variant="subtitle1" className="dataItem">
-                            {formData.email}
-                          </Typography>
-                        </td>
-                      </tr>
-                        )
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              Email:
+                            </Typography>
+                          </td>{" "}
+                          <td>
+                            {" "}
+                            <Typography level="title-md" className="dataItem">
+                              {formData.email}
+                            </Typography>
+                          </td>
+                        </tr>
+                      )
                       }
-                      {formData.number &&(
+                      {formData.number && (
                         <tr>
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            Mobile Number:
-                          </Typography>
-                        </td>{" "}
-                        <td>
-                          <Typography variant="subtitle1" className="dataItem">
-                            {formData.number}
-                          </Typography>
-                        </td>
-                      </tr>
-                        )}
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              Mobile Number:
+                            </Typography>
+                          </td>{" "}
+                          <td>
+                            <Typography level="title-md" className="dataItem">
+                              {formData.number}
+                            </Typography>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </Table>
                 </Sheet>
@@ -180,7 +187,10 @@ const Resume = () => {
             </Card>
             <div className="buttonContainer">
               <Link to={"/Prescreening"}>
-                <Button variant="contained" color="primary" size="large">
+                <Button
+                  size="lg"
+                  variant="solid"
+                >
                   Next &gt; &gt;
                 </Button>
               </Link>

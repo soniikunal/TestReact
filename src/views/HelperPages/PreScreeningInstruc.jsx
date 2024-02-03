@@ -11,7 +11,7 @@ const PreScreeningInstruc = () => {
         orientation="horizontal"
         size="lg"
         variant="soft"
-        sx={{ py: 5, marginBlock: 'auto', width: '1200px', flexDirection: "column" }}
+        sx={{ py: 5, marginBlock: 'auto', maxWidth: '1200px', flexDirection: "column" }}
       >
         <Typography level="h1" sx={{ mb: 2, textAlign: "center" }}>
           📚 Welcome to the Multiple Choice Questions (MCQ) Test! 🕒
@@ -33,7 +33,7 @@ const PreScreeningInstruc = () => {
               noWrap
               variant=""
               level="h1"
-              sx={{ mb: 4, textAlign: "center" }}
+              sx={{ mb: 4, textAlign: "center", textDecoration: 'underline' }}
             >
               Instructions
             </Typography>
