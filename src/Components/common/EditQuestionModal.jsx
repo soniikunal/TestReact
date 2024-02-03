@@ -154,12 +154,15 @@ const EditQuestionModal = ({ open, onClose, question }) => {
             <Sheet variant="outlined" color="neutral" sx={{ p: 4 }}>
               <FormControl sx={{ mb: 2 }}>
                 <FormLabel>Question</FormLabel>
-                <Input
+                {/* <Input
                   placeholder="Question"
                   value={que}
                   variant="soft"
                   onChange={(e) => handleQuestionChange(e)}
-                />
+                /> */}
+                <TinyMCEEditor placeholder="Question"
+                  value={que}
+                  onChange={(e) => handleQuestionChange(e)}/>
               </FormControl>
               <FormControl>
                 <FormLabel>Category</FormLabel>
