@@ -3,7 +3,7 @@ import { toastError, toastSuccess } from "../Utils/Toasts.js";
 
 const baseURL = "/admin";
 const preRoute = "/presTest";
-const atdRoute = "/atdTest";
+const atdRoute = "/secondTest";
 const scoreRoute = "/admin/userRecord";
 const ImageInstance = createInstance({
   "Content-Type": "multipart/form-data",
