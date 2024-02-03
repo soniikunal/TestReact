@@ -43,8 +43,7 @@ const MBTI2 = ({ questions, handleSelectAnswer, showNextForm }) => {
                                         </Typography>
                                     </FormLabel>
 
-                                    <RadioGroup sx={{
-                                        gap: 2, flexWrap: 'wrap', flexDirection: 'row', flex: '1 1 auto!important', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px'
+                                    <RadioGroup sx={{ flexWrap: 'wrap', flexDirection: 'row', flex: '1 1 auto!important', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px'
                                     }} onChange={e => handleSelectAnswer(question.id, e.target.value, 'MBIT2')}>
                                         {question.options.map((option, index) => (
                                             <FormControlLabel
@@ -77,8 +76,7 @@ const MBTI2 = ({ questions, handleSelectAnswer, showNextForm }) => {
                                         </Typography>
                                     </FormLabel>
 
-                                    <RadioGroup sx={{
-                                        gap: 2, flexWrap: 'wrap', flexDirection: 'row', flex: '1 1 auto!important', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px'
+                                    <RadioGroup sx={{ flexWrap: 'wrap', flexDirection: 'row', flex: '1 1 auto!important', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px'
                                     }} onChange={e => handleSelectAnswer(question.id, e.target.value, 'MBIT2')}>
                                         {question.options.map((option, index) => (
                                             <FormControlLabel

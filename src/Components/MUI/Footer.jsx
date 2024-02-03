@@ -27,7 +27,7 @@ function Footer() {
       <footer className="mainFooter">
         <Container maxWidth=''>
           <Grid container spacing={2}>
-            <Grid justifyContent="flex-start" item xs={7}>
+            <Grid item xs={12} md={7} className="text-center text-lg-start">
               <img src={isoImg1} alt="" />
               <img src={isoImg2} alt="" />
               <p
@@ -41,7 +41,7 @@ function Footer() {
               </p>
             </Grid>
 
-            <Grid sx={{ textAlign: "end" }} item xs={5}>
+            <Grid item xs={12} md={5}  className="text-center text-lg-end">
               <p
                 style={{
                   display: "inline-block",
