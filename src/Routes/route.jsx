@@ -93,6 +93,12 @@ const router = createBrowserRouter([
     path: `/Completion`,
     element: <NavLayout AppComponent={<Completion />} />,
   },
+  {
+    path: '*',
+    element: (
+        <NavLayout AppComponent={<div>No page found!</div>} />
+    ),
+  },
   // {
   //   path: `${adminRoute}/dev`,
   //   element: <SlideNavbar AppComponent={<TinyMCEEditor />} />,
